@@ -117,27 +117,22 @@ VOID INS_count(RTNData * rtn)
 
 VOID LOOP1_count (UINT32 taken ,LoopData * loop )
 {
-    if(taken)
+    loop->round_iter_count++;
+    if(!taken)
     {
-        loop->count_seen++;
-        loop->round_iter_count++;
-    }
-    else
-    {
-        loop->round_iter_count++;
         loop->inv_count++;
         if(loop->last_round_iter != loop->round_iter_count && loop->last_round_iter != 0)
         {
             loop->diff_count++;
         }
         loop->last_round_iter = loop->round_iter_count;
+        loop->count_seen += loop->round_iter_count;
         loop->round_iter_count = 0;
     }
 }
 
 VOID LOOP2_count(UINT32 taken ,LoopData * loop)
 {
-    //loop_map[target_addr].count_seen++;
     if(taken)
     {
         loop->inv_count++;
@@ -146,55 +141,12 @@ VOID LOOP2_count(UINT32 taken ,LoopData * loop)
             loop->diff_count++;
         }
         loop->last_round_iter = loop->round_iter_count;
+        loop->count_seen += loop->round_iter_count;
         loop->round_iter_count = 0;
     }
 }
 /* ===================================================================== */
 
-/** VOID countLoops(RTN rtn, VOID *v)
-{
-    if(RTN_Valid(rtn) == false) return;
-    RTN_Open(rtn);
-    //UINT32 id = RTN_Id(rtn);
-    ADDRINT target_addr;
-    ADDRINT rtn_addr = RTN_Address(rtn);
-    string rtn_name = RTN_Name(rtn);
-    RTNData curr_rtn_data = {rtn_name,0,0};
-    rtn_map[rtn_addr] = curr_rtn_data;
-    RTN_InsertCall(rtn, IPOINT_BEFORE, (AFUNPTR)RTN_count, IARG_ADDRINT, rtn_addr, IARG_END);
-    //count instruction in the routine
-    for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
-    {
-        // Insert a call to docount to increment the instruction counter for this rtn
-        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_ADDRINT ,rtn_addr, IARG_END);
-        if (INS_IsDirectControlFlow(ins) && !INS_IsCall(ins))
-        {
-            target_addr = INS_DirectControlFlowTargetAddress(ins);
-            if (target_addr < INS_Address(ins)) // found a loop
-            {
-                if(loop_map.find(target_addr) == loop_map.end())
-                {
-                    LoopData curr_loop_data = {0,0,0,0,0,0,rtn_addr,target_addr};
-                    loop_map[target_addr] = curr_loop_data;
-                }
-                INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)LOOP1_count, IARG_BRANCH_TAKEN, IARG_PTR, &loop_map[target_addr], IARG_END);
-
-                for(INS ins_iter = ins; INS_Address(ins_iter) >= target_addr; ins_iter = INS_Prev(ins_iter))
-                {
-                    if(INS_IsDirectControlFlow(ins_iter) && !INS_IsCall(ins_iter) && INS_DirectControlFlowTargetAddress(ins_iter) > INS_Address(ins))
-                    {
-                        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)LOOP2_count, IARG_BRANCH_TAKEN, IARG_ADDRINT, target_addr, IARG_END);
-                    }
-                }
-            }
-        }
-
-    }
- 
-    RTN_Close(rtn);
-
-}
-**/
 
 VOID countRTN(RTN rtn, VOID *v)
 {
@@ -245,7 +197,6 @@ VOID loopsData(TRACE trc, VOID* v)
                             INS_InsertCall(inst, IPOINT_BEFORE, (AFUNPTR)LOOP2_count, IARG_BRANCH_TAKEN, IARG_PTR, &loop_map[target_addr], IARG_END);
                         }
                     }
-                    
                 }
             }
         }
@@ -261,7 +212,8 @@ VOID Fini(INT32 code, VOID *v)
     std::vector<LoopData> loop_vec;
     for(std::map<ADDRINT,LoopData>::iterator itr = loop_map.begin(); itr!= loop_map.end();itr++)
     {
-        loop_vec.push_back(itr->second);
+        if (itr->second.inv_count > 0)
+            loop_vec.push_back(itr->second);
     }
     std::sort(loop_vec.begin(), loop_vec.end(), 
               [](const LoopData loop1, const LoopData loop2) { return loop1.count_seen > loop2.count_seen; });
