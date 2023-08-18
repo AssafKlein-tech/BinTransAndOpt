@@ -324,7 +324,7 @@ int sub_rsp(ADDRINT pc)
 	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
 	instr_map[num_of_instr_map_entries].size = new_size;	
     instr_map[num_of_instr_map_entries].category_enum = xed_decoded_inst_get_category(&xedd);
-	instr_map[num_of_instr_map_entries].inline_start_addr = pc;
+	instr_map[num_of_instr_map_entries].inline_start_addr = -1;
 	num_of_instr_map_entries++;
 
 	// update expected size of tc:
@@ -1018,51 +1018,28 @@ std::vector<ADDRINT> get_top_five(IMG img)
         invokers.push_back(new_invoker);
     }
 
-    //std::sort(invokers.begin(), invokers.end(), 
-         //     [](const Invoker invoker1, const Invoker invoker2) { return invoker1.inst_count > rtn2.inst_count; });
-    std::vector<ADDRINT> top_five_called;
+
+
+	int NUM_INLINED_FUNC = 20;
+    std::vector<ADDRINT> top_addr;
     int count = 0;
     IMG img_rtn;
     for (Invoker_inst invoker: invokers)
     {
+		if(invoker.num_invokes < 500)
+			break;
         img_rtn=IMG_FindByAddress(invoker.target_addr);
-		//if(img_rtn == img)
-			//cout << invoker.target_addr << endl;
-		auto it = std::find(top_five_called.begin(),top_five_called.end(),invoker.target_addr);
-        if(img_rtn == img && (top_five_called.empty() ||  (  it == top_five_called.end())))  //invoker.target_addr != top_addr.back()) )
+        if(img_rtn == img && count < NUM_INLINED_FUNC)  //invoker.target_addr != top_addr.back()) )
         {
-            top_five_called.push_back(invoker.target_addr);
+			Candidate cand= {invoker.invoker_address, invoker.target_addr};
+			candidates[invoker.invoker_rtn_address].push_back(cand);
             count++;
-        }
-        if (count == 5)
-            break;
-    }
-	std::vector<ADDRINT> top_addr;
-	//bool  seen[5] = {false, false, false, false, false};
-	count = 0;
-    for (Invoker_inst invoker: invokers)
-    {
-        img_rtn=IMG_FindByAddress(invoker.invoker_address);
-		//if(img_rtn == img)
-			//cout << invoker.target_addr << endl;
-		//RTN rtn = RTN_FindByAddress(invoker.invoker_address);
-		//ADDRINT rtn_address = RTN_Address(rtn);
-		
-		auto it = std::find(top_addr.begin(),top_addr.end(),invoker.invoker_rtn_address);
-		auto called_it = std::find(top_five_called.begin(),top_five_called.end(),invoker.target_addr);
-		if(called_it != top_five_called.end())
-		{
-			if(img_rtn == img && (invoker.num_invokes > 1000)  && top_addr.size() < 10)// && !seen[called_it - top_five_called.begin()]))
+			auto it = std::find(top_addr.begin(),top_addr.end(),invoker.invoker_rtn_address);
+			if( top_addr.empty() ||  (  it == top_addr.end()))
 			{
-				Candidate cand= {invoker.invoker_address, invoker.target_addr};
-				candidates[invoker.invoker_rtn_address].push_back(cand);
-				if( top_addr.empty() ||  (  it == top_addr.end()))
-				{
-					//seen[called_it-top_five_called.begin()] = true;
-					top_addr.push_back(invoker.invoker_rtn_address);
-				}
+				top_addr.push_back(invoker.invoker_rtn_address);
 			}
-		}
+        }
     }
     return top_addr;
 }
@@ -1146,8 +1123,8 @@ int find_candidate_rtns_for_translation(IMG img)
 
 				if (iter_candidates != local_candidates.end() && (*iter_candidates).call_point == addr)
 				{
+					//cout << "Inlining addr " << std::hex <<  addr << endl;
 					RTN_Close(rtn);
-					//cout << "addr " << std::hex <<  addr << endl;
 					int sub_size = sub_rsp(addr);
 					if (sub_size < 0) {
 						cerr << "ERROR: failed during instructon translation." << endl;

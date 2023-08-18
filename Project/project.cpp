@@ -43,7 +43,7 @@ END_LEGAL */
 
 KNOB<BOOL> Prof(KNOB_MODE_WRITEONCE,    "pintool","prof", "0", "run exercise 2 profile and print it to loop-count.csv");
 
-KNOB<BOOL> Inst(KNOB_MODE_WRITEONCE,    "pintool","inst", "0", "run in prob mode and generate binary code of the top 1- routines");
+KNOB<BOOL> Opt(KNOB_MODE_WRITEONCE,    "pintool","opt", "0", "run in prob mode and optimize code");
 
 /* ===================================================================== */
 /* Main                                                                  */
@@ -63,12 +63,13 @@ int main(int argc, char *argv[])
     if(Prof)
     {
         INS_AddInstrumentFunction(countInvokers, 0);
+        INS_AddInstrumentFunction(checkvalidrtn,0);
         TRACE_AddInstrumentFunction(profBranches,0);
         PIN_AddFiniFunction(Fini, 0);
         PIN_StartProgram();
     }
 
-    else if(Inst)
+    else if(Opt)
     {
         IMG_AddInstrumentFunction(ImageLoad,0);
         PIN_StartProgramProbed();

@@ -65,6 +65,8 @@ struct Invoker{
     string rtn_name;
 };
 
+std::vector<ADDRINT> non_valid_rtn;
+
 struct BBL_info{
     ADDRINT rtn_address;
     ADDRINT BBL_head_address;
@@ -226,13 +228,40 @@ VOID countInvokers(INS ins, VOID *v)
             INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) inc_call,IARG_PTR, &invokers_map[address], IARG_END);
         }
     }       
-    //else if( INS_IsIndirectControlFlow(ins) )
-    //{
-    //    if( INS_IsCall(ins) )
-    //        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) inc_call_indirect, IARG_BRANCH_TAKEN,  IARG_END);
-    //}
-
 }
+
+VOID checkvalidrtn(INS ins, VOID *v)
+{
+    bool invalid = false;
+    if (INS_IsControlFlow(ins))
+    {
+        if( (INS_IsIndirectControlFlow(ins) && ! INS_IsRet(ins)) || INS_RepPrefix(ins )|| INS_RepnePrefix (ins))
+        {
+            invalid = true;
+        }
+        else if (INS_IsDirectBranch(ins))
+        {
+            ADDRINT target_address = INS_DirectControlFlowTargetAddress(ins);
+            RTN target_rtn = RTN_FindByAddress(target_address);
+            ADDRINT address = INS_Address(ins);
+            RTN rtn = RTN_FindByAddress(address);
+
+            //ADDRINT target_addr = RTN_Address(target_rtn);
+            if ( RTN_Address(rtn) != RTN_Address(target_rtn))
+            {
+                //cout<< "the rtn  " << std::hex<< target_addr << " has a jump outside" << endl;
+                invalid = true;
+            }
+        }
+        else { return;}
+        ADDRINT address = INS_Address(ins);
+        RTN rtn = RTN_FindByAddress(address);
+        ADDRINT rtn_addr = RTN_Address(rtn);
+        if (invalid &&  std::find(non_valid_rtn.begin(), non_valid_rtn.end(), rtn_addr) == non_valid_rtn.end())
+            non_valid_rtn.push_back(rtn_addr);     
+    }  
+}
+
 
 
 VOID profBranches(TRACE trc, VOID *v)
@@ -286,7 +315,9 @@ VOID Fini(INT32 code, VOID *v)
              too_hot_to_handle[itr2->first] = true;
         else
         {
-            too_hot_to_handle[itr2->first] = ( sorted_vec[0] > 20* sorted_vec[1]);
+            int sum_of_elems = 0;
+            std::for_each(sorted_vec.begin() ++ , sorted_vec.end(), [&] (int n) {sum_of_elems += n;});
+            too_hot_to_handle[itr2->first] = ( sorted_vec[0] > 10* sum_of_elems);
         }     
     }
 
@@ -304,7 +335,7 @@ VOID Fini(INT32 code, VOID *v)
     std::ofstream results("Count.csv");
     for (Invoker inv_entry: inv_vec)
     {
-        if( inv_entry.num_invokes != 0 && too_hot_to_handle[inv_entry.target_addr] && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt"))
+        if( inv_entry.num_invokes != 0 && too_hot_to_handle[inv_entry.target_addr] && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
         {
             results << "0x" << std::hex << inv_entry.invoker_rtn_address << ",";
             results << "0x"  << inv_entry.invoker_address << ",";
