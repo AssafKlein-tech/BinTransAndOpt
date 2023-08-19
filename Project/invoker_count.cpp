@@ -66,16 +66,21 @@ struct Invoker{
 };
 
 struct BBL_info{
+    BBL bbl;
     ADDRINT rtn_address;
     ADDRINT BBL_head_address;
     ADDRINT branch_address;
+    ADDRINT fallback_address;
     ADDRINT branch_target_address;
     xed_iclass_enum_t type_of_branch;
-    UINT32 branch_times_seen;
+    UINT32 branch_times_not_taken;
     UINT32 branch_times_taken;
-    bool need_reorder;
+    bool single_branch; //ret or uncond jmp
+    int position;
+    bool visited;
 };
 
+int pos=1;
 
 //struct RTNData{
 //    string rtn_name;
@@ -195,11 +200,15 @@ VOID inc_call(Invoker * inv) {
 
 VOID BranchCount(UINT32 taken ,BBL_info * bbl_inst)
 {
-    bbl_inst->branch_times_seen++;
+    
     if(taken)
     {
         bbl_inst->branch_times_taken++;
     }
+    else{
+        bbl_inst->branch_times_not_taken++;
+    }
+    
 }
 
 /* ===================================================================== */
@@ -234,6 +243,49 @@ VOID countInvokers(INS ins, VOID *v)
 
 }
 
+/**
+VOID aux_reposition(BBL_info* bbl_info)
+{
+    if(bbl_info->visited) return;
+    bbl_info->position = pos;
+    bbl_info->visited =true;
+    pos++;
+    ADDRINT next_bbl;
+    if(bbl_info->single_branch) // meaning the bbl ends in uncond jump
+    {
+        next_bbl = bbl_info->branch_target_address;
+        aux_reposition(&BBL_map[next_bbl]);
+    }
+    else if(bbl_info->branch_times_taken>bbl_info->branch_times_not_taken)
+    {
+        next_bbl = bbl_info->branch_target_address;
+        aux_reposition(&BBL_map[next_bbl] );
+        if(BBL_map.find(bbl_info->fallback_address) != BBL_map.end())
+        {
+            next_bbl = bbl_info->fallback_address;
+            aux_reposition(&BBL_map[next_bbl] );
+        }
+    }
+    else
+    {
+        if(BBL_map.find(bbl_info->fallback_address) != BBL_map.end())
+        {
+            next_bbl = bbl_info->fallback_address;
+            aux_reposition(&BBL_map[next_bbl]);
+        }
+        next_bbl = bbl_info->branch_target_address;
+        aux_reposition(&BBL_map[next_bbl]);
+    }
+}
+
+VOID repositionBBLS(TRACE trc, VOID *v) 
+{
+    BBL head = TRACE_BblHead(trc);
+    ADDRINT head_addr = BBL_Address(head);
+    aux_reposition(&BBL_map[head_addr]);
+
+}
+
 
 VOID profBranches(TRACE trc, VOID *v)
 {
@@ -243,24 +295,34 @@ VOID profBranches(TRACE trc, VOID *v)
         ADDRINT head = INS_Address(BBL_InsHead(bbl));
         if(INS_Valid(inst))
         {
-            if(INS_IsDirectControlFlow(inst) && !INS_IsCall(inst) && (INS_DirectControlFlowTargetAddress(inst)>INS_Address(inst)))
-            {
+            if(INS_IsDirectControlFlow(inst) || INS_IsInDirectControlFlow(inst))
                 if(BBL_map.find(head) == BBL_map.end())
                 {
                     xed_decoded_inst_t *xedd = INS_XedDec(inst);
 		            xed_iclass_enum_t type_info = xed_decoded_inst_get_iclass(xedd);
                     ADDRINT rtn_addr =RTN_Address(RTN_FindByAddress(head));
                     ADDRINT ins_addr = INS_Address(inst);
+                    ADDRINT fallback = INS_Address(INS_Next(inst));
                     ADDRINT target_addr = INS_DirectControlFlowTargetAddress(inst);
-                    BBL_info BBL_inst = {rtn_addr,head,ins_addr,target_addr,type_info,0,0,false};
+                    bool single = (type_info == XED_ICLASS_JMP );
+                    BBL_info BBL_inst = {bbl,rtn_addr,head,ins_addr,fallback,target_addr,type_info,0,0,single,-1,false};
                     BBL_map[head] = BBL_inst;
                 }
                 INS_InsertCall(inst, IPOINT_BEFORE, (AFUNPTR)BranchCount, IARG_BRANCH_TAKEN, IARG_PTR, &BBL_map[head], IARG_END);
             }
+
+
         }
 
+    }
+    repositionBBLS(trc ,v);
 }
-}
+**/
+
+
+
+
+
 
 /* ===================================================================== */
 
@@ -294,12 +356,10 @@ VOID Fini(INT32 code, VOID *v)
     std::vector<BBL_info> bbl_vec;
     for(std::map<ADDRINT,BBL_info>::iterator itr2 = BBL_map.begin(); itr2!= BBL_map.end();itr2++)
     {
-        if((double((itr2->second).branch_times_taken))/(double((itr2->second).branch_times_seen)) > 0.5)
-        {
-            itr2->second.need_reorder = true;
-        }
         bbl_vec.push_back(itr2->second);
     }
+    std::sort(bbl_vec.begin(), bbl_vec.end(), 
+              [](const BBL_info bbl1, const BBL_info bbl2) { return bbl1.position < bbl2.position; });
 
     std::ofstream results("Count.csv");
     for (Invoker inv_entry: inv_vec)
@@ -314,29 +374,30 @@ VOID Fini(INT32 code, VOID *v)
             
         }
     }
-    results << endl << endl << endl << endl << endl;
+    results.close();
 
+    std::ofstream resultsbranches("CountBranches.csv"); 
     for (BBL_info bbl_entry: bbl_vec)
     {
-            results << "0x" << std::hex << bbl_entry.rtn_address << ",";
-            results << "0x" <<  bbl_entry.BBL_head_address << ",";
-            results << "0x"  << bbl_entry.branch_address << ",";
-            results << "0x"  << bbl_entry.branch_target_address << ",";
-             results << GetEnumAsString(bbl_entry.type_of_branch) << ",";
-            results <<  std::dec << bbl_entry.branch_times_seen << ",";
-            results << bbl_entry.branch_times_taken << ",";
-            if(bbl_entry.need_reorder)
+            resultsbranches << "0x" << std::hex << bbl_entry.rtn_address << ",";
+            resultsbranches << "0x" <<  bbl_entry.BBL_head_address << ",";
+            resultsbranches << "0x"  << bbl_entry.branch_address << ",";
+            resultsbranches << "0x"  << bbl_entry.branch_target_address << ",";
+             resultsbranches << GetEnumAsString(bbl_entry.type_of_branch) << ",";
+            resultsbranches <<  std::dec << bbl_entry.branch_times_taken << ","; 
+            resultsbranches << bbl_entry.branch_times_not_taken << ",";
+            if(bbl_entry.single_branch)
             {
-                results << "TRUE" << endl;
+                resultsbranches << "TRUE" << ",";
             }
             else
             {
-                results << "FALSE" << endl;
+                resultsbranches << "FALSE" << ",";
             }
-            
+            resultsbranches << bbl_entry.position << endl;
         
     }
-    results.close();
+    resultsbranches.close();
 }
 
 /* ===================================================================== */
