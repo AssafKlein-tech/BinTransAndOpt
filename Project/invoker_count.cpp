@@ -219,6 +219,13 @@ VOID BranchCount(UINT32 taken ,BBL_info * bbl_inst)
 
 VOID countInvokers(INS ins, VOID *v)
 {
+    RTN rtn = RTN_FindByAddress(INS_Address(ins));
+    if(RTN_Valid(rtn) == false) return;
+    IMG img = IMG_FindByAddress(RTN_Address(rtn));
+    if(!IMG_IsMainExecutable(img))
+    {
+        return;
+    }
     if (INS_IsDirectControlFlow(ins))
     {
         if( INS_IsCall(ins) )
@@ -247,11 +254,17 @@ VOID INS_count(RTN_reorder_info * rtn_info)
 
 VOID countRtnsForReorder(RTN rtn, VOID *v)
 {
+
     if(RTN_Valid(rtn) == false) return;
     
     RTN_Open(rtn);
     ADDRINT rtn_addr = RTN_Address(rtn);
-
+    IMG img = IMG_FindByAddress(rtn_addr);
+    if(!IMG_IsMainExecutable(img))
+    {
+        RTN_Close(rtn);
+        return;
+    }
     RTN_map[rtn_addr] = {rtn_addr,0};
     for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
     {
@@ -383,16 +396,39 @@ VOID Fini(INT32 code, VOID *v)
         }     
     }
 
+    int NUM_INLINED_FUNC = 10;
+    int counter = 0;
+
+    std::vector<Invoker> final_candidates;
+    for (Invoker inv_entry: inv_vec)
+    {
+        if ( counter == NUM_INLINED_FUNC)
+            break;
+        if( inv_entry.num_invokes != 0 && (too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
+        {
+            final_candidates.push_back(inv_entry);
+            counter++;
+        }
+    }
+
     //add inline candidate invokation number to original count
-    ////need to cut vector before!!!
-    //for (Invoker inv_entry: inv_vec)
-    //{
-    //    if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
-    //    {
-    //          RTN_map[inv_entry.invoker_rtn_address].num_inst+= RTN_map[inv_entry.target_addr].num_inst;
-    //    }
-    //   
-    //}
+    //need to cut vector before!!!
+    for (Invoker inv_entry: final_candidates)
+    {
+        if(single_call_site[inv_entry.target_addr])
+        {
+            if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
+            {
+                RTN_map.erase(inv_entry.target_addr);
+                continue;
+            }
+        }
+        if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
+        {
+              RTN_map[inv_entry.invoker_rtn_address].num_inst+= RTN_map[inv_entry.target_addr].num_inst;
+        }
+       
+    }
 
     //someting with the call tree. temporally commented
     //std::vector<BBL_info> bbl_vec;
@@ -426,17 +462,14 @@ VOID Fini(INT32 code, VOID *v)
     }
     results <<endl;
 
-    for (Invoker inv_entry: inv_vec)
+    for (Invoker inv_entry: final_candidates)
     {
-        if( inv_entry.num_invokes != 0 && (too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
-        {
-            results << "0x" << std::hex << inv_entry.invoker_rtn_address << ",";
-            results << "0x"  << inv_entry.invoker_address << ",";
-            results <<  std::dec << inv_entry.num_invokes << ",";
-            results << "0x" << std::hex << inv_entry.target_addr << ",";
-            results << inv_entry.rtn_name << endl;
-            
-        }
+        results << "0x" << std::hex << inv_entry.invoker_rtn_address << ",";
+        results << "0x"  << inv_entry.invoker_address << ",";
+        results <<  std::dec << inv_entry.num_invokes << ",";
+        results << "0x" << std::hex << inv_entry.target_addr << ",";
+        results << inv_entry.rtn_name << endl;
+
     }
     results << endl << endl << endl << endl << endl;
 
