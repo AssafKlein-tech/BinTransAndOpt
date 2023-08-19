@@ -240,27 +240,33 @@ VOID countInvokers(INS ins, VOID *v)
 
 VOID INS_count(ADDRINT rtn_addr)
 {
-    if(RTN_map.find(rtn_addr) == RTN_map.end())
-    {
-        RTN_reorder_info rtn_info = {rtn_addr,0};
-        RTN_map[rtn_addr] = rtn_info;
-    }
+    
     RTN_map[rtn_addr].num_inst++;
 }
 
 VOID countRtnsForReorder(RTN rtn, VOID* v)
 {
+    RTN_Open(rtn);
     ADDRINT rtn_addr = RTN_Address(rtn);
     for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
     {
-        if(INS_IsDirectControlFlow(ins)) return;
+        
+        if(INS_IsIndirectControlFlow(ins))
+        {
+            RTN_Close(rtn); 
+            return;
+        } 
     }
-
+    if(RTN_map.find(rtn_addr) == RTN_map.end())
+    {
+        RTN_reorder_info rtn_info = {rtn_addr,0};
+        RTN_map[rtn_addr] = rtn_info;
+    }
     for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
     {
         INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_UINT32 ,rtn_addr, IARG_END);
     }
-
+    RTN_Close(rtn);
 
 
 }
@@ -349,6 +355,7 @@ VOID Fini(INT32 code, VOID *v)
         std::sort(sorted_vec.begin(), sorted_vec.end(), []( int a, int b ){return a > b;});
         if(sorted_vec.size() == 1)
              single_call_site[itr2->first] = true;
+
         else
         {
             int sum_of_elems = 0;
@@ -369,17 +376,18 @@ VOID Fini(INT32 code, VOID *v)
     }
 
     std::vector<RTN_reorder_info> rtn_vec;
-    
+    //need to cut vector before!!!
     for (Invoker inv_entry: inv_vec)
     {
-        auto iter = std::find(rtn_vec.begin(), rtn_vec.end(),inv_entry.target_addr);
-        if( iter != rtn_vec.end()) // this rtn has a call and needs to recive inlining
+        if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
         {
-            RTN_map[inv_entry.target_addr].num_inst+= RTN_map[inv_entry.invoker_rtn_address].num_inst;
+              RTN_map[inv_entry.invoker_rtn_address].num_inst+= RTN_map[inv_entry.target_addr].num_inst;
         }
+       
     }
     for(std::map<ADDRINT,RTN_reorder_info>::iterator itr3 = RTN_map.begin(); itr3!= RTN_map.end();itr3++)
     {
+        
         rtn_vec.push_back(itr3->second);
     }
     std::sort(rtn_vec.begin(), rtn_vec.end(), 
@@ -398,10 +406,11 @@ VOID Fini(INT32 code, VOID *v)
             count++;
         }
         else{
+            results <<endl;
             break;
         }
+
     }
-    
     for (Invoker inv_entry: inv_vec)
     {
         if( inv_entry.num_invokes != 0 && (too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
