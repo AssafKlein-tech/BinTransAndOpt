@@ -78,6 +78,11 @@ struct BBL_info{
     bool need_reorder;
 };
 
+struct RTN_reorder_info {
+    ADDRINT rtn_addr;
+    UINT32 num_inst;
+
+};
 
 //struct RTNData{
 //    string rtn_name;
@@ -89,6 +94,9 @@ struct BBL_info{
 std::map<ADDRINT,Invoker> invokers_map;
 
 std::map<ADDRINT,BBL_info> BBL_map;
+
+std::map<ADDRINT, RTN_reorder_info> RTN_map;
+
 
 const char* StripPath(const char* path)
 {
@@ -230,6 +238,33 @@ VOID countInvokers(INS ins, VOID *v)
     }       
 }
 
+VOID INS_count(ADDRINT rtn_addr)
+{
+    if(RTN_map.find(rtn_addr) == RTN_map.end())
+    {
+        RTN_reorder_info rtn_info = {rtn_addr,0};
+        RTN_map[rtn_addr] = rtn_info;
+    }
+    RTN_map[rtn_addr].num_inst++;
+}
+
+VOID countRtnsForReorder(RTN rtn, VOID* v)
+{
+    ADDRINT rtn_addr = RTN_Address(rtn);
+    for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
+    {
+        if(INS_IsDirectControlFlow(ins)) return;
+    }
+
+    for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
+    {
+        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_UINT32 ,rtn_addr, IARG_END);
+    }
+
+
+
+}
+
 VOID checkvalidrtn(INS ins, VOID *v)
 {
     bool invalid = false;
@@ -297,6 +332,7 @@ VOID Fini(INT32 code, VOID *v)
 { 
     std::map<ADDRINT,std::vector<int>> called_map;
     std::map<ADDRINT,bool> too_hot_to_handle;
+    std::map<ADDRINT,bool> single_call_site;
     std::vector<Invoker> inv_vec;
     for(std::map<ADDRINT,Invoker>::iterator itr = invokers_map.begin(); itr!= invokers_map.end();itr++)
     {
@@ -312,7 +348,7 @@ VOID Fini(INT32 code, VOID *v)
         std::vector<int> sorted_vec = itr2->second;
         std::sort(sorted_vec.begin(), sorted_vec.end(), []( int a, int b ){return a > b;});
         if(sorted_vec.size() == 1)
-             too_hot_to_handle[itr2->first] = true;
+             single_call_site[itr2->first] = true;
         else
         {
             int sum_of_elems = 0;
@@ -332,25 +368,43 @@ VOID Fini(INT32 code, VOID *v)
         bbl_vec.push_back(itr2->second);
     }
 
-    std::ofstream results("Count.csv");
-    int count = 0;
+    std::vector<RTN_reorder_info> rtn_vec;
+    
     for (Invoker inv_entry: inv_vec)
     {
-        if (count < 29)
+        auto iter = std::find(rtn_vec.begin(), rtn_vec.end(),inv_entry.target_addr);
+        if( iter != rtn_vec.end()) // this rtn has a call and needs to recive inlining
         {
-            results << "0x" << std::hex << inv_entry.target_addr << ",";
+            RTN_map[inv_entry.target_addr].num_inst+= RTN_map[inv_entry.invoker_rtn_address].num_inst;
+        }
+    }
+    for(std::map<ADDRINT,RTN_reorder_info>::iterator itr3 = RTN_map.begin(); itr3!= RTN_map.end();itr3++)
+    {
+        rtn_vec.push_back(itr3->second);
+    }
+    std::sort(rtn_vec.begin(), rtn_vec.end(), 
+              [](const RTN_reorder_info rtn1, const RTN_reorder_info rtn2) { return rtn1.num_inst > rtn2.num_inst; });
+    
+
+
+    std::ofstream results("Count.csv");
+    int count = 0;
+    results << "30"<< ",";
+    for (RTN_reorder_info rtn_entry: rtn_vec)
+    {
+        if (count < 30)
+        {
+            results << "0x" << std::hex << rtn_entry.rtn_addr << ",";
             count++;
         }
-        else 
-        {
-            results << "0x" << std::hex << inv_entry.target_addr << endl;
+        else{
             break;
         }
 
     }
     for (Invoker inv_entry: inv_vec)
     {
-        if( inv_entry.num_invokes != 0 && too_hot_to_handle[inv_entry.target_addr] && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
+        if( inv_entry.num_invokes != 0 && (too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
         {
             results << "0x" << std::hex << inv_entry.invoker_rtn_address << ",";
             results << "0x"  << inv_entry.invoker_address << ",";
