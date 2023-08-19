@@ -312,7 +312,7 @@ VOID Fini(INT32 code, VOID *v)
         std::vector<int> sorted_vec = itr2->second;
         std::sort(sorted_vec.begin(), sorted_vec.end(), []( int a, int b ){return a > b;});
         if(sorted_vec.size() == 1)
-             too_hot_to_handle[itr2->first] = true;
+            too_hot_to_handle[itr2->first] = true;
         else
         {
             int sum_of_elems = 0;
