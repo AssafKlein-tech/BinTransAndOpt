@@ -333,6 +333,21 @@ VOID Fini(INT32 code, VOID *v)
     }
 
     std::ofstream results("Count.csv");
+    int count = 0;
+    for (Invoker inv_entry: inv_vec)
+    {
+        if (count < 29)
+        {
+            results << "0x" << std::hex << inv_entry.target_addr << ",";
+            count++;
+        }
+        else 
+        {
+            results << "0x" << std::hex << inv_entry.target_addr << endl;
+            break;
+        }
+
+    }
     for (Invoker inv_entry: inv_vec)
     {
         if( inv_entry.num_invokes != 0 && too_hot_to_handle[inv_entry.target_addr] && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())

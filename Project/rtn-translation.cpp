@@ -984,6 +984,7 @@ std::vector<ADDRINT> get_top_five(IMG img)
     std::vector<Invoker_inst> invokers;
 
     // Read CSV file and store the data
+	std::vector<ADDRINT> top_addr;
 
     string entry;
     while(std::getline(file, entry)){
@@ -991,6 +992,17 @@ std::vector<ADDRINT> get_top_five(IMG img)
         std::string value;
         Invoker_inst new_invoker;
         int count = 0;
+		ADDRINT temp_adder;
+		std::getline(iss, value, ',');
+		std::istringstream iss2(value);
+		for (int i = 0; i < 30; i++)
+		{
+			iss2 >>std::hex >> temp_adder;
+			IMG img_rtn = IMG_FindByAddress(temp_adder);
+			if (img_rtn == img)
+				top_addr.push_back(temp_adder);
+		}
+
         while (std::getline(iss, value, ','))
         {
             std::istringstream iss2(value);
@@ -1020,8 +1032,8 @@ std::vector<ADDRINT> get_top_five(IMG img)
 
 
 
-	int NUM_INLINED_FUNC = 20;
-    std::vector<ADDRINT> top_addr;
+	int NUM_INLINED_FUNC = 10;
+    
     int count = 0;
     IMG img_rtn;
     for (Invoker_inst invoker: invokers)
@@ -1034,7 +1046,12 @@ std::vector<ADDRINT> get_top_five(IMG img)
 			Candidate cand= {invoker.invoker_address, invoker.target_addr};
 			candidates[invoker.invoker_rtn_address].push_back(cand);
             count++;
-			auto it = std::find(top_addr.begin(),top_addr.end(),invoker.invoker_rtn_address);
+			auto it = std::find(top_addr.begin(),top_addr.end(),invoker.target_addr);
+			if ( it != top_addr.end())
+			{
+				top_addr.erase(it);
+			}
+			it = std::find(top_addr.begin(),top_addr.end(),invoker.invoker_rtn_address);
 			if( top_addr.empty() ||  (  it == top_addr.end()))
 			{
 				top_addr.push_back(invoker.invoker_rtn_address);
@@ -1072,14 +1089,14 @@ int find_candidate_rtns_for_translation(IMG img)
   			  continue;
 			}
             bool in_top = false;
-            ADDRINT rtn_addr = RTN_Address(rtn);	
-            for(ADDRINT address: top_five_addr)
-            {
-                if(rtn_addr == address)
-                    in_top = true;
-            }
-            if(!in_top)
-                continue;
+            //ADDRINT rtn_addr = RTN_Address(rtn);	
+            //for(ADDRINT address: top_five_addr)
+            //{
+            //    if(rtn_addr == address)
+            //        in_top = true;
+            //}
+            //if(!in_top)
+            //    continue;
 
 			// this is a outer function to translate.
 			translated_rtn[translated_rtn_num].rtn_addr = rtn_addr;			
@@ -1090,6 +1107,7 @@ int find_candidate_rtns_for_translation(IMG img)
 			RTN_Open( rtn );  
 
 			//sort candidate of the routine
+			if ( )
 			std::vector<Candidate> local_candidates = candidates[rtn_addr];
 			std::sort(local_candidates.begin(), local_candidates.end(), 
               [](const Candidate cand1, const Candidate cand2) { return cand1.call_point < cand2.call_point; });
