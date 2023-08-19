@@ -80,7 +80,7 @@ struct BBL_info{
 
 struct RTN_reorder_info {
     ADDRINT rtn_addr;
-    UINT32 num_inst;
+    UINT64 num_inst;
 
 };
 
@@ -238,38 +238,55 @@ VOID countInvokers(INS ins, VOID *v)
     }       
 }
 
-VOID INS_count(ADDRINT rtn_addr)
+
+VOID INS_count(RTN_reorder_info * rtn_info)
 {
-    
-    RTN_map[rtn_addr].num_inst++;
+    rtn_info->num_inst++;
+	
 }
 
-VOID countRtnsForReorder(RTN rtn, VOID* v)
+VOID countRtnsForReorder(RTN rtn, VOID *v)
 {
+    if(RTN_Valid(rtn) == false) return;
+    
     RTN_Open(rtn);
     ADDRINT rtn_addr = RTN_Address(rtn);
-    for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
+
+    RTN_map[rtn_addr] = {rtn_addr,0};
+    for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
     {
-        
-        if(INS_IsIndirectControlFlow(ins))
-        {
-            RTN_Close(rtn); 
-            return;
-        } 
-    }
-    if(RTN_map.find(rtn_addr) == RTN_map.end())
-    {
-        RTN_reorder_info rtn_info = {rtn_addr,0};
-        RTN_map[rtn_addr] = rtn_info;
-    }
-    for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
-    {
-        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_UINT32 ,rtn_addr, IARG_END);
+        // Insert a call to docount to increment the instruction counter for this rtn
+        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_PTR,&RTN_map[rtn_addr], IARG_END);
     }
     RTN_Close(rtn);
-
-
 }
+
+//VOID countRtnsForReorder(RTN rtn, VOID* v)
+//{
+//    RTN_Open(rtn);
+//    ADDRINT rtn_addr = RTN_Address(rtn);
+//    //for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
+//    //{
+//    //    
+//    //    if(INS_IsIndirectControlFlow(ins))
+//    //    {
+//    //        RTN_Close(rtn); 
+//    //        return;
+//    //    } 
+//    //}
+//    if(RTN_map.find(rtn_addr) == RTN_map.end())
+//    {
+//        RTN_reorder_info rtn_info = 0;
+//        RTN_map[rtn_addr] = rtn_info;
+//    }
+//    for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
+//    {
+//        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_PTR,&rtn_map[rtn_addr], IARG_END);
+//    }
+//    RTN_Close(rtn);
+//
+//
+//}
 
 VOID checkvalidrtn(INS ins, VOID *v)
 {
@@ -340,6 +357,7 @@ VOID Fini(INT32 code, VOID *v)
     std::map<ADDRINT,bool> too_hot_to_handle;
     std::map<ADDRINT,bool> single_call_site;
     std::vector<Invoker> inv_vec;
+    //sort invoker map by the time of invokes on each entry and crate called_map
     for(std::map<ADDRINT,Invoker>::iterator itr = invokers_map.begin(); itr!= invokers_map.end();itr++)
     {
         if (itr->second.num_invokes > 0)
@@ -348,7 +366,8 @@ VOID Fini(INT32 code, VOID *v)
     }
     std::sort(inv_vec.begin(), inv_vec.end(), 
               [](const Invoker inv1, const Invoker inv2) { return inv1.num_invokes > inv2.num_invokes; });
-              
+
+    //sort the called map and find rtn that have hot call sites
     for(std::map<ADDRINT,std::vector<int>>::iterator itr2 = called_map.begin(); itr2!= called_map.end();itr2++)
     {
         std::vector<int> sorted_vec = itr2->second;
@@ -364,27 +383,30 @@ VOID Fini(INT32 code, VOID *v)
         }     
     }
 
+    //add inline candidate invokation number to original count
+    ////need to cut vector before!!!
+    //for (Invoker inv_entry: inv_vec)
+    //{
+    //    if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
+    //    {
+    //          RTN_map[inv_entry.invoker_rtn_address].num_inst+= RTN_map[inv_entry.target_addr].num_inst;
+    //    }
+    //   
+    //}
 
-    std::vector<BBL_info> bbl_vec;
-    for(std::map<ADDRINT,BBL_info>::iterator itr2 = BBL_map.begin(); itr2!= BBL_map.end();itr2++)
-    {
-        if((double((itr2->second).branch_times_taken))/(double((itr2->second).branch_times_seen)) > 0.5)
-        {
-            itr2->second.need_reorder = true;
-        }
-        bbl_vec.push_back(itr2->second);
-    }
+    //someting with the call tree. temporally commented
+    //std::vector<BBL_info> bbl_vec;
+    //for(std::map<ADDRINT,BBL_info>::iterator itr2 = BBL_map.begin(); itr2!= BBL_map.end();itr2++)
+    //{
+    //    if((double((itr2->second).branch_times_taken))/(double((itr2->second).branch_times_seen)) > 0.5)
+    //    {
+    //        itr2->second.need_reorder = true;
+    //    }
+    //    bbl_vec.push_back(itr2->second);
+    //}
 
+    //sort rtns to translate
     std::vector<RTN_reorder_info> rtn_vec;
-    //need to cut vector before!!!
-    for (Invoker inv_entry: inv_vec)
-    {
-        if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
-        {
-              RTN_map[inv_entry.invoker_rtn_address].num_inst+= RTN_map[inv_entry.target_addr].num_inst;
-        }
-       
-    }
     for(std::map<ADDRINT,RTN_reorder_info>::iterator itr3 = RTN_map.begin(); itr3!= RTN_map.end();itr3++)
     {
         
@@ -396,21 +418,14 @@ VOID Fini(INT32 code, VOID *v)
 
 
     std::ofstream results("Count.csv");
-    int count = 0;
-    results << "30"<< ",";
+    int vec_size = rtn_vec.size();
+    results << vec_size;
     for (RTN_reorder_info rtn_entry: rtn_vec)
     {
-        if (count < 30)
-        {
-            results << "0x" << std::hex << rtn_entry.rtn_addr << ",";
-            count++;
-        }
-        else{
-            results <<endl;
-            break;
-        }
-
+        results << ",0x" << std::hex << rtn_entry.rtn_addr;
     }
+    results <<endl;
+
     for (Invoker inv_entry: inv_vec)
     {
         if( inv_entry.num_invokes != 0 && (too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
@@ -425,26 +440,26 @@ VOID Fini(INT32 code, VOID *v)
     }
     results << endl << endl << endl << endl << endl;
 
-    for (BBL_info bbl_entry: bbl_vec)
-    {
-            results << "0x" << std::hex << bbl_entry.rtn_address << ",";
-            results << "0x" <<  bbl_entry.BBL_head_address << ",";
-            results << "0x"  << bbl_entry.branch_address << ",";
-            results << "0x"  << bbl_entry.branch_target_address << ",";
-             results << GetEnumAsString(bbl_entry.type_of_branch) << ",";
-            results <<  std::dec << bbl_entry.branch_times_seen << ",";
-            results << bbl_entry.branch_times_taken << ",";
-            if(bbl_entry.need_reorder)
-            {
-                results << "TRUE" << endl;
-            }
-            else
-            {
-                results << "FALSE" << endl;
-            }
-            
-        
-    }
+    //for (BBL_info bbl_entry: bbl_vec)
+    //{
+    //        results << "0x" << std::hex << bbl_entry.rtn_address << ",";
+    //        results << "0x" <<  bbl_entry.BBL_head_address << ",";
+    //        results << "0x"  << bbl_entry.branch_address << ",";
+    //        results << "0x"  << bbl_entry.branch_target_address << ",";
+    //         results << GetEnumAsString(bbl_entry.type_of_branch) << ",";
+    //        results <<  std::dec << bbl_entry.branch_times_seen << ",";
+    //        results << bbl_entry.branch_times_taken << ",";
+    //        if(bbl_entry.need_reorder)
+    //        {
+    //            results << "TRUE" << endl;
+    //        }
+    //        else
+    //        {
+    //            results << "FALSE" << endl;
+    //        }
+    //        
+    //    
+    //}
     results.close();
 }
 

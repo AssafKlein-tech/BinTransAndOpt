@@ -1111,8 +1111,7 @@ int find_candidate_rtns_for_translation(IMG img)
 			//debug print of orig instruction:
 			if (KnobVerbose) {
 				cerr << "old instr: ";
-				cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;
-				xed_print_hex_line(reinterpret_cast<UINT8*>(INS_Address (ins)), INS_Size(ins));				   			
+				cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;			   			
 			}				
 
 			ADDRINT addr = INS_Address(ins);
@@ -1170,7 +1169,7 @@ int find_candidate_rtns_for_translation(IMG img)
 				}
 				rtn_size += inlined_size + sub_size + add_size - CALL_SIZE;
 				iter_candidates++;
-				
+
 				// get back to the next instruction in the rtn
 				RTN_Open(rtn);
 				for (INS t_ins = RTN_InsHead(rtn); INS_Address(t_ins) != addr; t_ins = INS_Next(t_ins))
