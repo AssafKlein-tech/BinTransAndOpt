@@ -264,7 +264,7 @@ VOID countRtnsForReorder(RTN rtn, VOID* v)
     }
     for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
     {
-        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_UINT32 ,rtn_addr, IARG_END);
+        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_ADDRINT ,rtn_addr, IARG_END);
     }
     RTN_Close(rtn);
 
@@ -381,6 +381,7 @@ VOID Fini(INT32 code, VOID *v)
     {
         if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
         {
+           // cout<< RTN_map[inv_entry.invoker_rtn_address].rtn_addr;
               RTN_map[inv_entry.invoker_rtn_address].num_inst+= RTN_map[inv_entry.target_addr].num_inst;
         }
        
