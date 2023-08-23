@@ -967,6 +967,16 @@ struct Candidate{
 
 }; 
 
+struct rtn_bbl_order
+{
+	ADDRINT bbl_addr;
+	ADDRINT target_addr;
+	ADDRINT fallthrough_addr;
+	xed_iclass_enum_t type_of_branch;
+};
+
+std::map<ADDRINT,std::vector<rtn_bbl_order>> bbls;
+
 std::map<ADDRINT,std::vector<Candidate>> candidates;
 
 
@@ -1054,15 +1064,89 @@ std::vector<ADDRINT> get_top_rtn(IMG img)
 			Candidate cand= {invoker.invoker_address, invoker.target_addr};
 			candidates[invoker.invoker_rtn_address].push_back(cand);
             count++;
-			//auto it = std::find(top_addr.begin(),top_addr.end(),invoker.target_addr);
-			//if ( it != top_addr.end())
-			//{
-			//	top_addr.erase(it);
-			//}
         }
     }
     return top_addr;
 }
+
+
+/**
+void get_bbl_order(IMG img)
+{
+    fstream file;
+    file.open("RTNBBLOrder.csv", ios::in);
+    if(!file)
+    {
+		
+        cerr<< "Error: no RTNBBLOrder.csv file found" << endl;
+        return;
+    }
+    
+    string entry;
+	std::string value;
+	ADDRINT temp_adder;
+	std::string s_num_rtn;
+
+	// getting top function to inline
+    while(std::getline(file, entry)){
+       
+		std::getline(iss, value, ',');
+		std::istringstream iss2(value);
+
+		ADDRINT addr;
+		iss2 >>std::hex >> addr;
+		bbls[addr] = [];
+
+		std::getline(iss, value, ',');
+
+        while (std::getline(iss, value, ','))
+        {
+            std::istringstream iss2(value);
+			if(count == 0)
+			{
+                iss2 >>std::hex >> new_invoker.invoker_rtn_address; 
+			}
+            if(count == 1)
+			{
+                iss2 >> std::hex >> new_invoker.invoker_address; 
+			}
+            if(count == 2)
+			{
+  				iss2 >> new_invoker.num_invokes;
+			}
+              
+			if(count == 3)
+			{
+				iss2 >> std::hex >> new_invoker.target_addr;
+			}    
+            count++;
+        }
+
+        invokers.push_back(new_invoker);
+    }
+
+	// create inline candidate for each inline funtion
+	int NUM_INLINED_FUNC = 10;
+    
+    int count = 0;
+    IMG img_rtn;
+    for (Invoker_inst invoker: invokers)
+    {
+		if(invoker.num_invokes < 500)
+			break;
+        img_rtn=IMG_FindByAddress(invoker.target_addr);
+        if(img_rtn == img && count < NUM_INLINED_FUNC)  //invoker.target_addr != top_addr.back()) )
+        {
+			Candidate cand= {invoker.invoker_address, invoker.target_addr};
+			candidates[invoker.invoker_rtn_address].push_back(cand);
+            count++;
+        }
+    }
+    return top_addr;
+}
+**/
+
+
 
 int RET_SIZE = 1;
 int CALL_SIZE = 5;
