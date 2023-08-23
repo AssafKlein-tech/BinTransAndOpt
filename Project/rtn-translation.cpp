@@ -962,7 +962,6 @@ struct Invoker_inst{
 };
 
 struct Candidate{
-	//ADDRINT original_rtn;
 	ADDRINT call_point;
 	ADDRINT called_function;
 
@@ -970,9 +969,8 @@ struct Candidate{
 
 std::map<ADDRINT,std::vector<Candidate>> candidates;
 
-//std::vector<Candidate> candidates;
 
-std::vector<ADDRINT> get_top_five(IMG img)
+std::vector<ADDRINT> get_top_rtn(IMG img)
 {
     fstream file;
     file.open("Count.csv", ios::in);
@@ -984,13 +982,36 @@ std::vector<ADDRINT> get_top_five(IMG img)
     std::vector<Invoker_inst> invokers;
 
     // Read CSV file and store the data
+	std::vector<ADDRINT> top_addr;
 
+	//getting sorted top function to translate
     string entry;
+	std::string value;
+	ADDRINT temp_adder;
+	std::string s_num_rtn;
+	std::getline(file, entry);
+	std::istringstream iss(entry);
+	std::getline(iss, value, ',');
+
+	std::istringstream iss2(value);
+	iss2  >> s_num_rtn;
+	int num_rtn = stoi(s_num_rtn);
+
+	for (int i = 0; i < num_rtn; i++)
+	{
+		std::getline(iss, value, ',');
+		std::istringstream iss2(value);
+		iss2 >>std::hex >> temp_adder;
+		IMG img_rtn = IMG_FindByAddress(temp_adder);
+		if (img_rtn == img)
+			top_addr.push_back(temp_adder);
+	}
+
+	// getting top function to inline
     while(std::getline(file, entry)){
-        std::istringstream iss(entry);
-        std::string value;
-        Invoker_inst new_invoker;
-        int count = 0;
+       
+		Invoker_inst new_invoker;
+		int count = 0;
         while (std::getline(iss, value, ','))
         {
             std::istringstream iss2(value);
@@ -1010,8 +1031,7 @@ std::vector<ADDRINT> get_top_five(IMG img)
 			if(count == 3)
 			{
 				iss2 >> std::hex >> new_invoker.target_addr;
-			}
-                
+			}    
             count++;
         }
 
@@ -1019,9 +1039,9 @@ std::vector<ADDRINT> get_top_five(IMG img)
     }
 
 
-
-	int NUM_INLINED_FUNC = 20;
-    std::vector<ADDRINT> top_addr;
+	// create inline candidate for each inline funtion
+	int NUM_INLINED_FUNC = 10;
+    
     int count = 0;
     IMG img_rtn;
     for (Invoker_inst invoker: invokers)
@@ -1034,11 +1054,11 @@ std::vector<ADDRINT> get_top_five(IMG img)
 			Candidate cand= {invoker.invoker_address, invoker.target_addr};
 			candidates[invoker.invoker_rtn_address].push_back(cand);
             count++;
-			auto it = std::find(top_addr.begin(),top_addr.end(),invoker.invoker_rtn_address);
-			if( top_addr.empty() ||  (  it == top_addr.end()))
-			{
-				top_addr.push_back(invoker.invoker_rtn_address);
-			}
+			//auto it = std::find(top_addr.begin(),top_addr.end(),invoker.target_addr);
+			//if ( it != top_addr.end())
+			//{
+			//	top_addr.erase(it);
+			//}
         }
     }
     return top_addr;
@@ -1052,148 +1072,141 @@ int CALL_SIZE = 5;
 /*****************************************/
 int find_candidate_rtns_for_translation(IMG img)
 {
-    std::vector<ADDRINT> top_five_addr = get_top_five(img);
-    //get the file
+    std::vector<ADDRINT> top_rtn = get_top_rtn(img);
    
-    //sort by instructions - idx (-2 /7 )
-    //filter only the top ten
+
     int rc;
-	// go over routines and check if they are candidates for translation and mark them for translation:
-	for (SEC sec = IMG_SecHead(img); SEC_Valid(sec); sec = SEC_Next(sec))
+	// go over translated routine candidate and translate each:
+	for (ADDRINT rtn_addr:  top_rtn)
+
     {   
-		if (!SEC_IsExecutable(sec) || SEC_IsWriteable(sec) || !SEC_Address(sec))
+		//check if RTN is valid. All RTNs need to be valid
+		RTN rtn = RTN_FindByAddress(rtn_addr);
+		if (rtn == RTN_Invalid()) {
+			cerr << "Warning: invalid routine " << RTN_Name(rtn) << endl;
 			continue;
+		}
 
-        for (RTN rtn = SEC_RtnHead(sec); RTN_Valid(rtn); rtn = RTN_Next(rtn))
-        {	
 
-			if (rtn == RTN_Invalid()) {
-			  cerr << "Warning: invalid routine " << RTN_Name(rtn) << endl;
-  			  continue;
+		// this is a outer function to translate.
+		translated_rtn[translated_rtn_num].rtn_addr = rtn_addr;			
+		translated_rtn[translated_rtn_num].instr_map_entry = num_of_instr_map_entries;
+		translated_rtn[translated_rtn_num].isSafeForReplacedProbe = true;	
+
+		// Open the RTN.
+		RTN_Open( rtn );  
+
+		//sort the candidate of the routine
+		std::vector<Candidate> local_candidates = candidates[rtn_addr];
+		std::sort(local_candidates.begin(), local_candidates.end(), 
+			[](const Candidate cand1, const Candidate cand2) { return cand1.call_point < cand2.call_point; });
+
+		//need to change if we do reorder in the the outer routine
+		//create a routine candidates iterator (in the rtn order)
+		std::vector<Candidate>::iterator  iter_candidates = local_candidates.begin();
+
+		USIZE rtn_size = RTN_Size(rtn);
+		for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins)) {
+			
+			//debug print of orig instruction:
+			if (KnobVerbose) {
+				cerr << "old instr: ";
+				cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;			   			
+			}				
+
+			ADDRINT addr = INS_Address(ins);
+						
+			xed_decoded_inst_t xedd;
+			xed_error_enum_t xed_code;							
+			
+			xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
+
+			xed_code = xed_decode(&xedd, reinterpret_cast<UINT8*>(addr), max_inst_len);
+			if (xed_code != XED_ERROR_NONE) {
+				cerr << "ERROR: xed decode failed for instr at: " << "0x" << hex << addr << endl;
+				translated_rtn[translated_rtn_num].instr_map_entry = -1;
+				break;
 			}
-            bool in_top = false;
-            ADDRINT rtn_addr = RTN_Address(rtn);	
-            for(ADDRINT address: top_five_addr)
-            {
-                if(rtn_addr == address)
-                    in_top = true;
-            }
-            if(!in_top)
-                continue;
 
-			// this is a outer function to translate.
-			translated_rtn[translated_rtn_num].rtn_addr = rtn_addr;			
-			translated_rtn[translated_rtn_num].instr_map_entry = num_of_instr_map_entries;
-			translated_rtn[translated_rtn_num].isSafeForReplacedProbe = true;	
-
-			// Open the RTN.
-			RTN_Open( rtn );  
-
-			//sort candidate of the routine
-			std::vector<Candidate> local_candidates = candidates[rtn_addr];
-			std::sort(local_candidates.begin(), local_candidates.end(), 
-              [](const Candidate cand1, const Candidate cand2) { return cand1.call_point < cand2.call_point; });
-
-			//iterate over candidate
-			std::vector<Candidate>::iterator  iter_candidates = local_candidates.begin();
-
-			USIZE rtn_size = RTN_Size(rtn);
-            for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins)) {
-				
-    			//debug print of orig instruction:
-				if (KnobVerbose) {
- 					cerr << "old instr: ";
-					cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;
-					//xed_print_hex_line(reinterpret_cast<UINT8*>(INS_Address (ins)), INS_Size(ins));				   			
-				}				
-
-				ADDRINT addr = INS_Address(ins);
-                			
-			    xed_decoded_inst_t xedd;
-			    xed_error_enum_t xed_code;							
-	            
-				xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
-
-				xed_code = xed_decode(&xedd, reinterpret_cast<UINT8*>(addr), max_inst_len);
-				if (xed_code != XED_ERROR_NONE) {
-					cerr << "ERROR: xed decode failed for instr at: " << "0x" << hex << addr << endl;
+			//if this address is a call to inline candidate - start translating the inlined function instead
+			if (iter_candidates != local_candidates.end() && (*iter_candidates).call_point == addr)
+			{
+				//cout << "Inlining addr " << std::hex <<  addr << endl;
+				RTN_Close(rtn);
+				//fix stack pointer offset
+				int sub_size = sub_rsp(addr);
+				if (sub_size < 0) {
+					cerr << "ERROR: failed during instructon translation." << endl;
 					translated_rtn[translated_rtn_num].instr_map_entry = -1;
 					break;
 				}
 
-				if (iter_candidates != local_candidates.end() && (*iter_candidates).call_point == addr)
-				{
-					//cout << "Inlining addr " << std::hex <<  addr << endl;
-					RTN_Close(rtn);
-					int sub_size = sub_rsp(addr);
-					if (sub_size < 0) {
-						cerr << "ERROR: failed during instructon translation." << endl;
-						translated_rtn[translated_rtn_num].instr_map_entry = -1;
-						break;
-					}
-					//cout << "After sub" << endl;
-					RTN inline_rtn = RTN_FindByAddress((*iter_candidates).called_function);
-					ADDRINT target= (*iter_candidates).called_function + RTN_Size(inline_rtn);
-					int is_ret =0;
-					RTN_Open(inline_rtn);
-					if(INS_IsRet(RTN_InsTail(RTN_FindByAddress((*iter_candidates).called_function)))) {
-						is_ret=1;
-					}
-					RTN_Close(inline_rtn);
-					target-=is_ret;
-					int inlined_size = add_inline_function(target, (*iter_candidates).called_function, addr);
-					if (inlined_size < 0) {
-						cerr << "ERROR: failed during instructon translation." << endl;
-						translated_rtn[translated_rtn_num].instr_map_entry = -1;
-						break;
-					}
-					
-					//cout << "After inline" << endl;
-					int add_size = add_rsp(target,addr);
-					if (add_size < 0) {
-						cerr << "ERROR: failed during instructon translation." << endl;
-						translated_rtn[translated_rtn_num].instr_map_entry = -1;
-						break;
-					}
-					//cout << "After add" << endl;
-					rtn_size += inlined_size + sub_size + add_size - CALL_SIZE;
-				    iter_candidates++;
-					RTN_Open(rtn);
-					for (INS t_ins = RTN_InsHead(rtn); INS_Address(t_ins) != addr; t_ins = INS_Next(t_ins))
-					{
-						ins = t_ins;
-					}
-					ins = INS_Next(ins);
-					
+				//calculate the last routine address - if it is a ret instruction we will jump to it. else we will jump to the address after (add rsp instrumentation)
+				RTN inline_rtn = RTN_FindByAddress((*iter_candidates).called_function);
+				ADDRINT target= (*iter_candidates).called_function + RTN_Size(inline_rtn);
+				int is_ret =0;
+				RTN_Open(inline_rtn);
+				if(INS_IsRet(RTN_InsTail(RTN_FindByAddress((*iter_candidates).called_function)))) {
+					is_ret=1;
 				}
+				RTN_Close(inline_rtn);
+				target-=is_ret;
 
-				//// Add instr into instr map:
-				else
-				{
-					rc = add_new_instr_entry(&xedd, INS_Address(ins), INS_Size(ins), -1);
-					if (rc < 0) {
-						cerr << "ERROR: failed during instructon translation." << endl;
-						translated_rtn[translated_rtn_num].instr_map_entry = -1;
-						break;
-					}
+				// inline the routine (without the last ret instruction)
+				int inlined_size = add_inline_function(target, (*iter_candidates).called_function, addr);
+				if (inlined_size < 0) {
+					cerr << "ERROR: failed during instructon translation." << endl;
+					translated_rtn[translated_rtn_num].instr_map_entry = -1;
+					break;
 				}
 				
-			} // end for INS...
+				//fix back stack pointer offset
+				int add_size = add_rsp(target,addr);
+				if (add_size < 0) {
+					cerr << "ERROR: failed during instructon translation." << endl;
+					translated_rtn[translated_rtn_num].instr_map_entry = -1;
+					break;
+				}
+				rtn_size += inlined_size + sub_size + add_size - CALL_SIZE;
+				iter_candidates++;
+
+				// get back to the next instruction in the rtn
+				RTN_Open(rtn);
+				for (INS t_ins = RTN_InsHead(rtn); INS_Address(t_ins) != addr; t_ins = INS_Next(t_ins))
+				{
+					ins = t_ins;
+				}
+				ins = INS_Next(ins);
+				
+			}
+
+			//// Add instr into instr map:
+			else
+			{
+				rc = add_new_instr_entry(&xedd, INS_Address(ins), INS_Size(ins), -1);
+				if (rc < 0) {
+					cerr << "ERROR: failed during instructon translation." << endl;
+					translated_rtn[translated_rtn_num].instr_map_entry = -1;
+					break;
+				}
+			}
+			
+		} // end for INS...
 
 
-			// debug print of routine name:
-			if (KnobVerbose) {
-				cerr <<   "rtn name: " << RTN_Name(rtn) << " : " << dec << translated_rtn_num << endl;
-			}			
+		// debug print of routine name:
+		if (KnobVerbose) {
+			cerr <<   "rtn name: " << RTN_Name(rtn) << " : " << dec << translated_rtn_num << endl;
+		}			
 
 
-			// Close the RTN.
-			RTN_Close( rtn );
-			translated_rtn[translated_rtn_num].rtn_size = rtn_size; // TODO: new size
-			translated_rtn_num++;
+		// Close the RTN.
+		RTN_Close( rtn );
+		translated_rtn[translated_rtn_num].rtn_size = rtn_size; // TODO: new size
+		translated_rtn_num++;
 
-		 } // end for RTN..
-	} // end for SEC...
+	} // end for RTN..
+	//} // end for SEC...
 
 	
 

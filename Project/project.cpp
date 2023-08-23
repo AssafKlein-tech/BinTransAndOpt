@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
     {
         INS_AddInstrumentFunction(countInvokers, 0);
         INS_AddInstrumentFunction(checkvalidrtn,0);
-        TRACE_AddInstrumentFunction(profBranches,0);
-        RTN_AddInstrumentFunction(createRTNList,0);
+        //TRACE_AddInstrumentFunction(profBranches,0);
+        RTN_AddInstrumentFunction(countRtnsForReorder,0);
         PIN_AddFiniFunction(Fini, 0);
         PIN_StartProgram();
     }
