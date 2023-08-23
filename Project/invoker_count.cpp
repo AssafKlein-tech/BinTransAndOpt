@@ -438,7 +438,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         }
         else
         {
-           cout << RTN_Address(RTN_FindByAddress(fallthrough.bbl_addr)) << "," 
+           cout << RTN_Address(RTN_FindByAddress(fallthrough.bbl_addr)) << "," << curr_rtn_address << endl;
         }
         
     }
@@ -572,7 +572,7 @@ VOID Fini(INT32 code, VOID *v)
     for(std::map<ADDRINT,std::vector<BBL_info>>::iterator itr_rtn = rtn_bbls_order.begin(); 
             itr_rtn!= rtn_bbls_order.end(); itr_rtn++)
     {
-        resultsRTNBBLOrder << "0x" << std::hex << itr_rtn->first;
+        resultsRTNBBLOrder << "0x" << std::hex << itr_rtn->first << endl;
         for (BBL_info bbl_entry: itr_rtn->second)
         {
                 resultsRTNBBLOrder << "0x" <<  bbl_entry.BBL_head_address << ",";
