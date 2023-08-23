@@ -438,7 +438,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         }
         else
         {
-           
+           cout << RTN_Address(RTN_FindByAddress(fallthrough.bbl_addr)) 
         }
         
     }
