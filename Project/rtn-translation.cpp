@@ -967,7 +967,7 @@ struct Candidate{
 
 }; 
 
-struct rtn_bbl_order
+struct BBLdata
 {
 	ADDRINT bbl_addr;
 	ADDRINT target_addr;
@@ -975,7 +975,7 @@ struct rtn_bbl_order
 	xed_iclass_enum_t type_of_branch;
 };
 
-std::map<ADDRINT,std::vector<rtn_bbl_order>> bbls;
+std::map<ADDRINT,std::vector<BBLdata>> bbls;
 
 std::map<ADDRINT,std::vector<Candidate>> candidates;
 
@@ -1019,7 +1019,7 @@ std::vector<ADDRINT> get_top_rtn(IMG img)
 
 	// getting top function to inline
     while(std::getline(file, entry)){
-       
+        std::istringstream iss(entry);
 		Invoker_inst new_invoker;
 		int count = 0;
         while (std::getline(iss, value, ','))
@@ -1070,7 +1070,6 @@ std::vector<ADDRINT> get_top_rtn(IMG img)
 }
 
 
-/**
 void get_bbl_order(IMG img)
 {
     fstream file;
@@ -1084,67 +1083,53 @@ void get_bbl_order(IMG img)
     
     string entry;
 	std::string value;
-	ADDRINT temp_adder;
-	std::string s_num_rtn;
 
 	// getting top function to inline
     while(std::getline(file, entry)){
        
+		std::istringstream iss(entry);
 		std::getline(iss, value, ',');
 		std::istringstream iss2(value);
 
-		ADDRINT addr;
-		iss2 >>std::hex >> addr;
-		bbls[addr] = [];
+		ADDRINT rtn_addr;
+		iss2 >>std::hex >> rtn_addr;
 
-		std::getline(iss, value, ',');
+		std::getline(file, entry);
+		std::istringstream iss(entry);
 
         while (std::getline(iss, value, ','))
         {
-            std::istringstream iss2(value);
-			if(count == 0)
+			int count = 0;
+			BBLdata bbl_data;
+			for (int i = 0; i <4; i++)
 			{
-                iss2 >>std::hex >> new_invoker.invoker_rtn_address; 
+				std::istringstream iss2(value);
+				if(count == 0)
+				{ 
+					iss2 >>std::hex >> bbl_data.bbl_addr; 
+				}
+				if(count == 1)
+				{
+					iss2 >> std::hex >> bbl_data.target_addr; 
+				}
+				if(count == 2)
+				{
+					iss2 >> std::hex >> bbl_data.fallthrough_addr;
+				}	
+				if(count  == 3)
+				{
+					int type;
+					iss2 >>  type;
+					bbl_data.type_of_branch = xed_iclass_enum_t(type);
+				}    
+				count++;
 			}
-            if(count == 1)
-			{
-                iss2 >> std::hex >> new_invoker.invoker_address; 
-			}
-            if(count == 2)
-			{
-  				iss2 >> new_invoker.num_invokes;
-			}
-              
-			if(count == 3)
-			{
-				iss2 >> std::hex >> new_invoker.target_addr;
-			}    
-            count++;
+        	bbls[rtn_addr].push_back(bbl_data);
         }
 
-        invokers.push_back(new_invoker);
     }
-
-	// create inline candidate for each inline funtion
-	int NUM_INLINED_FUNC = 10;
-    
-    int count = 0;
-    IMG img_rtn;
-    for (Invoker_inst invoker: invokers)
-    {
-		if(invoker.num_invokes < 500)
-			break;
-        img_rtn=IMG_FindByAddress(invoker.target_addr);
-        if(img_rtn == img && count < NUM_INLINED_FUNC)  //invoker.target_addr != top_addr.back()) )
-        {
-			Candidate cand= {invoker.invoker_address, invoker.target_addr};
-			candidates[invoker.invoker_rtn_address].push_back(cand);
-            count++;
-        }
-    }
-    return top_addr;
 }
-**/
+
 
 
 

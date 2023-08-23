@@ -1561,7 +1561,7 @@ Disassembly of section .text:
   402737:	e8 b4 ea ff ff       	call   4011f0 <fprintf@plt>
   40273c:	e8 f5 fb ff ff       	call   402336 <showFileNames>
   402741:	bf 01 00 00 00       	mov    $0x1,%edi
-  402746:	e8 1f fc ff ff       	call   40236a <cleanUpAndFail>
+  402746:	e8 1f fc ff ff       	call   40236a <outOfMemory>
 
 000000000040274b <configError>:
   40274b:	55                   	push   %rbp
