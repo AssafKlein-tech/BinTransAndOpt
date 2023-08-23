@@ -74,7 +74,7 @@ class BBL_info{
     ADDRINT rtn_address;
     ADDRINT BBL_head_address;
     ADDRINT branch_address;
-    ADDRINT fallback_address;
+    ADDRINT fallthrough_address;
     ADDRINT branch_target_address;
     xed_iclass_enum_t type_of_branch;
     UINT32 branch_times_not_taken;
@@ -93,11 +93,6 @@ struct RTN_reorder_info {
 
 };
 
-//struct RTNData{
-//    string rtn_name;
-//    UINT64 inst_count;
-//    UINT64 call_count;
-//};
 
 //std::map<ADDRINT,LoopData> loop_map;
 std::map<ADDRINT,Invoker> invokers_map;
@@ -340,10 +335,17 @@ VOID profBranches(TRACE trc, VOID *v)
 		            xed_iclass_enum_t type_info = xed_decoded_inst_get_iclass(xedd);
                     ADDRINT rtn_addr =RTN_Address(RTN_FindByAddress(head));
                     ADDRINT ins_addr = INS_Address(inst);
-                    ADDRINT fallback = INS_Address(INS_Next(inst));
-                    ADDRINT target_addr = INS_DirectControlFlowTargetAddress(inst);
+                    ADDRINT fallthrough = INS_Address(INS_Next(inst));
+                    ADDRINT target_addr;
+                    if(INS_IsRet(inst)) 
+                    {
+                        target_addr =-1;
+                    }
+                    else{
+                         target_addr = INS_DirectControlFlowTargetAddress(inst);
+                    }
                     bool is_call = (type_info == XED_ICLASS_CALL_NEAR );
-                    BBL_info BBL_inst = {bbl,rtn_addr,head,ins_addr,fallback,target_addr,type_info,0,0,is_call,-1,false};
+                    BBL_info BBL_inst = {bbl,rtn_addr,head,ins_addr,fallthrough,target_addr,type_info,0,0,is_call,-1,false};
                     BBL_map[head] = BBL_inst;
                 }
                 INS_InsertCall(inst, IPOINT_BEFORE, (AFUNPTR)BranchCount, IARG_BRANCH_TAKEN, IARG_PTR, &BBL_map[head], IARG_END);
@@ -352,90 +354,84 @@ VOID profBranches(TRACE trc, VOID *v)
 
        
     }
+}
 
+class heap_element
+{
+    public:
+
+    ADDRINT bbl_addr;
+    UINT64 in_degree;
+    bool operator<(const heap_element& other) const {
+        return in_degree < other.in_degree;
+    }
+};
  
 
 VOID ReorderBBLs(RTN rtn)
 {
-    if(!IMG_IsMainExecutable(IMG_FindByAddress(RTN_Address(rtn)))) 
+    if(RTN_Valid(rtn) == false) return;
+    IMG img = IMG_FindByAddress(RTN_Address(rtn));
+    if(!IMG_IsMainExecutable(img))
+    {
         return;
+    }
     RTN_Open(rtn);
     ADDRINT curr_rtn_address = RTN_Address(rtn);
+    std::vector<BBL_info> rtn_bbls;
 
     for(std::map<ADDRINT,BBL_info>::iterator itr = BBL_map.begin(); itr!= BBL_map.end();itr++)
     {
         if (itr->second.rtn_address  == curr_rtn_address)
         {
-            rtn_bbls_order[curr_rtn_address].push_back(itr->second);
+            rtn_bbls.push_back(itr->second);
         }
     }
 
+    std::vector<heap_element> heap;
+    heap_element first = {rtn_bbls.begin()->BBL_head_address, 0};
+    heap.push_back(first);
+    std::make_heap(heap.begin(),heap.end(), [](const heap_element el1, const heap_element el2) { return el1.in_degree > el2.in_degree; });
     
-
-
-    
-    std::vector<BBL_info> temp_for_reorder;
-    int pos =1;
-    
-    for(std::vector<BBL_info>::iterator itr2 = rtn_bbls_order[curr_rtn_address].begin();
-                                    itr2!= rtn_bbls_order[curr_rtn_address].end();itr2++)
+    while (!heap.empty() )
     {
-        if(itr2->visited) 
-        {
+        //take out
+        heap_element top = heap.front();
+        std::pop_heap(heap.begin(),heap.end());
+        heap.pop_back();
+        if(BBL_map[top.bbl_addr].visited)
             continue;
-        }
-        
-        itr2->position =pos;
-        pos++;
-        itr2->visited =true;
-        temp_for_reorder.push_back(*itr2);
-        std::vector<BBL_info>::iterator itr3;
-        if(itr2->single_branch)
+        //insert final vector
+        rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
+        //make visited
+        BBL_map[top.bbl_addr].visited = true;
+        //insert children
+        heap_element target = {BBL_map[top.bbl_addr].branch_target_address, BBL_map[top.bbl_addr].branch_times_taken};
+        heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
+        if (BBL_map[top.bbl_addr].is_call)
         {
-            continue;
+           fallthrough.in_degree = BBL_map[top.bbl_addr].branch_times_taken;
         }
-        
-        else if(itr2->branch_times_taken > itr2->branch_times_not_taken)
-            {
-
-                itr3 = std::find(rtn_bbls_order[curr_rtn_address].begin(), rtn_bbls_order[curr_rtn_address].end(),
-                 BBL_map[itr2->branch_target_address]);
-            }
-        else{
-            itr3 = std::find(rtn_bbls_order[curr_rtn_address].begin(), rtn_bbls_order[curr_rtn_address].end(),
-                 BBL_map[itr2->fallback_address]);
-        }
-        
-    
-
-        while(!(itr3->visited))
+        if (RTN_Address(RTN_FindByAddress(target.bbl_addr)) == curr_rtn_address)
         {
-            if(itr3->single_branch)
-            {
-                break;
-            }
-            else if(itr3->branch_times_taken > itr3->branch_times_not_taken)
-            {
-                 itr3->visited =true;
-                 itr3->position =pos;
-                 temp_for_reorder.push_back(*itr3);
-                 itr3 = std::find(rtn_bbls_order[curr_rtn_address].begin(), rtn_bbls_order[curr_rtn_address].end(),
-                 BBL_map[itr3->branch_target_address]);
-            }
-            else{
-                 itr3->visited =true;
-                 itr3->position =pos;
-                 temp_for_reorder.push_back(*itr3);
-                 itr3 = std::find(rtn_bbls_order[curr_rtn_address].begin(), rtn_bbls_order[curr_rtn_address].end(),
-                 BBL_map[itr3->fallback_address]);
-            }
-            pos++;
+            heap.push_back(target);
+            std::push_heap(heap.begin(),heap.end());
         }
-        pos++;
+        if(RTN_Address(RTN_FindByAddress(fallthrough.bbl_addr)) == curr_rtn_address)
+        {
+            heap.push_back(fallthrough);
+            std::push_heap(heap.begin(),heap.end());
+        }
     }
-    rtn_bbls_order[curr_rtn_address] = temp_for_reorder;
-    RTN_Close(rtn);
-    
+    if(rtn_bbls_order[curr_rtn_address].size() == rtn_bbls.size())
+    {
+        cout<< "OK";
+    }
+    else 
+    {
+         cout<< "NOT OK";
+    }
+   
 }
 
 
@@ -546,45 +542,40 @@ VOID Fini(INT32 code, VOID *v)
 
     
 
-
-
-    std::vector<BBL_info> bbl_vec;
-    for(std::map<ADDRINT,BBL_info>::iterator itr2 = BBL_map.begin(); itr2!= BBL_map.end();itr2++)
+    for(std::vector<RTN_reorder_info>::iterator iterator = rtn_vec.begin(); iterator != rtn_vec.end(); iterator++)
     {
-        bbl_vec.push_back(itr2->second);
+        RTN curr = RTN_FindByAddress(iterator->rtn_addr);
+        ReorderBBLs(curr);
     }
-    std::sort(bbl_vec.begin(), bbl_vec.end(), 
-              [](const BBL_info bbl1, const BBL_info bbl2) { return bbl1.position < bbl2.position; });
 
     std::ofstream resultsRTNBBLOrder("RTNBBLOrder.csv"); 
     for(std::map<ADDRINT,std::vector<BBL_info>>::iterator itr_rtn = rtn_bbls_order.begin(); 
             itr_rtn!= rtn_bbls_order.end(); itr_rtn++)
     {
-        resultsRTNBBLOrder << "0x" << std::hex << (rtn_bbls_order.begin()->second.begin())->rtn_address << ",";
         for (BBL_info bbl_entry: itr_rtn->second)
         {
-                //resultsRTNBBLOrder << "0x" << std::hex << bbl_entry.rtn_address << ",";
+                resultsRTNBBLOrder << "0x" << std::hex << bbl_entry.rtn_address << ",";
                 resultsRTNBBLOrder << "0x" <<  bbl_entry.BBL_head_address << ",";
-                resultsRTNBBLOrder << "0x"  << bbl_entry.branch_address << ",";
+                //resultsRTNBBLOrder << "0x"  << bbl_entry.branch_address << ",";
                 resultsRTNBBLOrder << "0x"  << bbl_entry.branch_target_address << ",";
-                resultsRTNBBLOrder << "0x"  << bbl_entry.fallback_address << ",";
+                resultsRTNBBLOrder << "0x"  << bbl_entry.fallthrough_address << ",";
                 resultsRTNBBLOrder << GetEnumAsString(bbl_entry.type_of_branch) << ",";
-                resultsRTNBBLOrder <<  std::dec << bbl_entry.branch_times_taken << ","; 
-                resultsRTNBBLOrder << bbl_entry.branch_times_not_taken << ",";
-                if(bbl_entry.single_branch)
-                {
-                    resultsRTNBBLOrder << "TRUE" << ",";
-                }
-                else
-                {
+                //resultsRTNBBLOrder <<  std::dec << bbl_entry.branch_times_taken << ","; 
+                //resultsRTNBBLOrder << bbl_entry.branch_times_not_taken << ",";
+                //if(bbl_entry.single_branch)
+                //{
+                //    resultsRTNBBLOrder << "TRUE" << ",";
+                //}
+                //else
+                //{
                     resultsRTNBBLOrder << "FALSE" << ",";
-                }
-                resultsRTNBBLOrder << bbl_entry.position;
-            
+                //}
+                //resultsRTNBBLOrder << bbl_entry.position;
+                resultsRTNBBLOrder << endl; 
         }
-        resultsRTNBBLOrder << endl;
+        
     }
-    resultsbranches.close();
+    resultsRTNBBLOrder.close();
 }
 
 /* ===================================================================== */
