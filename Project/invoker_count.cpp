@@ -79,7 +79,7 @@ class BBL_info{
     xed_iclass_enum_t type_of_branch;
     UINT32 branch_times_not_taken;
     UINT32 branch_times_taken;
-    bool single_branch; //ret or uncond jmp
+    bool is_call; //ret or uncond jmp
     int position;
     bool visited;
     bool operator==(const BBL_info& other) const {
@@ -289,32 +289,6 @@ VOID countRtnsForReorder(RTN rtn, VOID *v)
     RTN_Close(rtn);
 }
 
-//VOID countRtnsForReorder(RTN rtn, VOID* v)
-//{
-//    RTN_Open(rtn);
-//    ADDRINT rtn_addr = RTN_Address(rtn);
-//    //for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
-//    //{
-//    //    
-//    //    if(INS_IsIndirectControlFlow(ins))
-//    //    {
-//    //        RTN_Close(rtn); 
-//    //        return;
-//    //    } 
-//    //}
-//    if(RTN_map.find(rtn_addr) == RTN_map.end())
-//    {
-//        RTN_reorder_info rtn_info = 0;
-//        RTN_map[rtn_addr] = rtn_info;
-//    }
-//    for(INS ins = RTN_InsHead(rtn); INS_Valid(ins);ins = INS_Next(ins))
-//    {
-//        INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR)INS_count, IARG_PTR,&rtn_map[rtn_addr], IARG_END);
-//    }
-//    RTN_Close(rtn);
-//
-//
-//}
 
 VOID checkvalidrtn(INS ins, VOID *v)
 {
@@ -358,7 +332,7 @@ VOID profBranches(TRACE trc, VOID *v)
         ADDRINT head = INS_Address(BBL_InsHead(bbl));
         if(INS_Valid(inst))
         {
-            if(INS_IsDirectControlFlow(inst) )//|| INS_IsIndirectControlFlow(inst))
+            if(INS_IsDirectControlFlow(inst) ||  INS_IsRet(inst))
             {
                 if(BBL_map.find(head) == BBL_map.end())
                 {
@@ -368,18 +342,14 @@ VOID profBranches(TRACE trc, VOID *v)
                     ADDRINT ins_addr = INS_Address(inst);
                     ADDRINT fallback = INS_Address(INS_Next(inst));
                     ADDRINT target_addr = INS_DirectControlFlowTargetAddress(inst);
-                    bool single = (type_info == XED_ICLASS_JMP );
-                    BBL_info BBL_inst = {bbl,rtn_addr,head,ins_addr,fallback,target_addr,type_info,0,0,single,-1,false};
+                    bool is_call = (type_info == XED_ICLASS_CALL_NEAR );
+                    BBL_info BBL_inst = {bbl,rtn_addr,head,ins_addr,fallback,target_addr,type_info,0,0,is_call,-1,false};
                     BBL_map[head] = BBL_inst;
                 }
                 INS_InsertCall(inst, IPOINT_BEFORE, (AFUNPTR)BranchCount, IARG_BRANCH_TAKEN, IARG_PTR, &BBL_map[head], IARG_END);
             }
-            else if(INS_IsIndirectControlFlow(inst))
-            {
-                RTNList[RTN_FindByAddress(head)] =true;
-            }
         }
-        }
+
        
     }
 
@@ -391,6 +361,7 @@ VOID ReorderBBLs(RTN rtn)
         return;
     RTN_Open(rtn);
     ADDRINT curr_rtn_address = RTN_Address(rtn);
+
     for(std::map<ADDRINT,BBL_info>::iterator itr = BBL_map.begin(); itr!= BBL_map.end();itr++)
     {
         if (itr->second.rtn_address  == curr_rtn_address)
@@ -398,6 +369,8 @@ VOID ReorderBBLs(RTN rtn)
             rtn_bbls_order[curr_rtn_address].push_back(itr->second);
         }
     }
+
+    
 
 
     
@@ -519,14 +492,6 @@ VOID Fini(INT32 code, VOID *v)
     }
 
 
-
-    for(std::vector<RTN>::iterator iter = RTNList.begin(); iter != RTNList.end(); iter++;)
-    {
-            ReorderBBLs(*iter);
-    }
-
-    
-
     //add inline candidate invokation number to original count
     for (Invoker inv_entry: final_candidates)
     {
@@ -538,26 +503,25 @@ VOID Fini(INT32 code, VOID *v)
                 continue;
             }
         }
-        if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
+        if(RTN_map.find(inv_entry.invoker_rtn_address) != RTN_map.end())
         {
-              RTN_map[inv_entry.invoker_rtn_address].num_inst+= RTN_map[inv_entry.target_addr].num_inst;
-              RTN_map[inv_entry.invoker_rtn_address].num_inst+= RTN_map[inv_entry.target_addr].num_inst;
+              RTN_map[inv_entry.invoker_rtn_address].num_inst += RTN_map[inv_entry.target_addr].num_inst/inv_entry.num_invokes;
+              RTN_map[inv_entry.target_addr].num_inst -= RTN_map[inv_entry.target_addr].num_inst/inv_entry.num_invokes;
         }
        
     }
 
-
+    // reorder RTN's for translation
     std::vector<RTN_reorder_info> rtn_vec;
     for(std::map<ADDRINT,RTN_reorder_info>::iterator itr3 = RTN_map.begin(); itr3!= RTN_map.end();itr3++)
     {
-        
-        rtn_vec.push_back(itr3->second);
+        if(std::find(non_valid_rtn.begin(), non_valid_rtn.end(), itr3->first) == non_valid_rtn.end() )
+            rtn_vec.push_back(itr3->second);
     }
     std::sort(rtn_vec.begin(), rtn_vec.end(), 
               [](const RTN_reorder_info rtn1, const RTN_reorder_info rtn2) { return rtn1.num_inst > rtn2.num_inst; });
-    
 
-
+    //print RTN for translation and RTN for inlining
     std::ofstream results("Count.csv");
     int vec_size = rtn_vec.size();
     results << vec_size;
@@ -579,6 +543,10 @@ VOID Fini(INT32 code, VOID *v)
     results << endl ;
 
     results.close();
+
+    
+
+
 
     std::vector<BBL_info> bbl_vec;
     for(std::map<ADDRINT,BBL_info>::iterator itr2 = BBL_map.begin(); itr2!= BBL_map.end();itr2++)
