@@ -99,6 +99,7 @@ std::map<ADDRINT,BBL_info> BBL_map;
 
 std::map<ADDRINT,std::vector<BBL_info>> rtn_bbls_order;
 
+std::map<RTN,bool> RTNList;
 
 const char* StripPath(const char* path)
 {
@@ -320,13 +321,25 @@ VOID profBranches(TRACE trc, VOID *v)
                 }
                 INS_InsertCall(inst, IPOINT_BEFORE, (AFUNPTR)BranchCount, IARG_BRANCH_TAKEN, IARG_PTR, &BBL_map[head], IARG_END);
             }
+            else if(INS_IsIndirectControlFlow(inst))
+            {
+                RTNList[RTN_FindByAddress(head)] =true;
+            }
         }
         }
        
     }
+
+
+VOID createRTNList(RTN rtn, VOID* v)
+{
+    if(!IMG_IsMainExecutable(IMG_FindByAddress(RTN_Address(rtn)))) 
+        return;
+    RTNList.push_back(rtn);
+}
  
 
-VOID ReorderBBLs(RTN rtn, VOID *v)
+VOID ReorderBBLs(RTN rtn)
 {
     if(!IMG_IsMainExecutable(IMG_FindByAddress(RTN_Address(rtn)))) 
         return;
@@ -339,6 +352,8 @@ VOID ReorderBBLs(RTN rtn, VOID *v)
             rtn_bbls_order[curr_rtn_address].push_back(itr->second);
         }
     }
+
+
     
     std::vector<BBL_info> temp_for_reorder;
     int pos =1;
@@ -363,6 +378,7 @@ VOID ReorderBBLs(RTN rtn, VOID *v)
         
         else if(itr2->branch_times_taken > itr2->branch_times_not_taken)
             {
+
                 itr3 = std::find(rtn_bbls_order[curr_rtn_address].begin(), rtn_bbls_order[curr_rtn_address].end(),
                  BBL_map[itr2->branch_target_address]);
             }
@@ -399,7 +415,6 @@ VOID ReorderBBLs(RTN rtn, VOID *v)
         pos++;
     }
     rtn_bbls_order[curr_rtn_address] = temp_for_reorder;
-    
     RTN_Close(rtn);
     
 }
@@ -484,6 +499,10 @@ VOID Fini(INT32 code, VOID *v)
     }
     resultsbranches.close();
 
+    for(std::vector<RTN>::iterator iter = RTNList.begin(); iter != RTNList.end(); iter++;)
+    {
+            ReorderBBLs(*iter);
+    }
 
     std::ofstream resultsRTNBBLOrder("RTNBBLOrder.csv"); 
     for(std::map<ADDRINT,std::vector<BBL_info>>::iterator itr_rtn = rtn_bbls_order.begin(); 
@@ -514,6 +533,7 @@ VOID Fini(INT32 code, VOID *v)
         resultsRTNBBLOrder << endl;
     }
     resultsbranches.close();
+    
 }
 
 /* ===================================================================== */
