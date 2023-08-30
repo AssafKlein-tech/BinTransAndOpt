@@ -397,7 +397,7 @@ int add_rsp(ADDRINT pc, ADDRINT inline_start)
 }
 
 
-int enter_jump_to_end_rtn(UINT target, ADDRINT pc, ADDRINT inline_start)
+int insert_jump(UINT target, ADDRINT pc, ADDRINT inline_start)
 {
 	xed_encoder_instruction_t inst;
 	xed_encoder_request_t enc_req;
@@ -516,7 +516,7 @@ int add_new_instr_entry(xed_decoded_inst_t *xedd, ADDRINT pc, unsigned int size,
 	return new_size;
 }
 
-int add_inline_function(UINT disp, ADDRINT rtn_addr, ADDRINT inline_start)
+int add_inline_function(UINT target, ADDRINT rtn_addr, ADDRINT inline_start)
 {
 	// Open the RTN.
 	RTN rtn = RTN_FindByAddress(rtn_addr);
@@ -554,7 +554,7 @@ int add_inline_function(UINT disp, ADDRINT rtn_addr, ADDRINT inline_start)
 			if( !INS_Valid(INS_Next(ins)))
 				break;
 			//cout << "fixing ret" << endl;
-			rc = enter_jump_to_end_rtn(disp,INS_Address(ins), inline_start);
+			rc = insert_jump(target,INS_Address(ins), inline_start);
 		}
 
 		// Add instr into instr map:
@@ -701,7 +701,9 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 	if (category_enum != XED_CATEGORY_CALL && category_enum != XED_CATEGORY_UNCOND_BR) {
 
 		cerr << "ERROR: Invalid direct jump from translated code to original code in rotuine: " 
-			  << RTN_Name(RTN_FindByAddress(instr_map[instr_map_entry].orig_ins_addr)) << endl;
+			  << RTN_Name(RTN_FindByAddress(instr_map[instr_map_entry].orig_ins_addr)) << "  " << instr_map[instr_map_entry].size  << "  " << std::hex << instr_map[instr_map_entry+1].new_ins_addr << endl;
+		cout << instr_map[instr_map_entry].orig_ins_addr << " " <<  std::hex << instr_map[instr_map_entry+1].orig_ins_addr << endl;
+		cout << instr_map[instr_map_entry].new_ins_addr << " " <<  std::hex << instr_map[instr_map_entry+1].new_ins_addr << endl;
 		dump_instr_map_entry(instr_map_entry);
 		return -1;
 	}
@@ -904,7 +906,8 @@ int fix_instructions_displacements()
 		}
 
 		for (int i=0; i < num_of_instr_map_entries; i++) {
-
+			if (instr_map[i].size == 0)
+				continue;
 			instr_map[i].new_ins_addr += size_diff;
 				   
 			int new_size = 0;
@@ -972,7 +975,7 @@ struct BBLdata
 	ADDRINT bbl_addr;
 	ADDRINT target_addr;
 	ADDRINT fallthrough_addr;
-	xed_iclass_enum_t type_of_branch;
+	ADDRINT last_addr;
 };
 
 std::map<ADDRINT,std::vector<BBLdata>> bbls;
@@ -1017,7 +1020,7 @@ std::vector<ADDRINT> get_top_rtn(IMG img)
 			top_addr.push_back(temp_adder);
 	}
 
-	// getting top function to inline
+	// getting top functions to inline
     while(std::getline(file, entry)){
         std::istringstream iss(entry);
 		Invoker_inst new_invoker;
@@ -1095,19 +1098,16 @@ void get_bbl_order(IMG img)
 		iss2 >>std::hex >> rtn_addr;
 
 		std::getline(file, entry);
-		std::istringstream iss(entry);
-
-        while (std::getline(iss, value, ','))
+		std::istringstream rtn_bbl_stream(entry);
+        while (std::getline(rtn_bbl_stream, value, ','))
         {
-			int count = 0;
+			int count = 1;
 			BBLdata bbl_data;
-			for (int i = 0; i <4; i++)
+			std::istringstream iss2(value);
+			iss2 >>std::hex >> bbl_data.bbl_addr;
+			while (std::getline(rtn_bbl_stream, value, ','))
 			{
 				std::istringstream iss2(value);
-				if(count == 0)
-				{ 
-					iss2 >>std::hex >> bbl_data.bbl_addr; 
-				}
 				if(count == 1)
 				{
 					iss2 >> std::hex >> bbl_data.target_addr; 
@@ -1118,23 +1118,245 @@ void get_bbl_order(IMG img)
 				}	
 				if(count  == 3)
 				{
-					int type;
-					iss2 >>  type;
-					bbl_data.type_of_branch = xed_iclass_enum_t(type);
-				}    
-				count++;
+					iss2 >>  std::hex >> bbl_data.last_addr;
+					bbls[rtn_addr].push_back(bbl_data);
+					break;
+				}  
+				count++;  
 			}
-        	bbls[rtn_addr].push_back(bbl_data);
         }
-
     }
 }
 
+void insert_instruction(INS ins)
+{
+	//debug print of orig instruction:
+	if (KnobVerbose) {
+		cerr << "old instr: ";
+		cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;			   			
+	}				
+
+	ADDRINT addr = INS_Address(ins);
+				
+	xed_decoded_inst_t xedd;
+	xed_error_enum_t xed_code;							
+	
+	xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
+
+	xed_code = xed_decode(&xedd, reinterpret_cast<UINT8*>(addr), max_inst_len);
+	if (xed_code != XED_ERROR_NONE) {
+		cerr << "ERROR: xed decode failed for instr at: " << "0x" << hex << addr << endl;
+		translated_rtn[translated_rtn_num].instr_map_entry = -1;
+		exit(1);
+	}
+
+	int rc = add_new_instr_entry(&xedd, INS_Address(ins), INS_Size(ins), -1);
+	if (rc < 0) {
+		cerr << "ERROR: failed during instructon translation." << endl;
+		translated_rtn[translated_rtn_num].instr_map_entry = -1;
+		exit(1);
+	}
+}
+	
+void revert_jump(INS ins, ADDRINT addr)
+{
+	xed_decoded_inst_t *xedd = INS_XedDec(ins);
+    xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
+
+	if (category_enum == XED_CATEGORY_UNCOND_BR) 
+	{
+		//remove jump
+		cout << "removing jump and inserting a dummy entry " << endl;
+		//need to add dummy entry for jumps to that address
+		instr_map[num_of_instr_map_entries].orig_ins_addr = INS_Address(ins);
+		instr_map[num_of_instr_map_entries].new_ins_addr = (ADDRINT)&tc[tc_cursor];  // set an initial estimated addr in tc
+		instr_map[num_of_instr_map_entries].orig_targ_addr = 0; 
+		instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
+		instr_map[num_of_instr_map_entries].targ_map_entry = -1;
+		instr_map[num_of_instr_map_entries].size = 0;	
+		instr_map[num_of_instr_map_entries].inline_start_addr = -1;
+		num_of_instr_map_entries++;
+		return;
+	}
+	if(category_enum == XED_CATEGORY_COND_BR)
+	{
+		xed_iclass_enum_t iclass_enum = xed_decoded_inst_get_iclass(xedd);
+
+  		if (iclass_enum == XED_ICLASS_JRCXZ)
+			insert_instruction(ins);    // do not revert JRCXZ
+
+		xed_iclass_enum_t 	retverted_iclass;
+
+		switch (iclass_enum) {
+
+			case XED_ICLASS_JB:
+				retverted_iclass = XED_ICLASS_JNB;		
+				break;
+
+			case XED_ICLASS_JBE:
+				retverted_iclass = XED_ICLASS_JNBE;
+				break;
+
+			case XED_ICLASS_JL:
+				retverted_iclass = XED_ICLASS_JNL;
+				break;
+		
+			case XED_ICLASS_JLE:
+				retverted_iclass = XED_ICLASS_JNLE;
+				break;
+
+			case XED_ICLASS_JNB: 
+			    retverted_iclass = XED_ICLASS_JB;
+				break;
+
+			case XED_ICLASS_JNBE: 
+				retverted_iclass = XED_ICLASS_JBE;
+				break;
+
+			case XED_ICLASS_JNL:
+			retverted_iclass = XED_ICLASS_JL;
+				break;
+
+			case XED_ICLASS_JNLE:
+				retverted_iclass = XED_ICLASS_JLE;
+				break;
+
+			case XED_ICLASS_JNO:
+				retverted_iclass = XED_ICLASS_JO;
+				break;
+
+			case XED_ICLASS_JNP: 
+				retverted_iclass = XED_ICLASS_JP;
+				break;
+
+			case XED_ICLASS_JNS: 
+				retverted_iclass = XED_ICLASS_JS;
+				break;
+
+			case XED_ICLASS_JNZ:
+				retverted_iclass = XED_ICLASS_JZ;
+				break;
+
+			case XED_ICLASS_JO:
+				retverted_iclass = XED_ICLASS_JNO;
+				break;
+
+			case XED_ICLASS_JP: 
+			    retverted_iclass = XED_ICLASS_JNP;
+				break;
+
+			case XED_ICLASS_JS: 
+				retverted_iclass = XED_ICLASS_JNS;
+				break;
+
+			case XED_ICLASS_JZ:
+				retverted_iclass = XED_ICLASS_JNZ;
+				break;
+	
+			default:
+				return;
+		}
+		// Converts the decoder request to a valid encoder request:
+		xed_encoder_request_init_from_decode (xedd);
+
+		// set the reverted opcode;
+		xed_encoder_request_set_iclass	(xedd, retverted_iclass);
+
+		unsigned int max_size = XED_MAX_INSTRUCTION_BYTES;
+		unsigned int new_size = 0;
+    
+		xed_error_enum_t xed_error = xed_encode (xedd, reinterpret_cast<UINT8*>(instr_map[num_of_instr_map_entries].encoded_ins), max_size, &new_size);
+		if (xed_error != XED_ERROR_NONE) {
+			cerr << "ENCODE ERROR: " << xed_error_enum_t2str(xed_error) <<  endl;
+			return;
+		}
+
+		xed_decoded_inst_t xedd;
+		xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
+		xed_decode(&xedd, reinterpret_cast<UINT8*>(instr_map[num_of_instr_map_entries].encoded_ins), max_inst_len);
+
+		instr_map[num_of_instr_map_entries].orig_ins_addr = INS_Address(ins);
+		instr_map[num_of_instr_map_entries].new_ins_addr = (ADDRINT)&tc[tc_cursor];  // set an initial estimated addr in tc
+		instr_map[num_of_instr_map_entries].orig_targ_addr = addr; 
+		instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
+		instr_map[num_of_instr_map_entries].targ_map_entry = -1;
+		instr_map[num_of_instr_map_entries].size = new_size;	
+		instr_map[num_of_instr_map_entries].category_enum = xed_decoded_inst_get_category(&xedd);
+		instr_map[num_of_instr_map_entries].inline_start_addr = -1;
+		num_of_instr_map_entries++;
+
+		// update expected size of tc:
+		tc_cursor += new_size;    	     
+
+		if (num_of_instr_map_entries >= max_ins_count) {
+			cerr << "out of memory for map_instr" << endl;
+			return;
+		}
+		
+		// debug print new encoded instr:
+		if (KnobVerbose) {
+			cerr << "    new instr:";
+			dump_instr_from_mem((ADDRINT *)instr_map[num_of_instr_map_entries-1].encoded_ins, instr_map[num_of_instr_map_entries-1].new_ins_addr);
+		}
+
+		if ( new_size <= 0){
+			cerr << "ERROR: failed during instructon translation." << endl;
+			translated_rtn[translated_rtn_num].instr_map_entry = -1;
+			exit(1);
+		}
+	}
+	else {
+		cerr << "entered revert with no jump" <<endl;
+	}
+}
 
 
 
 int RET_SIZE = 1;
 int CALL_SIZE = 5;
+
+
+USIZE inline_rtn(ADDRINT addr, Candidate& cand)
+{
+	int sub_size = sub_rsp(addr);
+	if (sub_size < 0) {
+		cerr << "ERROR: failed during instructon translation." << endl;
+		translated_rtn[translated_rtn_num].instr_map_entry = -1;
+		exit(1);
+	}
+
+	//calculate the last routine address - if it is a ret instruction we will jump to it. else we will jump to the address after (add rsp instrumentation)
+	RTN inline_rtn = RTN_FindByAddress(cand.called_function);
+	ADDRINT target= cand.called_function + RTN_Size(inline_rtn);
+	int is_ret =0;
+	RTN_Open(inline_rtn);
+	if(INS_IsRet(RTN_InsTail(RTN_FindByAddress(cand.called_function)))) {
+		is_ret=1;
+	}
+	RTN_Close(inline_rtn);
+	target-=is_ret;
+
+	// inline the routine (without the last ret instruction)
+	int inlined_size = add_inline_function(target, cand.called_function, addr);
+	if (inlined_size < 0) {
+		cerr << "ERROR: failed during instructon translation." << endl;
+		translated_rtn[translated_rtn_num].instr_map_entry = -1;
+		exit(1);
+	}
+	
+	//fix back stack pointer offset
+	int add_size = add_rsp(target,addr);
+	if (add_size < 0) {
+		cerr << "ERROR: failed during instructon translation." << endl;
+		translated_rtn[translated_rtn_num].instr_map_entry = -1;
+		exit(1);
+	}
+	return inlined_size + sub_size + add_size - CALL_SIZE;
+}
+
+
+
+
 
 /*****************************************/
 /* find_candidate_rtns_for_translation() */
@@ -1142,9 +1364,9 @@ int CALL_SIZE = 5;
 int find_candidate_rtns_for_translation(IMG img)
 {
     std::vector<ADDRINT> top_rtn = get_top_rtn(img);
-   
+	get_bbl_order(img);
 
-    int rc;
+	// iterate over all the rtns
 	// go over translated routine candidate and translate each:
 	for (ADDRINT rtn_addr:  top_rtn)
 
@@ -1164,105 +1386,104 @@ int find_candidate_rtns_for_translation(IMG img)
 
 		// Open the RTN.
 		RTN_Open( rtn );  
-
-		//sort the candidate of the routine
 		std::vector<Candidate> local_candidates = candidates[rtn_addr];
-		std::sort(local_candidates.begin(), local_candidates.end(), 
-			[](const Candidate cand1, const Candidate cand2) { return cand1.call_point < cand2.call_point; });
 
-		//need to change if we do reorder in the the outer routine
-		//create a routine candidates iterator (in the rtn order)
-		std::vector<Candidate>::iterator  iter_candidates = local_candidates.begin();
 
 		USIZE rtn_size = RTN_Size(rtn);
-		for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins)) {
-			
-			//debug print of orig instruction:
-			if (KnobVerbose) {
-				cerr << "old instr: ";
-				cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;			   			
-			}				
-
-			ADDRINT addr = INS_Address(ins);
-						
-			xed_decoded_inst_t xedd;
-			xed_error_enum_t xed_code;							
-			
-			xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
-
-			xed_code = xed_decode(&xedd, reinterpret_cast<UINT8*>(addr), max_inst_len);
-			if (xed_code != XED_ERROR_NONE) {
-				cerr << "ERROR: xed decode failed for instr at: " << "0x" << hex << addr << endl;
-				translated_rtn[translated_rtn_num].instr_map_entry = -1;
-				break;
-			}
-
-			//if this address is a call to inline candidate - start translating the inlined function instead
-			if (iter_candidates != local_candidates.end() && (*iter_candidates).call_point == addr)
+	//iterate over all the bbl in the rtn
+		std::vector<BBLdata> bbl_vec = bbls[rtn_addr];
+		cout << bbl_vec.size() << endl;
+		for (size_t i = 0; i < bbl_vec.size(); i ++)
+		{
+			BBLdata bbl_entry = bbl_vec[i];
+			//set the start instruction to the bbl start address
+			INS start_ins = RTN_InsHead(rtn);
+			for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
 			{
-				//cout << "Inlining addr " << std::hex <<  addr << endl;
-				RTN_Close(rtn);
-				//fix stack pointer offset
-				int sub_size = sub_rsp(addr);
-				if (sub_size < 0) {
-					cerr << "ERROR: failed during instructon translation." << endl;
-					translated_rtn[translated_rtn_num].instr_map_entry = -1;
-					break;
-				}
-
-				//calculate the last routine address - if it is a ret instruction we will jump to it. else we will jump to the address after (add rsp instrumentation)
-				RTN inline_rtn = RTN_FindByAddress((*iter_candidates).called_function);
-				ADDRINT target= (*iter_candidates).called_function + RTN_Size(inline_rtn);
-				int is_ret =0;
-				RTN_Open(inline_rtn);
-				if(INS_IsRet(RTN_InsTail(RTN_FindByAddress((*iter_candidates).called_function)))) {
-					is_ret=1;
-				}
-				RTN_Close(inline_rtn);
-				target-=is_ret;
-
-				// inline the routine (without the last ret instruction)
-				int inlined_size = add_inline_function(target, (*iter_candidates).called_function, addr);
-				if (inlined_size < 0) {
-					cerr << "ERROR: failed during instructon translation." << endl;
-					translated_rtn[translated_rtn_num].instr_map_entry = -1;
-					break;
-				}
-				
-				//fix back stack pointer offset
-				int add_size = add_rsp(target,addr);
-				if (add_size < 0) {
-					cerr << "ERROR: failed during instructon translation." << endl;
-					translated_rtn[translated_rtn_num].instr_map_entry = -1;
-					break;
-				}
-				rtn_size += inlined_size + sub_size + add_size - CALL_SIZE;
-				iter_candidates++;
-
-				// get back to the next instruction in the rtn
-				RTN_Open(rtn);
-				for (INS t_ins = RTN_InsHead(rtn); INS_Address(t_ins) != addr; t_ins = INS_Next(t_ins))
+				ADDRINT addr = INS_Address(ins);
+				if (addr != bbl_entry.bbl_addr)
+					continue;
+				start_ins = ins;
+			}
+			cout << std::hex << bbl_entry.bbl_addr  <<"  " <<INS_Address( start_ins) << endl;
+			INS last_ins = start_ins;
+			// insert all the body of the bbl until last instruction
+			for (INS ins = start_ins; INS_Valid(ins) && INS_Address(ins) <= bbl_entry.last_addr; ins = INS_Next(ins))
+			{
+				if(!INS_IsDirectControlFlow(ins))
 				{
-					ins = t_ins;
+					insert_instruction(ins);
 				}
-				ins = INS_Next(ins);
-				
+				else if (INS_Address(ins) == bbl_entry.last_addr){
+					last_ins = ins;
+				}
+				else{
+					cerr << "Branch instruction in the middle of a bbl " << std::hex << INS_Address(ins) << " in bbl: " << bbl_entry.bbl_addr << std::dec << endl;
+				}
 			}
-
-			//// Add instr into instr map:
-			else
+			// insert the new last instruction according to the reorder
+			ADDRINT addr = INS_Address(last_ins);
+			if(INS_IsCall(last_ins))
 			{
-				rc = add_new_instr_entry(&xedd, INS_Address(ins), INS_Size(ins), -1);
-				if (rc < 0) {
-					cerr << "ERROR: failed during instructon translation." << endl;
-					translated_rtn[translated_rtn_num].instr_map_entry = -1;
-					break;
+				for(Candidate cand: local_candidates)
+				{
+					if (cand.call_point == addr)
+					{
+						RTN_Close(rtn);
+						rtn_size += inline_rtn(addr, cand);
+						// get back to the next instruction in the rtn
+						RTN_Open(rtn);
+						break;
+					}
 				}
 			}
-			
-		} // end for INS...
+			int rc;
+			// if that is the last bbl
+			if( i == (bbl_vec.size() -1))
+			{
+				//if there is fallthrough address - add a jump to the fallthrough
+				if(INS_HasFallThrough(last_ins))
+				{
+					rc = insert_jump(bbl_entry.fallthrough_addr, INS_NextAddress(last_ins), -1);
+					if ( rc <= 0){
+						cerr << "ERROR: failed during instructon translation." << endl;
+						translated_rtn[translated_rtn_num].instr_map_entry = -1;
+						exit(1);
+					}
+				continue;
+				}
+			}
 
 
+			ADDRINT target_addr = bbl_entry.target_addr;
+			ADDRINT fallthrough_addr = bbl_entry.fallthrough_addr;
+			BBLdata next_bbl = bbl_vec[i+1];
+			// if the target is the next block revert the branch (earase it if it is an unconditional branch)
+			if(target_addr == next_bbl.bbl_addr)
+			{
+				cout << "in revert " << endl;
+				revert_jump(last_ins, fallthrough_addr);
+			// if the block ends with a jump to the next block. earase it
+			}
+			else //no need to revert the jump
+			{
+				//insert the original jump instruction
+				insert_instruction(last_ins);
+				cout << "inserted instruction" << endl;
+				// if the reorder moved the next block so jump there
+				if (fallthrough_addr != ADDRINT(-1) && fallthrough_addr !=  next_bbl.bbl_addr)
+				{
+					cout << "add jump to " << endl;
+					rc = insert_jump(bbl_entry.fallthrough_addr, -1, -1);
+					if ( rc <= 0){
+						cerr << "ERROR: failed during instructon translation." << endl;
+						translated_rtn[translated_rtn_num].instr_map_entry = -1;
+						exit(1);
+					}
+				}	
+			}
+		}
+		
 		// debug print of routine name:
 		if (KnobVerbose) {
 			cerr <<   "rtn name: " << RTN_Name(rtn) << " : " << dec << translated_rtn_num << endl;
@@ -1275,10 +1496,7 @@ int find_candidate_rtns_for_translation(IMG img)
 		translated_rtn_num++;
 
 	} // end for RTN..
-	//} // end for SEC...
-
-	
-
+		//} // end for SEC...
 	return 0;
 }
 
@@ -1293,14 +1511,14 @@ int copy_instrs_to_tc()
 
 	for (int i=0; i < num_of_instr_map_entries; i++) {
 
-	  if ((ADDRINT)&tc[cursor] != instr_map[i].new_ins_addr) {
-		  cerr << "ERROR: Non-matching instruction addresses: " << hex << (ADDRINT)&tc[cursor] << " vs. " << instr_map[i].new_ins_addr << endl;
-	      return -1;
-	  }	  
+	    if ((ADDRINT)&tc[cursor] != instr_map[i].new_ins_addr) {
+			cerr << "ERROR: Non-matching instruction addresses: " << hex << (ADDRINT)&tc[cursor] << " vs. " << instr_map[i].new_ins_addr << endl;
+			return -1;
+		}	  
+		if(instr_map[i].size > 0)
+			memcpy(&tc[cursor], &instr_map[i].encoded_ins, instr_map[i].size);
 
-	  memcpy(&tc[cursor], &instr_map[i].encoded_ins, instr_map[i].size);
-
-	  cursor += instr_map[i].size;
+		cursor += instr_map[i].size;
 	}
 
 	return 0;

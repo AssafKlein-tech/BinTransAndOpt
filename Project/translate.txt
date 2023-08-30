@@ -1,0 +1,1144 @@
+after memory allocation
+64
+40a468  40a468
+in revert 
+40a4ba  40a4ba
+in revert 
+40a4fa  40a4fa
+in revert 
+40a53a  40a53a
+in revert 
+40a57a  40a57a
+in revert 
+40a5ba  40a5ba
+in revert 
+40a5fa  40a5fa
+in revert 
+40a63a  40a63a
+in revert 
+40a67a  40a67a
+in revert 
+40a6ba  40a6ba
+in revert 
+40a6fa  40a6fa
+in revert 
+40a73a  40a73a
+in revert 
+40a77a  40a77a
+in revert 
+40a7c3  40a7c3
+in revert 
+40a807  40a807
+in revert 
+40a847  40a847
+in revert 
+40a88b  40a88b
+in revert 
+40a8cb  40a8cb
+in revert 
+40a90f  40a90f
+in revert 
+40a94f  40a94f
+in revert 
+40a993  40a993
+in revert 
+40a9d3  40a9d3
+in revert 
+40aa17  40aa17
+in revert 
+40aa57  40aa57
+in revert 
+40aa9b  40aa9b
+in revert 
+40aadb  40aadb
+in revert 
+40ab1f  40ab1f
+in revert 
+40ab5f  40ab5f
+in revert 
+40aba0  40aba0
+in revert 
+40abb6  40abb6
+in revert 
+40abc4  40abc4
+in revert 
+40a78b  40a78b
+inserted instruction
+add jump to 
+40a7f7  40a7f7
+in revert 
+removing jump and inserting a dummy entry 
+40abe6  40abe6
+inserted instruction
+40a87b  40a87b
+inserted instruction
+40a8ff  40a8ff
+inserted instruction
+40a4ab  40a4ab
+inserted instruction
+40a983  40a983
+inserted instruction
+40a4eb  40a4eb
+inserted instruction
+40a5ab  40a5ab
+inserted instruction
+40a5eb  40a5eb
+inserted instruction
+40aa07  40aa07
+inserted instruction
+40a62b  40a62b
+inserted instruction
+40a52b  40a52b
+inserted instruction
+40ab93  40ab93
+inserted instruction
+40aa8b  40aa8b
+inserted instruction
+40a56b  40a56b
+inserted instruction
+40ab0f  40ab0f
+inserted instruction
+40a66b  40a66b
+inserted instruction
+40a6ab  40a6ab
+inserted instruction
+40a8bc  40a8bc
+inserted instruction
+40a838  40a838
+inserted instruction
+40a7b4  40a7b4
+inserted instruction
+40a6eb  40a6eb
+inserted instruction
+40a940  40a940
+inserted instruction
+40a72b  40a72b
+inserted instruction
+40a76b  40a76b
+inserted instruction
+40aacc  40aacc
+inserted instruction
+40aa48  40aa48
+inserted instruction
+40a9c4  40a9c4
+inserted instruction
+40ab50  40ab50
+inserted instruction
+40abbe  40abbe
+inserted instruction
+add jump to 
+40abb0  40abb0
+inserted instruction
+add jump to 
+40abe1  40abe1
+5c
+40b826  40b826
+in revert 
+40b883  40b883
+in revert 
+removing jump and inserting a dummy entry 
+40b8ad  40b8ad
+in revert 
+40b88c  40b88c
+inserted instruction
+40b8b3  40b8b3
+in revert 
+removing jump and inserting a dummy entry 
+40ba60  40ba60
+in revert 
+40b8d7  40b8d7
+inserted instruction
+40b9d0  40b9d0
+inserted instruction
+40ba6a  40ba6a
+in revert 
+removing jump and inserting a dummy entry 
+40bacc  40bacc
+in revert 
+40ba6c  40ba6c
+inserted instruction
+40bad2  40bad2
+in revert 
+removing jump and inserting a dummy entry 
+40bb2c  40bb2c
+in revert 
+40badb  40badb
+inserted instruction
+40bb32  40bb32
+in revert 
+40bb59  40bb59
+in revert 
+removing jump and inserting a dummy entry 
+40bbb9  40bbb9
+in revert 
+40bb62  40bb62
+inserted instruction
+40bbc2  40bbc2
+in revert 
+removing jump and inserting a dummy entry 
+40bdf5  40bdf5
+in revert 
+40bbe7  40bbe7
+inserted instruction
+40bcf6  40bcf6
+inserted instruction
+40bdff  40bdff
+in revert 
+removing jump and inserting a dummy entry 
+40be86  40be86
+in revert 
+40be04  40be04
+inserted instruction
+40be90  40be90
+in revert 
+removing jump and inserting a dummy entry 
+40beb9  40beb9
+in revert 
+40be99  40be99
+inserted instruction
+40bec2  40bec2
+in revert 
+40bec9  40bec9
+inserted instruction
+40bee1  40bee1
+in revert 
+removing jump and inserting a dummy entry 
+40c015  40c015
+in revert 
+40bf06  40bf06
+in revert 
+removing jump and inserting a dummy entry 
+40bf53  40bf53
+inserted instruction
+40bfff  40bfff
+in revert 
+removing jump and inserting a dummy entry 
+40c002  40c002
+inserted instruction
+add jump to 
+40bf1d  40bf1d
+in revert 
+40c001  40c001
+inserted instruction
+40c022  40c022
+inserted instruction
+40c02c  40c02c
+in revert 
+removing jump and inserting a dummy entry 
+40c627  40c627
+in revert 
+40c03f  40c03f
+in revert 
+removing jump and inserting a dummy entry 
+40c1c9  40c1c9
+in revert 
+40c05a  40c05a
+inserted instruction
+40c066  40c066
+in revert 
+40c18c  40c18c
+inserted instruction
+add jump to 
+40c09c  40c09c
+inserted instruction
+40c0f1  40c0f1
+in revert 
+40c131  40c131
+inserted instruction
+40c1c5  40c1c5
+inserted instruction
+40c1d6  40c1d6
+in revert 
+40c1f1  40c1f1
+in revert 
+removing jump and inserting a dummy entry 
+40c272  40c272
+in revert 
+40c1fa  40c1fa
+inserted instruction
+40c27f  40c27f
+in revert 
+removing jump and inserting a dummy entry 
+40c33f  40c33f
+inserted instruction
+40c354  40c354
+in revert 
+removing jump and inserting a dummy entry 
+40c41a  40c41a
+inserted instruction
+40c42f  40c42f
+in revert 
+40c481  40c481
+in revert 
+removing jump and inserting a dummy entry 
+40c4db  40c4db
+in revert 
+40c48a  40c48a
+inserted instruction
+40c4e4  40c4e4
+inserted instruction
+40c4fe  40c4fe
+in revert 
+removing jump and inserting a dummy entry 
+40c562  40c562
+inserted instruction
+40c577  40c577
+in revert 
+removing jump and inserting a dummy entry 
+40c5fb  40c5fb
+inserted instruction
+40c601  40c601
+in revert 
+40c623  40c623
+inserted instruction
+add jump to 
+40c582  40c582
+in revert 
+40c5f7  40c5f7
+inserted instruction
+add jump to 
+40c383  40c383
+in revert 
+40c3b1  40c3b1
+in revert 
+40c416  40c416
+inserted instruction
+add jump to 
+40c3d9  40c3d9
+inserted instruction
+add jump to 
+40c2a8  40c2a8
+in revert 
+40c2d6  40c2d6
+inserted instruction
+40c2fe  40c2fe
+inserted instruction
+add jump to 
+40c33b  40c33b
+inserted instruction
+add jump to 
+40c5d5  40c5d5
+inserted instruction
+add jump to 
+40c634  40c634
+in revert 
+40c66f  40c66f
+inserted instruction
+40c55e  40c55e
+inserted instruction
+add jump to 
+40c2cd  40c2cd
+inserted instruction
+add jump to 
+40c3a8  40c3a8
+inserted instruction
+add jump to 
+40b865  40b865
+inserted instruction
+40c1e7  40c1e7
+inserted instruction
+40c44e  40c44e
+inserted instruction
+add jump to 
+40c0fa  40c0fa
+inserted instruction
+40bb3b  40bb3b
+inserted instruction
+40c63d  40c63d
+inserted instruction
+40c619  40c619
+inserted instruction
+1
+40cb2c  40cb2c
+inserted instruction
+b9
+40ceee  40ceee
+in revert 
+40cf65  40cf65
+in revert 
+removing jump and inserting a dummy entry 
+40cfc6  40cfc6
+in revert 
+40cf7e  40cf7e
+in revert 
+removing jump and inserting a dummy entry 
+40cfba  40cfba
+in revert 
+40cf87  40cf87
+inserted instruction
+40cfc2  40cfc2
+inserted instruction
+40cfcc  40cfcc
+in revert 
+40cfe7  40cfe7
+in revert 
+40d004  40d004
+in revert 
+40d021  40d021
+in revert 
+40d03e  40d03e
+in revert 
+40d05b  40d05b
+in revert 
+removing jump and inserting a dummy entry 
+40d23c  40d23c
+in revert 
+40d084  40d084
+in revert 
+removing jump and inserting a dummy entry 
+40d0c2  40d0c2
+inserted instruction
+40d0ca  40d0ca
+in revert 
+40d0a4  40d0a4
+in revert 
+40d0d5  40d0d5
+in revert 
+40d129  40d129
+in revert 
+40d198  40d198
+in revert 
+removing jump and inserting a dummy entry 
+40d21d  40d21d
+in revert 
+40d1a1  40d1a1
+inserted instruction
+40d1a9  40d1a9
+in revert 
+40d1e6  40d1e6
+inserted instruction
+add jump to 
+40d1b1  40d1b1
+in revert 
+removing jump and inserting a dummy entry 
+40d219  40d219
+inserted instruction
+40d229  40d229
+inserted instruction
+add jump to 
+40d0dd  40d0dd
+inserted instruction
+40d0e5  40d0e5
+inserted instruction
+40d0eb  40d0eb
+inserted instruction
+add jump to 
+40d246  40d246
+inserted instruction
+40d10b  40d10b
+inserted instruction
+add jump to 
+4104df  4104df
+in revert 
+40d252  40d252
+in revert 
+removing jump and inserting a dummy entry 
+40d26f  40d26f
+in revert 
+40d25b  40d25b
+inserted instruction
+40d277  40d277
+in revert 
+removing jump and inserting a dummy entry 
+40d2c9  40d2c9
+in revert 
+40d280  40d280
+in revert 
+removing jump and inserting a dummy entry 
+40d2bd  40d2bd
+in revert 
+40d289  40d289
+inserted instruction
+40d2c5  40d2c5
+inserted instruction
+40d2d1  40d2d1
+inserted instruction
+40d2db  40d2db
+in revert 
+removing jump and inserting a dummy entry 
+40d3e4  40d3e4
+in revert 
+40d2e7  40d2e7
+inserted instruction
+40d3f0  40d3f0
+inserted instruction
+40d41b  40d41b
+in revert 
+40d449  40d449
+in revert 
+removing jump and inserting a dummy entry 
+40d465  40d465
+in revert 
+40d452  40d452
+inserted instruction
+40d46d  40d46d
+inserted instruction
+40d477  40d477
+inserted instruction
+40d48c  40d48c
+inserted instruction
+40d598  40d598
+inserted instruction
+40d6a9  40d6a9
+inserted instruction
+40d7b9  40d7b9
+inserted instruction
+40d8c9  40d8c9
+inserted instruction
+40d9d3  40d9d3
+inserted instruction
+40dae4  40dae4
+inserted instruction
+40dbf4  40dbf4
+inserted instruction
+40dd04  40dd04
+inserted instruction
+40de0e  40de0e
+inserted instruction
+40df1f  40df1f
+inserted instruction
+40e02f  40e02f
+inserted instruction
+40e13f  40e13f
+inserted instruction
+40e24d  40e24d
+inserted instruction
+40e35e  40e35e
+inserted instruction
+40e46e  40e46e
+inserted instruction
+40e579  40e579
+inserted instruction
+40e688  40e688
+inserted instruction
+40e799  40e799
+inserted instruction
+40e8a9  40e8a9
+inserted instruction
+40e9b5  40e9b5
+inserted instruction
+40eac7  40eac7
+inserted instruction
+40ebd5  40ebd5
+in revert 
+removing jump and inserting a dummy entry 
+40ecea  40ecea
+in revert 
+removing jump and inserting a dummy entry 
+40ed33  40ed33
+in revert 
+40ed01  40ed01
+in revert 
+40ed2f  40ed2f
+inserted instruction
+add jump to 
+40ed16  40ed16
+inserted instruction
+40ed3b  40ed3b
+inserted instruction
+40ed82  40ed82
+inserted instruction
+40ed97  40ed97
+inserted instruction
+40ee76  40ee76
+inserted instruction
+40ef73  40ef73
+inserted instruction
+40f06c  40f06c
+inserted instruction
+40f166  40f166
+inserted instruction
+40f261  40f261
+inserted instruction
+40f35d  40f35d
+inserted instruction
+40f457  40f457
+inserted instruction
+40f551  40f551
+inserted instruction
+40f64c  40f64c
+inserted instruction
+40f746  40f746
+inserted instruction
+40f841  40f841
+inserted instruction
+40f93b  40f93b
+inserted instruction
+40fa37  40fa37
+inserted instruction
+40fb30  40fb30
+inserted instruction
+40fc2f  40fc2f
+inserted instruction
+40fd25  40fd25
+inserted instruction
+40fe21  40fe21
+inserted instruction
+40ff1a  40ff1a
+inserted instruction
+410019  410019
+inserted instruction
+410112  410112
+inserted instruction
+41020b  41020b
+inserted instruction
+410305  410305
+in revert 
+removing jump and inserting a dummy entry 
+4103c2  4103c2
+in revert 
+removing jump and inserting a dummy entry 
+40d405  40d405
+in revert 
+4103d0  4103d0
+in revert 
+410468  410468
+in revert 
+removing jump and inserting a dummy entry 
+4104d3  4104d3
+in revert 
+410471  410471
+inserted instruction
+40d436  40d436
+inserted instruction
+40ec4e  40ec4e
+inserted instruction
+410343  410343
+inserted instruction
+40ecde  40ecde
+inserted instruction
+add jump to 
+4103ba  4103ba
+inserted instruction
+add jump to 
+40ec59  40ec59
+in revert 
+removing jump and inserting a dummy entry 
+40ecd2  40ecd2
+in revert 
+40ec7c  40ec7c
+inserted instruction
+40ecda  40ecda
+inserted instruction
+add jump to 
+41034b  41034b
+inserted instruction
+add jump to 
+40d13b  40d13b
+inserted instruction
+4104e9  4104e9
+in revert 
+4104f9  4104f9
+inserted instruction
+410502  410502
+in revert 
+410515  410515
+in revert 
+removing jump and inserting a dummy entry 
+410533  410533
+in revert 
+41051e  41051e
+inserted instruction
+41053b  41053b
+in revert 
+removing jump and inserting a dummy entry 
+4105dd  4105dd
+in revert 
+410547  410547
+in revert 
+removing jump and inserting a dummy entry 
+4105ab  4105ab
+inserted instruction
+4105b7  4105b7
+inserted instruction
+add jump to 
+41057a  41057a
+inserted instruction
+add jump to 
+4105e9  4105e9
+in revert 
+removing jump and inserting a dummy entry 
+41077f  41077f
+in revert 
+4105f5  4105f5
+in revert 
+removing jump and inserting a dummy entry 
+4106eb  4106eb
+in revert 
+41060f  41060f
+in revert 
+41067b  41067b
+in revert 
+4106e7  4106e7
+inserted instruction
+add jump to 
+410646  410646
+inserted instruction
+add jump to 
+4106f7  4106f7
+inserted instruction
+add jump to 
+4106b2  4106b2
+inserted instruction
+add jump to 
+410707  410707
+in revert 
+410717  410717
+inserted instruction
+41078b  41078b
+in revert 
+removing jump and inserting a dummy entry 
+4107e7  4107e7
+in revert 
+410794  410794
+in revert 
+removing jump and inserting a dummy entry 
+4107dd  4107dd
+in revert 
+4107aa  4107aa
+in revert 
+4107d9  4107d9
+inserted instruction
+add jump to 
+4107cc  4107cc
+inserted instruction
+4107e3  4107e3
+inserted instruction
+4107ed  4107ed
+in revert 
+removing jump and inserting a dummy entry 
+41084f  41084f
+in revert 
+410806  410806
+in revert 
+410832  410832
+inserted instruction
+410817  410817
+inserted instruction
+4106fd  4106fd
+inserted instruction
+410855  410855
+in revert 
+removing jump and inserting a dummy entry 
+4108dc  4108dc
+in revert 
+41085e  41085e
+in revert 
+4108d8  4108d8
+inserted instruction
+add jump to 
+41086f  41086f
+in revert 
+removing jump and inserting a dummy entry 
+4108d2  4108d2
+in revert 
+410878  410878
+inserted instruction
+41089a  41089a
+inserted instruction
+4108b5  4108b5
+inserted instruction
+4108e6  4108e6
+in revert 
+410923  410923
+inserted instruction
+4108f8  4108f8
+inserted instruction
+4103e7  4103e7
+inserted instruction
+41070d  41070d
+inserted instruction
+40d018  40d018
+inserted instruction
+40d035  40d035
+inserted instruction
+41050b  41050b
+inserted instruction
+40cf28  40cf28
+inserted instruction
+4104ef  4104ef
+inserted instruction
+40cffb  40cffb
+inserted instruction
+40cfdd  40cfdd
+inserted instruction
+40d052  40d052
+inserted instruction
+4104db  4104db
+c
+405388  405388
+in revert 
+removing jump and inserting a dummy entry 
+4053e0  4053e0
+in revert 
+4053a3  4053a3
+inserted instruction
+4053ec  4053ec
+inserted instruction
+40540d  40540d
+inserted instruction
+405416  405416
+in revert 
+405530  405530
+inserted instruction
+40561b  40561b
+inserted instruction
+40544f  40544f
+in revert 
+removing jump and inserting a dummy entry 
+405626  405626
+inserted instruction
+4054aa  4054aa
+inserted instruction
+40541f  40541f
+inserted instruction
+9
+40c679  40c679
+in revert 
+40c6fd  40c6fd
+inserted instruction
+40c710  40c710
+in revert 
+40c732  40c732
+in revert 
+40c73f  40c73f
+inserted instruction
+40c714  40c714
+inserted instruction
+add jump to 
+40c6d3  40c6d3
+inserted instruction
+40c738  40c738
+inserted instruction
+40c72b  40c72b
+4
+40c94c  40c94c
+in revert 
+removing jump and inserting a dummy entry 
+40c9c1  40c9c1
+inserted instruction
+40c9d0  40c9d0
+inserted instruction
+40c95d  40c95d
+6
+405ac7  405ac7
+in revert 
+removing jump and inserting a dummy entry 
+405aea  405aea
+in revert 
+405b8c  405b8c
+inserted instruction
+405b9c  405b9c
+inserted instruction
+405afa  405afa
+inserted instruction
+405ae9  405ae9
+18
+405c64  405c64
+in revert 
+405c84  405c84
+in revert 
+405ca1  405ca1
+in revert 
+405cb8  405cb8
+in revert 
+405cf4  405cf4
+inserted instruction
+405cfa  405cfa
+inserted instruction
+405cc4  405cc4
+in revert 
+405cd3  405cd3
+inserted instruction
+405cdc  405cdc
+in revert 
+405dfc  405dfc
+in revert 
+405e0c  405e0c
+in revert 
+405e28  405e28
+inserted instruction
+405d20  405d20
+in revert 
+405d44  405d44
+inserted instruction
+405d4a  405d4a
+inserted instruction
+405cae  405cae
+inserted instruction
+405cc9  405cc9
+inserted instruction
+add jump to 
+405e21  405e21
+inserted instruction
+405d26  405d26
+inserted instruction
+405e8f  405e8f
+inserted instruction
+405c7a  405c7a
+inserted instruction
+405e02  405e02
+inserted instruction
+405c97  405c97
+inserted instruction
+405ce5  405ce5
+inserted instruction
+1
+4016ce  4016ce
+inserted instruction
+4
+404f65  404f65
+in revert 
+removing jump and inserting a dummy entry 
+404fba  404fba
+in revert 
+404fa5  404fa5
+inserted instruction
+404fc3  404fc3
+d
+41216d  41216d
+inserted instruction
+41218d  41218d
+inserted instruction
+4121ec  4121ec
+in revert 
+41224a  41224a
+inserted instruction
+4121f7  4121f7
+inserted instruction
+412206  412206
+inserted instruction
+412256  412256
+in revert 
+4122de  4122de
+inserted instruction
+4122ed  4122ed
+inserted instruction
+412281  412281
+inserted instruction
+4123b3  4123b3
+in revert 
+412479  412479
+inserted instruction
+4123bd  4123bd
+inserted instruction
+1
+40ca9a  40ca9a
+inserted instruction
+1
+40ca25  40ca25
+inserted instruction
+7
+408127  408127
+in revert 
+408184  408184
+in revert 
+4081c2  4081c2
+inserted instruction
+408155  408155
+inserted instruction
+add jump to 
+408193  408193
+inserted instruction
+add jump to 
+40815c  40815c
+inserted instruction
+add jump to 
+40819a  40819a
+1f
+402b73  402b73
+in revert 
+402bab  402bab
+inserted instruction
+402bba  402bba
+in revert 
+402beb  402beb
+inserted instruction
+402b96  402b96
+inserted instruction
+add jump to 
+402bbf  402bbf
+inserted instruction
+add jump to 
+402ba1  402ba1
+inserted instruction
+402c77  402c77
+inserted instruction
+402c82  402c82
+inserted instruction
+402ccf  402ccf
+inserted instruction
+402cda  402cda
+inserted instruction
+402d30  402d30
+in revert 
+removing jump and inserting a dummy entry 
+402daa  402daa
+in revert 
+402d39  402d39
+inserted instruction
+402db0  402db0
+in revert 
+402dc6  402dc6
+inserted instruction
+402dbb  402dbb
+in revert 
+402e20  402e20
+inserted instruction
+402e2b  402e2b
+in revert 
+402e83  402e83
+inserted instruction
+402e8e  402e8e
+inserted instruction
+402ee7  402ee7
+inserted instruction
+402ef2  402ef2
+in revert 
+402f5c  402f5c
+inserted instruction
+402f67  402f67
+inserted instruction
+402efd  402efd
+inserted instruction
+402f71  402f71
+inserted instruction
+402f80  402f80
+in revert 
+403110  403110
+inserted instruction
+402e36  402e36
+inserted instruction
+402f89  402f89
+6
+403eb0  403eb0
+inserted instruction
+403ec7  403ec7
+inserted instruction
+403f09  403f09
+in revert 
+removing jump and inserting a dummy entry 
+403f1f  403f1f
+in revert 
+403f13  403f13
+inserted instruction
+403f2c  403f2c
+inserted instruction
+1
+402a83  402a83
+inserted instruction
+1
+4027f1  4027f1
+inserted instruction
+1
+403e4f  403e4f
+inserted instruction
+d
+407bfa  407bfa
+inserted instruction
+407c23  407c23
+in revert 
+407c42  407c42
+inserted instruction
+407c49  407c49
+inserted instruction
+407c4f  407c4f
+inserted instruction
+407c55  407c55
+inserted instruction
+407c5b  407c5b
+inserted instruction
+407c64  407c64
+inserted instruction
+407c6a  407c6a
+in revert 
+407ca0  407ca0
+inserted instruction
+407c34  407c34
+in revert 
+407c70  407c70
+inserted instruction
+407c77  407c77
+4
+40c8ce  40c8ce
+in revert 
+removing jump and inserting a dummy entry 
+40c93c  40c93c
+in revert 
+40c8d8  40c8d8
+inserted instruction
+40c94a  40c94a
+1
+404f13  404f13
+inserted instruction
+4
+404ffc  404ffc
+in revert 
+405024  405024
+inserted instruction
+405012  405012
+inserted instruction
+40501d  40501d
+inserted instruction
+3
+404f40  404f40
+inserted instruction
+404f57  404f57
+inserted instruction
+404f63  404f63
+1
+402875  402875
+inserted instruction
+1
+403e7d  403e7d
+inserted instruction
+1
+4029f0  4029f0
+inserted instruction
+1
+403f51  403f51
+inserted instruction
+1
+4028ba  4028ba
+inserted instruction
+1
+404fdc  404fdc
+3
+405628  405628
+inserted instruction
+405642  405642
+inserted instruction
+40564e  40564e
+inserted instruction
+1
+4029c3  4029c3
+inserted instruction
+2
+401390  401390
+inserted instruction
+4013b5  4013b5
+1
+401310  401310
+inserted instruction
+1
+40c8a8  40c8a8
+2
+401360  401360
+inserted instruction
+401375  401375
+1
+402a74  402a74
+1
+404f08  404f08
+1
+401038  401038
+inserted instruction
+1
+401038  401038
+inserted instruction
+after identifying candidate routines
+after calculate direct br targets
+ERROR: Invalid direct jump from translated code to original code in rotuine: mainSort  2  7fcd254b6f7a
+40c45c ffffffffffffffff
+7fcd254b70cb 7fcd254b6f7a
+2174:  orig_ins_addr: 40c45c new_ins_addr: 7fcd254b70cb orig_targ_addr: 40c477 new_targ_addr: 40c477    new instr:0x7fcd254b70cb: jnz 0x7fcd254b70e6
