@@ -1405,7 +1405,7 @@ int find_candidate_rtns_for_translation(IMG img)
 					continue;
 				start_ins = ins;
 			}
-			cout << std::hex << bbl_entry.bbl_addr  <<"  " <<INS_Address( start_ins) << endl;
+			cout << std::hex << bbl_entry.bbl_addr << endl;
 			INS last_ins = start_ins;
 			// insert all the body of the bbl until last instruction
 			for (INS ins = start_ins; INS_Valid(ins) && INS_Address(ins) <= bbl_entry.last_addr; ins = INS_Next(ins))

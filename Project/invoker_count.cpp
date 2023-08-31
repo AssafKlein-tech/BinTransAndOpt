@@ -403,6 +403,11 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
     {
         //take out
         heap_element top = heap.front();
+        if (curr_rtn_address == 4241446)
+        {
+            cout << std::hex << top.bbl_addr  << "target address:" << BBL_map[top.bbl_addr].branch_target_address<< "  , and fallback address:" << BBL_map[top.bbl_addr].fallthrough_address << endl;
+
+        }
         std::pop_heap(heap.begin(),heap.end());
         heap.pop_back();
         if(BBL_map[top.bbl_addr].visited)
