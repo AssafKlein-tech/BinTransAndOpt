@@ -1,0 +1,363 @@
+
+bzip2: Control-C or similar caught, quitting.
+bzip2: Deleting output file ./input-long.txt.bz2, if it exists.
+Warning: invalid routine 
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+Warning: invalid routine 
+40b826 target address:40b883, 13 , and fallback address:40b865, 0
+40b883 target address:40b8ad, 13 , and fallback address:ffffffffffffffff, 0
+40b8ad target address:40b88c, 13 , and fallback address:40b8b3, 0
+40b88c target address:40b88c, 130000 , and fallback address:40b8b3, 13
+40b88c target address:40b88c, 130000 , and fallback address:40b8b3, 13
+visited
+40b8b3 target address:40ba60, 13 , and fallback address:ffffffffffffffff, 0
+40ba60 target address:40b8d7, 13 , and fallback address:40ba6a, 0
+40b8d7 target address:ffffffffffffffff, 0 , and fallback address:40b9d0, 413ada
+40b9d0 target address:40b8d7, 413ac7 , and fallback address:40ba6a, 13
+40b8d7 target address:ffffffffffffffff, 0 , and fallback address:40b9d0, 413ada
+visited
+40ba6a target address:40bacc, 13 , and fallback address:ffffffffffffffff, 0
+40bacc target address:40ba6c, 12 , and fallback address:40bad2, 1
+40ba6c target address:40ba6c, 5 , and fallback address:40bad2, 12
+40bad2 target address:40bb2c, 13 , and fallback address:ffffffffffffffff, 0
+40bb2c target address:40badb, 13 , and fallback address:40bb32, 0
+40badb target address:40badb, 273 , and fallback address:40bb32, 13
+40badb target address:40badb, 273 , and fallback address:40bb32, 13
+visited
+40bb32 target address:40bb59, 13 , and fallback address:40bb3b, 0
+40bb59 target address:40bbb9, 13 , and fallback address:ffffffffffffffff, 0
+40bbb9 target address:40bb62, 13 , and fallback address:40bbc2, 0
+40bb62 target address:40bb62, 12ffed , and fallback address:40bbc2, 13
+40bb62 target address:40bb62, 12ffed , and fallback address:40bbc2, 13
+visited
+40bbc2 target address:40bdf5, 13 , and fallback address:ffffffffffffffff, 0
+40bdf5 target address:40bbe7, 13 , and fallback address:40bdff, 0
+40bbe7 target address:ffffffffffffffff, 0 , and fallback address:40bcf6, 413ada
+40bcf6 target address:40bbe7, 413ac7 , and fallback address:40bdff, 13
+40bbe7 target address:ffffffffffffffff, 0 , and fallback address:40bcf6, 413ada
+visited
+40bdff target address:40be86, 13 , and fallback address:ffffffffffffffff, 0
+40be86 target address:40be04, 12 , and fallback address:40be90, 1
+40be04 target address:40be04, 5 , and fallback address:40be90, 12
+40be90 target address:40beb9, 13 , and fallback address:ffffffffffffffff, 0
+40beb9 target address:40be99, 13 , and fallback address:40bec2, 0
+40be99 target address:40be99, 12ed , and fallback address:40bec2, 13
+40be99 target address:40be99, 12ed , and fallback address:40bec2, 13
+visited
+40bec2 target address:40bec9, 13 , and fallback address:40bee1, 0
+40bec9 target address:40bec9, 39 , and fallback address:40bee1, 13
+40bec9 target address:40bec9, 39 , and fallback address:40bee1, 13
+visited
+40bee1 target address:40c015, 5f , and fallback address:ffffffffffffffff, 0
+40c015 target address:40bf06, 5f , and fallback address:40c022, 0
+40bf06 target address:40bf53, 51b7 , and fallback address:ffffffffffffffff, 0
+40bf53 target address:40bf1d, 2b99 , and fallback address:40bfff, 4b2f
+40bfff target address:40c002, 4b2f , and fallback address:ffffffffffffffff, 0
+40c002 target address:40bf06, 4ad0 , and fallback address:40c022, 5f
+40bf06 target address:40bf53, 51b7 , and fallback address:ffffffffffffffff, 0
+visited
+40bf1d target address:40c001, 688 , and fallback address:40bf53, 2511
+40bf53 target address:40bf1d, 2b99 , and fallback address:40bfff, 4b2f
+visited
+40c001 target address:40bf06, 688 , and fallback address:40c022, 0
+40bf06 target address:40bf53, 51b7 , and fallback address:ffffffffffffffff, 0
+visited
+40c022 target address:40bee1, 4c , and fallback address:40c02c, 13
+40bee1 target address:40c015, 5f , and fallback address:ffffffffffffffff, 0
+visited
+40c02c target address:40c627, 13 , and fallback address:ffffffffffffffff, 0
+40c627 target address:40c03f, 13 , and fallback address:40c634, 0
+40c03f target address:40c1c9, 12b0 , and fallback address:ffffffffffffffff, 0
+40c1c9 target address:40c05a, 12b0 , and fallback address:40c1d6, 0
+40c05a target address:40c1c5, 12af , and fallback address:40c066, 129c72
+40c066 target address:40c18c, 9328b , and fallback address:40c09c, 969e7
+40c09c target address:40c18c, 9424b , and fallback address:40c0f1, 279c
+40c18c target address:40c05a, 1289d5 , and fallback address:40c1d6, 129c
+40c05a target address:40c1c5, 12af , and fallback address:40c066, 129c72
+visited
+40c18c target address:40c05a, 1289d5 , and fallback address:40c1d6, 129c
+visited
+40c0f1 target address:40c131, 279c , and fallback address:40c0fa, 0
+40c131 target address:40afb7, 279c , and fallback address:ffffffffffffffff, 0
+40c1c5 target address:40c05a, 129c , and fallback address:40c1d6, 13
+40c1d6 target address:40c1f1, 12af , and fallback address:40c1e7, 0
+40c1f1 target address:40c272, 12af , and fallback address:ffffffffffffffff, 0
+40c272 target address:40c1fa, 12af , and fallback address:40c27f, 0
+40c1fa target address:40c1fa, 129c51 , and fallback address:40c27f, 12af
+40c1fa target address:40c1fa, 129c51 , and fallback address:40c27f, 12af
+visited
+40c27f target address:40c33f, 12af , and fallback address:ffffffffffffffff, 0
+40c33f target address:40c2a8, 4bb , and fallback address:40c354, df4
+40c05a target address:40c1c5, 12af , and fallback address:40c066, 129c72
+visited
+40c354 target address:40c41a, 12af , and fallback address:ffffffffffffffff, 0
+40c41a target address:40c383, 514 , and fallback address:40c42f, d9b
+40c42f target address:40c481, 12af , and fallback address:40c44e, 0
+40c481 target address:40c4db, 12af , and fallback address:ffffffffffffffff, 0
+40c4db target address:40c48a, 12af , and fallback address:40c4e4, 0
+40c48a target address:40c48a, 129c51 , and fallback address:40c4e4, 12af
+40c48a target address:40c48a, 129c51 , and fallback address:40c4e4, 12af
+visited
+40c4e4 target address:40c623, 12 , and fallback address:40c4fe, 129d
+40c4fe target address:40c562, 129d , and fallback address:ffffffffffffffff, 0
+40c562 target address:40c55e, 12 , and fallback address:40c577, 128b
+40c577 target address:40c5fb, 129d , and fallback address:ffffffffffffffff, 0
+40c5fb target address:40c582, 638 , and fallback address:40c601, c65
+40c601 target address:40c623, 129d , and fallback address:40c619, 0
+40c623 target address:40c03f, 129d , and fallback address:40c634, 12
+40c03f target address:40c1c9, 12b0 , and fallback address:ffffffffffffffff, 0
+visited
+40c582 target address:40c5f7, befcd4 , and fallback address:40c5d5, 1db
+40c5f7 target address:40c582, bef69d , and fallback address:40c601, 637
+40c582 target address:40c5f7, befcd4 , and fallback address:40c5d5, 1db
+visited
+40c601 target address:40c623, 129d , and fallback address:40c619, 0
+visited
+40c383 target address:40c3b1, 760756 , and fallback address:40c3a8, 5
+40c3b1 target address:40c416, 3d23c2 , and fallback address:40c3d9, 38e394
+40c416 target address:40c383, 3d22b5 , and fallback address:40c42f, 10f
+40c383 target address:40c3b1, 760756 , and fallback address:40c3a8, 5
+visited
+40c3d9 target address:40c383, 38df92 , and fallback address:40c42f, 405
+40c383 target address:40c3b1, 760756 , and fallback address:40c3a8, 5
+visited
+40c2a8 target address:40c2d6, 812ad9 , and fallback address:40c2cd, d
+40c2d6 target address:40c33b, 2ebba8 , and fallback address:40c2fe, 526f31
+40c2fe target address:40c2a8, 526bb2 , and fallback address:40c354, 389
+40c2a8 target address:40c2d6, 812ad9 , and fallback address:40c2cd, d
+visited
+40c33b target address:40c2a8, 2eba79 , and fallback address:40c354, 132
+40c2a8 target address:40c2d6, 812ad9 , and fallback address:40c2cd, d
+visited
+40c42f target address:40c481, 12af , and fallback address:40c44e, 0
+visited
+40c354 target address:40c41a, 12af , and fallback address:ffffffffffffffff, 0
+visited
+40c5d5 target address:40c582, 1da , and fallback address:40c601, 1
+40c582 target address:40c5f7, befcd4 , and fallback address:40c5d5, 1db
+visited
+40c354 target address:40c41a, 12af , and fallback address:ffffffffffffffff, 0
+visited
+40c42f target address:40c481, 12af , and fallback address:40c44e, 0
+visited
+40c1d6 target address:40c1f1, 12af , and fallback address:40c1e7, 0
+visited
+40c55e target address:40c55e, 0 , and fallback address:40c577, 12
+40c623 target address:40c03f, 129d , and fallback address:40c634, 12
+visited
+40c634 target address:40c66f, 12 , and fallback address:40c63d, 0
+40c577 target address:40c5fb, 129d , and fallback address:ffffffffffffffff, 0
+visited
+40c66f target address:ffffffffffffffff, 12 , and fallback address:ffffffffffffffff, 0
+40c2cd target address:40c33b, 3 , and fallback address:40c2fe, a
+40c2fe target address:40c2a8, 526bb2 , and fallback address:40c354, 389
+visited
+40ba6c target address:40ba6c, 5 , and fallback address:40bad2, 12
+visited
+40be04 target address:40be04, 5 , and fallback address:40be90, 12
+visited
+40c3a8 target address:40c416, 2 , and fallback address:40c3d9, 3
+40c33b target address:40c2a8, 2eba79 , and fallback address:40c354, 132
+visited
+40c3d9 target address:40c383, 38df92 , and fallback address:40c42f, 405
+visited
+40c416 target address:40c383, 3d22b5 , and fallback address:40c42f, 10f
+visited
+40c601 target address:40c623, 129d , and fallback address:40c619, 0
+visited
+40bad2 target address:40bb2c, 13 , and fallback address:ffffffffffffffff, 0
+visited
+40be90 target address:40beb9, 13 , and fallback address:ffffffffffffffff, 0
+visited
+40c1d6 target address:40c1f1, 12af , and fallback address:40c1e7, 0
+visited
+40c63d target address:4011f0, 0 , and fallback address:ffffffffffffffff, 0
+40c44e target address:40c477, 0 , and fallback address:40c45e, 0
+40bb3b target address:4012d0, 0 , and fallback address:ffffffffffffffff, 0
+40bbc2 target address:40bdf5, 13 , and fallback address:ffffffffffffffff, 0
+visited
+40c1e7 target address:404ea8, 0 , and fallback address:ffffffffffffffff, 0
+40bec2 target address:40bec9, 13 , and fallback address:40bee1, 0
+visited
+40ba6a target address:40bacc, 13 , and fallback address:ffffffffffffffff, 0
+visited
+40c0fa target address:4011f0, 0 , and fallback address:ffffffffffffffff, 0
+40c634 target address:40c66f, 12 , and fallback address:40c63d, 0
+visited
+40c619 target address:404ea8, 0 , and fallback address:ffffffffffffffff, 0
+40bee1 target address:40c015, 5f , and fallback address:ffffffffffffffff, 0
+visited
+40c4e4 target address:40c623, 12 , and fallback address:40c4fe, 129d
+visited
+40bb32 target address:40bb59, 13 , and fallback address:40bb3b, 0
+visited
+40c27f target address:40c33f, 12af , and fallback address:ffffffffffffffff, 0
+visited
+40b865 target address:4012d0, 0 , and fallback address:ffffffffffffffff, 0
+40bdff target address:40be86, 13 , and fallback address:ffffffffffffffff, 0
+visited
+40c022 target address:40bee1, 4c , and fallback address:40c02c, 13
+visited
+40c022 target address:40bee1, 4c , and fallback address:40c02c, 13
+visited
+40b8b3 target address:40ba60, 13 , and fallback address:ffffffffffffffff, 0
+visited
+40c55e target address:40c55e, 0 , and fallback address:40c577, 12
+visited
+Warning: invalid routine 
+Warning: invalid routine 
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+visited
+visited
+visited
+visited
+Warning: invalid routine 
+Warning: invalid routine 
+visited
+visited
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+visited
+Warning: invalid routine 
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited
+visited

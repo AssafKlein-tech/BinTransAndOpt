@@ -1410,12 +1410,15 @@ int find_candidate_rtns_for_translation(IMG img)
 			// insert all the body of the bbl until last instruction
 			for (INS ins = start_ins; INS_Valid(ins) && INS_Address(ins) <= bbl_entry.last_addr; ins = INS_Next(ins))
 			{
-				if(!INS_IsDirectControlFlow(ins))
+				if (bbl_entry.last_addr != 0 && INS_Address(ins) == bbl_entry.last_addr){
+					last_ins = ins;
+				}
+				else if (bbl_entry.last_addr == 0  && INS_NextAddress(ins) == bbl_entry.fallthrough_addr){
+					last_ins = ins;
+				}
+				else if(!INS_IsDirectControlFlow(ins))
 				{
 					insert_instruction(ins);
-				}
-				else if (INS_Address(ins) == bbl_entry.last_addr){
-					last_ins = ins;
 				}
 				else{
 					cerr << "Branch instruction in the middle of a bbl " << std::hex << INS_Address(ins) << " in bbl: " << bbl_entry.bbl_addr << std::dec << endl;
@@ -1423,6 +1426,12 @@ int find_candidate_rtns_for_translation(IMG img)
 			}
 			// insert the new last instruction according to the reorder
 			ADDRINT addr = INS_Address(last_ins);
+			if(!INS_IsDirectControlFlow(last_ins))
+			{
+				insert_instruction(last_ins);
+				continue;
+			}
+			int rc;
 			if(INS_IsCall(last_ins))
 			{
 				for(Candidate cand: local_candidates)
@@ -1433,11 +1442,19 @@ int find_candidate_rtns_for_translation(IMG img)
 						rtn_size += inline_rtn(addr, cand);
 						// get back to the next instruction in the rtn
 						RTN_Open(rtn);
+						if( i == (bbl_vec.size() -1))
+						{
+							rc = insert_jump(bbl_entry.fallthrough_addr, INS_NextAddress(last_ins), -1);
+							if ( rc <= 0){
+								cerr << "ERROR: failed during instructon translation." << endl;
+								translated_rtn[translated_rtn_num].instr_map_entry = -1;
+								exit(1);
+							}
+						}
 						break;
 					}
 				}
 			}
-			int rc;
 			// if that is the last bbl
 			if( i == (bbl_vec.size() -1))
 			{
