@@ -1462,6 +1462,8 @@ int find_candidate_rtns_for_translation(IMG img)
 			// if that is the last bbl
 			if( i == (bbl_vec.size() -1))
 			{
+				cout<<"address is :" << INS_Address(last_ins)<< endl << endl << endl;
+				insert_instruction(last_ins);
 				//if there is fallthrough address - add a jump to the fallthrough
 				if(INS_HasFallThrough(last_ins))
 				{
@@ -1471,7 +1473,7 @@ int find_candidate_rtns_for_translation(IMG img)
 						translated_rtn[translated_rtn_num].instr_map_entry = -1;
 						exit(1);
 					}
-				continue;
+					continue;
 				}
 			}
 

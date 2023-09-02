@@ -348,7 +348,7 @@ VOID profBranches(TRACE trc, VOID *v)
                 ADDRINT rtn_addr =RTN_Address(RTN_FindByAddress(head));
                 ADDRINT last_addr = INS_Address(last_ins);
                 ADDRINT fallthrough ;
-                if(INS_HasFallThrough(last_ins))
+                if(INS_HasFallThrough(last_ins) || INS_IsCall(last_ins))
                     fallthrough = INS_NextAddress(last_ins);
                 else
                     fallthrough = -1;
@@ -426,7 +426,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
 
 
         heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
-        if( BBL_map[top.bbl_addr].branch_times_not_taken == 0)
+        if( BBL_map[top.bbl_addr].branch_times_not_taken == 0 && !BBL_map[top.bbl_addr].is_call)
         {
             BBL_map[top.bbl_addr].fallthrough_address = -1;
         }
@@ -440,6 +440,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
       
         if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
+
            fallthrough.in_degree =top.in_degree;
         }
         // if (BBL_map[top.bbl_addr].is_call) //|| BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
