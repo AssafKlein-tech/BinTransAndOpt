@@ -1490,7 +1490,7 @@ int find_candidate_rtns_for_translation(IMG img)
 			}
 			else //no need to revert the jump
 			{
-				if(target_addr == ADDRINT(-1))	
+				if(target_addr == ADDRINT(-1) && !INS_IsRet(last_ins))	
 				{
 					insert_dummy(last_ins); // ????
 				}
