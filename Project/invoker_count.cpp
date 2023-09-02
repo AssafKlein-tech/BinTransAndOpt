@@ -45,6 +45,7 @@ END_LEGAL */
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <queue>
 using std::cout;
 using std::endl;
 using std::cerr;
@@ -82,6 +83,7 @@ public:
     bool is_call; //ret or uncond jmp
     int position;
     bool visited;
+    bool dead_code;
     bool operator==(const BBL_info& other) const {
         return BBL_head_address == other.BBL_head_address;
     }
@@ -358,7 +360,7 @@ VOID profBranches(TRACE trc, VOID *v)
                     target_addr =-1;
                 }
                 bool is_call = (type_info == XED_ICLASS_CALL_NEAR );
-                BBL_info BBL_inst = {bbl,rtn_addr,head,last_addr,fallthrough,target_addr,type_info,0,0,is_call,-1,false};
+                BBL_info BBL_inst = {bbl,rtn_addr,head,last_addr,fallthrough,target_addr,type_info,0,0,is_call,-1,false,false};
                 BBL_map[head] = BBL_inst;
             }
             INS_InsertCall(last_ins, IPOINT_BEFORE, (AFUNPTR)BranchCount, IARG_BRANCH_TAKEN, IARG_PTR, &BBL_map[head], IARG_END);
@@ -373,11 +375,11 @@ class heap_element
     ADDRINT bbl_addr;
     UINT64 in_degree;
     bool operator<(const heap_element& other) const {
-        return in_degree < other.in_degree;
+        return in_degree <= other.in_degree;
     }
 };
  
-
+    
 VOID ReorderBBLs(ADDRINT curr_rtn_address)
 {
     std::vector<BBL_info> rtn_bbls;
@@ -389,49 +391,70 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         }
     }
     
-    std::vector<heap_element> heap;
-    //cout<< "0x" << std::hex << curr_rtn_address <<endl;
+    std::priority_queue<heap_element> heap;    //cout<< "0x" << std::hex << curr_rtn_address <<endl;
     if(rtn_bbls.empty()) return;
     heap_element first = {rtn_bbls.begin()->BBL_head_address, 0};
     
-    std::make_heap(heap.begin(),heap.end(), [](const heap_element el1, const heap_element el2) { return el1.in_degree > el2.in_degree; });
-    heap.push_back(first);
-    std::push_heap(heap.begin(),heap.end());
-    
+    //std::make_heap(heap.begin(),heap.end(), [](const heap_element el1, const heap_element el2) { return el1.in_degree > el2.in_degree; });
+    heap.push(first);
+    //std::push_heap(heap.begin(),heap.end());
 
     while (!heap.empty())
     {
         //take out
-        heap_element top = heap.front();
+        heap_element top = heap.top();
         if (curr_rtn_address == 4241446)
         {
-            cout << std::hex << top.bbl_addr  << "target address:" << BBL_map[top.bbl_addr].branch_target_address<< "  , and fallback address:" << BBL_map[top.bbl_addr].fallthrough_address << endl;
-
+                    cout << std::hex << top.bbl_addr  << " target address:" << BBL_map[top.bbl_addr].branch_target_address<< ", " 
+                    << BBL_map[top.bbl_addr].branch_times_taken << " , and fallback address:" 
+                    << BBL_map[top.bbl_addr].fallthrough_address << ", " << BBL_map[top.bbl_addr].branch_times_not_taken << endl;
         }
-        std::pop_heap(heap.begin(),heap.end());
-        heap.pop_back();
+        //std::pop_heap(heap.begin(),heap.end());
+        heap.pop();
         if(BBL_map[top.bbl_addr].visited)
+        {
+            cout<< "been here" << endl;
             continue;
+        }
+
+        heap_element target = {BBL_map[top.bbl_addr].branch_target_address, BBL_map[top.bbl_addr].branch_times_taken};
+        if(BBL_map[top.bbl_addr].branch_times_taken == 0)
+        {
+            BBL_map[top.bbl_addr].branch_target_address =-1;
+            
+        }
+
+
+        heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
+        if( BBL_map[top.bbl_addr].branch_times_not_taken == 0)
+        {
+            BBL_map[top.bbl_addr].fallthrough_address = -1;
+        }
+
+            
         //insert final vector
         rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
         //make visited
         BBL_map[top.bbl_addr].visited = true;
         //insert children
-        heap_element target = {BBL_map[top.bbl_addr].branch_target_address, BBL_map[top.bbl_addr].branch_times_taken};
-        heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
-        if (BBL_map[top.bbl_addr].is_call)
+      
+        if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
-           fallthrough.in_degree = BBL_map[top.bbl_addr].branch_times_taken;
+           fallthrough.in_degree =top.in_degree;
         }
-        if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address)
+        // if (BBL_map[top.bbl_addr].is_call) //|| BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
+        // {
+        //    fallthrough.in_degree = BBL_map[top.bbl_addr].branch_times_taken;
+        // }
+        if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address  && BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1))
         {
-            heap.push_back(target);
-            std::push_heap(heap.begin(),heap.end());
+            heap.push(target);
+            //std::push_heap(heap.begin(),heap.end());
         }
-        if(BBL_map[fallthrough.bbl_addr].rtn_address == curr_rtn_address)
+        if(BBL_map[fallthrough.bbl_addr].rtn_address == curr_rtn_address && BBL_map[top.bbl_addr].fallthrough_address != ADDRINT(-1))
         {
-            heap.push_back(fallthrough);
-            std::push_heap(heap.begin(),heap.end());
+            heap.push(fallthrough);
+            //std::push_heap(heap.begin(),heap.end());
         }       
     }
 }
