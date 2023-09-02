@@ -1,3 +1,11 @@
 Pin: pin-3.25-98650-8f6168173
 Copyright 2002-2022 Intel Corporation.
-E:  Unable to resolve tool path.obj-intel64/project.so. Check tools path and tool extension.
+ [tid:61991] Pausing for 20 seconds to attach to process with pid 61991
+To load the debug info to gdb use:
+*****************************************************************
+set sysroot /not/existing/dir
+file
+add-symbol-file /home/yuval/Project/BinTransAndOpt-1/Project/obj-intel64/project.so 0x7f3eed16c3b0 -s .data 0x7f3eed2f59c0 -s .bss 0x7f3eed2f63c0
+*****************************************************************
+
+ [tid:61991] Resuming

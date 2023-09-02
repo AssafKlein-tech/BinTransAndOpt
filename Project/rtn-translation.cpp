@@ -906,10 +906,11 @@ int fix_instructions_displacements()
 		}
 
 		for (int i=0; i < num_of_instr_map_entries; i++) {
-			if (instr_map[i].size == 0)
-				continue;
+			
 			instr_map[i].new_ins_addr += size_diff;
-				   
+			if (instr_map[i].size == 0)
+
+				continue;	   
 			int new_size = 0;
 
 			// fix rip displacement:			
@@ -1157,13 +1158,33 @@ void insert_instruction(INS ins)
 		exit(1);
 	}
 }
+void insert_dummy(INS ins)
+{
+	xed_decoded_inst_t *xedd = INS_XedDec(ins);
+    xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
+
+	if (category_enum == XED_CATEGORY_UNCOND_BR) 
+	{
+		//remove jump
+		cout << "removing jump and inserting a dummy entry " << endl;
+		//need to add dummy entry for jumps to that address
+		instr_map[num_of_instr_map_entries].orig_ins_addr = INS_Address(ins);
+		instr_map[num_of_instr_map_entries].new_ins_addr = (ADDRINT)&tc[tc_cursor];  // set an initial estimated addr in tc
+		instr_map[num_of_instr_map_entries].orig_targ_addr = 0; 
+		instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
+		instr_map[num_of_instr_map_entries].targ_map_entry = -1;
+		instr_map[num_of_instr_map_entries].size = 0;	
+		instr_map[num_of_instr_map_entries].inline_start_addr = -1;
+		num_of_instr_map_entries++;
+	}
+}
 	
 void revert_jump(INS ins, ADDRINT addr)
 {
 	xed_decoded_inst_t *xedd = INS_XedDec(ins);
     xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
 
-	if (category_enum == XED_CATEGORY_UNCOND_BR) 
+	if (category_enum == XED_CATEGORY_UNCOND_BR || addr == ADDRINT(-1)) 
 	{
 		//remove jump
 		cout << "removing jump and inserting a dummy entry " << endl;
@@ -1479,13 +1500,23 @@ int find_candidate_rtns_for_translation(IMG img)
 			if(target_addr == next_bbl.bbl_addr)
 			{
 				cout << "in revert " << endl;
+
 				revert_jump(last_ins, fallthrough_addr);
+				
 			// if the block ends with a jump to the next block. earase it
 			}
 			else //no need to revert the jump
 			{
+				if(target_addr == ADDRINT(-1) && !INS_IsRet(last_ins))	
+				{
+					insert_dummy(last_ins); // ????
+				}
 				//insert the original jump instruction
-				insert_instruction(last_ins);
+				else
+				{
+					insert_instruction(last_ins);
+				}
+				
 				cout << "inserted instruction" << endl;
 				// if the reorder moved the next block so jump there
 				if (fallthrough_addr != ADDRINT(-1) && fallthrough_addr !=  next_bbl.bbl_addr)
@@ -1497,7 +1528,8 @@ int find_candidate_rtns_for_translation(IMG img)
 						translated_rtn[translated_rtn_num].instr_map_entry = -1;
 						exit(1);
 					}
-				}	
+				}
+				
 			}
 		}
 		
