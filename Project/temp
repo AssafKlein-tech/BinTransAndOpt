@@ -1,0 +1,293 @@
+after memory allocation
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+removing jump and inserting a dummy entry 
+after identifying candidate routines
+after calculate direct br targets
+after fix instructions displacements
+after write all new instructions to memory tc
+committing rtN: sendMTFValues from: 0x40ceee to: 0x7f53e5b05000
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40ceee replacement routine addr: 0x7f53e5b05000
+0x40ceee: jmp qword ptr [rip+0x1010c]
+committing rtN: add_pair_to_block from: 0x405388 to: 0x7f53e5b0a2ad
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x405388 replacement routine addr: 0x7f53e5b0a2ad
+0x405388: jmp qword ptr [rip+0x17c7a]
+committing rtN: BZ2_blockSort from: 0x40c679 to: 0x7f53e5b0a55f
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40c679 replacement routine addr: 0x7f53e5b0a55f
+0x40c679: jmp qword ptr [rip+0x10991]
+committing rtN: bsW from: 0x40c94c to: 0x7f53e5b0a6c9
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40c94c replacement routine addr: 0x7f53e5b0a6c9
+0x40c94c: jmp qword ptr [rip+0x106c6]
+committing rtN: handle_compress from: 0x405ac7 to: 0x7f53e5b0a7bc
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x405ac7 replacement routine addr: 0x7f53e5b0a7bc
+0x405ac7: jmp qword ptr [rip+0x17553]
+committing rtN: BZ2_bzCompress from: 0x405c64 to: 0x7f53e5b0a947
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x405c64 replacement routine addr: 0x7f53e5b0a947
+0x405c64: jmp qword ptr [rip+0x173be]
+committing rtN: compressStream from: 0x4016ce to: 0x7f53e5b0aa55
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x4016ce replacement routine addr: 0x7f53e5b0aa55
+0x4016ce: jmp qword ptr [rip+0x1b95c]
+committing rtN: prepare_new_block from: 0x404f65 to: 0x7f53e5b0ac54
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x404f65 replacement routine addr: 0x7f53e5b0ac54
+0x404f65: jmp qword ptr [rip+0x180cd]
+committing rtN: BZ2_compressBlock from: 0x41216d to: 0x7f53e5b0acd4
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x41216d replacement routine addr: 0x7f53e5b0acd4
+0x41216d: jmp qword ptr [rip+0xaecd]
+committing rtN: bsPutUChar from: 0x40ca9a to: 0x7f53e5b0af97
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40ca9a replacement routine addr: 0x7f53e5b0af97
+0x40ca9a: jmp qword ptr [rip+0x105a8]
+committing rtN: bsPutUInt32 from: 0x40ca25 to: 0x7f53e5b0afbf
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40ca25 replacement routine addr: 0x7f53e5b0afbf
+0x40ca25: jmp qword ptr [rip+0x10625]
+committing rtN: BZ2_bzWriteClose64 from: 0x408127 to: 0x7f53e5b0b034
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x408127 replacement routine addr: 0x7f53e5b0b034
+0x408127: jmp qword ptr [rip+0x14f2b]
+committing rtN: compress from: 0x402b73 to: 0x7f53e5b0b2a0
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402b73 replacement routine addr: 0x7f53e5b0b2a0
+0x402b73: jmp qword ptr [rip+0x1a4e7]
+committing rtN: snocString from: 0x403eb0 to: 0x7f53e5b0b4db
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x403eb0 replacement routine addr: 0x7f53e5b0b4db
+0x403eb0: jmp qword ptr [rip+0x191b2]
+committing rtN: hasSuffix from: 0x402a83 to: 0x7f53e5b0b59b
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402a83 replacement routine addr: 0x7f53e5b0b59b
+0x402a83: jmp qword ptr [rip+0x1a5e7]
+committing rtN: copyFileName from: 0x4027f1 to: 0x7f53e5b0b5ff
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x4027f1 replacement routine addr: 0x7f53e5b0b5ff
+0x4027f1: jmp qword ptr [rip+0x1a881]
+committing rtN: myMalloc from: 0x403e4f to: 0x7f53e5b0b64a
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x403e4f replacement routine addr: 0x7f53e5b0b64a
+0x403e4f: jmp qword ptr [rip+0x1a1ab]
+committing rtN: BZ2_bzWriteOpen from: 0x407bfa to: 0x7f53e5b0b672
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x407bfa replacement routine addr: 0x7f53e5b0b672
+0x407bfa: jmp qword ptr [rip+0x16408]
+committing rtN: bsFinishWrite from: 0x40c8ce to: 0x7f53e5b0b7af
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40c8ce replacement routine addr: 0x7f53e5b0b7af
+0x40c8ce: jmp qword ptr [rip+0x1173c]
+committing rtN: default_bzalloc from: 0x404f13 to: 0x7f53e5b0b83b
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x404f13 replacement routine addr: 0x7f53e5b0b83b
+0x404f13: jmp qword ptr [rip+0x190ff]
+committing rtN: isempty_RL from: 0x404ffc to: 0x7f53e5b0b869
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x404ffc replacement routine addr: 0x7f53e5b0b869
+0x404ffc: jmp qword ptr [rip+0x1901e]
+committing rtN: default_bzfree from: 0x404f40 to: 0x7f53e5b0b884
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x404f40 replacement routine addr: 0x7f53e5b0b884
+0x404f40: jmp qword ptr [rip+0x190e2]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0b8a8
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0b8a8
+0x402875: jmp qword ptr [rip+0x1b7b5]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0b8ed
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0b8ed
+0x402875: jmp qword ptr [rip+0x1b7bd]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0b932
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0b932
+0x402875: jmp qword ptr [rip+0x1b7c5]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0b977
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0b977
+0x402875: jmp qword ptr [rip+0x1b7cd]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0b9bc
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0b9bc
+0x402875: jmp qword ptr [rip+0x1b7d5]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0ba01
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0ba01
+0x402875: jmp qword ptr [rip+0x1b7dd]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0ba46
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0ba46
+0x402875: jmp qword ptr [rip+0x1b7e5]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0ba8b
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0ba8b
+0x402875: jmp qword ptr [rip+0x1b7ed]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bad0
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bad0
+0x402875: jmp qword ptr [rip+0x1b7f5]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bb15
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bb15
+0x402875: jmp qword ptr [rip+0x1b7fd]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bb5a
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bb5a
+0x402875: jmp qword ptr [rip+0x1c785]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bb9f
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bb9f
+0x402875: jmp qword ptr [rip+0x1c78d]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bbe4
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bbe4
+0x402875: jmp qword ptr [rip+0x1c795]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bc29
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bc29
+0x402875: jmp qword ptr [rip+0x1c79d]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bc6e
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bc6e
+0x402875: jmp qword ptr [rip+0x1c7a5]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bcb3
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bcb3
+0x402875: jmp qword ptr [rip+0x1c7ad]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bcf8
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bcf8
+0x402875: jmp qword ptr [rip+0x1c7b5]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bd3d
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bd3d
+0x402875: jmp qword ptr [rip+0x1c7bd]
+committing rtN: fileExists from: 0x402875 to: 0x7f53e5b0bd82
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402875 replacement routine addr: 0x7f53e5b0bd82
+0x402875: jmp qword ptr [rip+0x1c7c5]
+after commit translated routines

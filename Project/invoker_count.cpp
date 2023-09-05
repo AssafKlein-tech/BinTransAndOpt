@@ -343,16 +343,12 @@ VOID profBranches(TRACE trc, VOID *v)
         {
             if(BBL_map.find(head) == BBL_map.end())
             {
-                if (head == 4244574)
-                {
-                    cout << "no bugs found" << endl;
-                }
                 xed_decoded_inst_t *xedd = INS_XedDec(last_ins);
                 xed_iclass_enum_t type_info = xed_decoded_inst_get_iclass(xedd);
                 ADDRINT rtn_addr =RTN_Address(RTN_FindByAddress(head));
                 ADDRINT last_addr = INS_Address(last_ins);
-                ADDRINT fallthrough ;
-                if(INS_HasFallThrough(last_ins))
+                ADDRINT fallthrough;
+                if(INS_HasFallThrough(last_ins) || INS_IsCall(last_ins))
                     fallthrough = INS_NextAddress(last_ins);
                 else
                     fallthrough = -1;
@@ -410,6 +406,8 @@ void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
             BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_taken = -1;
             //target address = -1 
             BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_target_address = -1;
+
+            BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_not_taken = -1;
         }
     }
 }
@@ -429,7 +427,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
     
     std::priority_queue<heap_element> heap;    //cout<< "0x" << std::hex << curr_rtn_address <<endl;
     if(rtn_bbls.empty()) return;
-    eliminate_overlapping_bbls(rtn_bbls);
+    //eliminate_overlapping_bbls(rtn_bbls);
     heap_element first = {rtn_bbls.begin()->BBL_head_address, 0};
     
     heap.push(first);
@@ -444,7 +442,6 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         heap.pop();
         if(BBL_map[top.bbl_addr].visited)
         {
-            cout<< "been here" << endl;
             continue;
         }
 
@@ -457,7 +454,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
 
 
         heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
-        if( BBL_map[top.bbl_addr].branch_times_not_taken == 0)
+        if( BBL_map[top.bbl_addr].branch_times_not_taken == 0 && !BBL_map[top.bbl_addr].is_call)
         {
             BBL_map[top.bbl_addr].fallthrough_address = -1;
         }
@@ -471,12 +468,9 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
       
         if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
-           fallthrough.in_degree =top.in_degree;
+           fallthrough.in_degree = top.in_degree;
         }
-        // if (BBL_map[top.bbl_addr].is_call) //|| BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
-        // {
-        //    fallthrough.in_degree = BBL_map[top.bbl_addr].branch_times_taken;
-        // }
+        
         if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address  && BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1))
         {
             heap.push(target);

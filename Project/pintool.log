@@ -1,8 +1,3 @@
 Pin: pin-3.25-98650-8f6168173
 Copyright 2002-2022 Intel Corporation.
-<<<<<<< HEAD
-A:  /tmp_proj/pinjen/workspace/pypl-pin-nightly/GitPin/Source/pin/pin/image.cpp: RTN_Name: 3068: assertion failed: RTN_Valid(x)
-
-=======
-NFE:  [tid:49542] unknown option "-tc_dump"
->>>>>>> 661654de0c58ae4ce91db2e995daa7d8ec149b1c
+NFE:  [tid:7876] unknown option "-tc_no_commit"
