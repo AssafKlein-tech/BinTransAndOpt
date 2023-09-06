@@ -1,0 +1,1315 @@
+after memory allocation
+old instr: 0x401310: xor ebp, ebp
+    new instr:0x7f589de3a000: xor ebp, ebp
+old instr: 0x401312: mov r9, rdx
+    new instr:0x7f589de3a002: mov r9, rdx
+old instr: 0x401315: pop rsi
+    new instr:0x7f589de3a005: pop rsi
+old instr: 0x401316: mov rdx, rsp
+    new instr:0x7f589de3a006: mov rdx, rsp
+old instr: 0x401319: and rsp, 0xfffffffffffffff0
+    new instr:0x7f589de3a009: and rsp, 0xfffffffffffffff0
+old instr: 0x40131d: push rax
+    new instr:0x7f589de3a00d: push rax
+old instr: 0x40131e: push rsp
+    new instr:0x7f589de3a00e: push rsp
+old instr: 0x40131f: mov r8, 0x418570
+    new instr:0x7f589de3a00f: mov r8, 0x418570
+old instr: 0x401326: mov rcx, 0x418580
+    new instr:0x7f589de3a016: mov rcx, 0x418580
+old instr: 0x40132d: mov rdi, 0x4040af
+    new instr:0x7f589de3a01d: mov rdi, 0x4040af
+old instr: 0x401334: call 0x4011b0
+    new instr:0x7f589de3a024: call 0x7f589de39ea0
+old instr: 0x401339: hlt
+    new instr:0x7f589de3a029: hlt
+old instr: 0x40133a: nop
+    new instr:0x7f589de3a02a: nop
+old instr: 0x40133b: nop
+    new instr:0x7f589de3a02b: nop
+rtn name: _start : 0
+old instr: 0x418610: mov rdx, rsi
+    new instr:0x7f589de3a02c: mov rdx, rsi
+old instr: 0x418613: mov rsi, rdi
+    new instr:0x7f589de3a02f: mov rsi, rdi
+old instr: 0x418616: mov edi, 0x1
+    new instr:0x7f589de3a032: mov edi, 0x1
+old instr: 0x41861b: jmp 0x401210
+    new instr:0x7f589de3a037: jmp 0x7f589de22c2c
+rtn name: stat : 1
+old instr: 0x404ea8: push rbp
+    new instr:0x7f589de3a03c: push rbp
+old instr: 0x404ea9: mov rbp, rsp
+    new instr:0x7f589de3a03d: mov rbp, rsp
+old instr: 0x404eac: sub rsp, 0x10
+    new instr:0x7f589de3a040: sub rsp, 0x10
+old instr: 0x404eb0: mov dword ptr [rbp-0x4], edi
+    new instr:0x7f589de3a044: mov dword ptr [rbp-0x4], edi
+old instr: 0x404eb3: call 0x408f13
+    new instr:0x7f589de3a047: call 0x7f589de3e0a7
+old instr: 0x404eb8: mov rcx, rax
+    new instr:0x7f589de3a04c: mov rcx, rax
+old instr: 0x404ebb: mov rax, qword ptr [rip+0x2183ee]
+    new instr:0x7f589de3a04f: mov rax, qword ptr [rip+0x2183ee]
+old instr: 0x404ec2: mov edx, dword ptr [rbp-0x4]
+    new instr:0x7f589de3a056: mov edx, dword ptr [rbp-0x4]
+old instr: 0x404ec5: mov esi, 0x41a410
+    new instr:0x7f589de3a059: mov esi, 0x41a410
+old instr: 0x404eca: mov rdi, rax
+    new instr:0x7f589de3a05e: mov rdi, rax
+old instr: 0x404ecd: mov eax, 0x0
+    new instr:0x7f589de3a061: mov eax, 0x0
+old instr: 0x404ed2: call 0x4011f0
+    new instr:0x7f589de3a066: call 0x7f589de36384
+old instr: 0x404ed7: cmp dword ptr [rbp-0x4], 0x3ef
+    new instr:0x7f589de3a06b: cmp dword ptr [rbp-0x4], 0x3ef
+old instr: 0x404ede: jnz 0x404efe
+    new instr:0x7f589de3a072: jnz 0x7f589de3a092
+old instr: 0x404ee0: mov rax, qword ptr [rip+0x2183c9]
+    new instr:0x7f589de3a074: mov rax, qword ptr [rip+0x2183c9]
+old instr: 0x404ee7: mov rcx, rax
+    new instr:0x7f589de3a07b: mov rcx, rax
+old instr: 0x404eea: mov edx, 0x420
+    new instr:0x7f589de3a07e: mov edx, 0x420
+old instr: 0x404eef: mov esi, 0x1
+    new instr:0x7f589de3a083: mov esi, 0x1
+old instr: 0x404ef4: mov edi, 0x41a5d0
+    new instr:0x7f589de3a088: mov edi, 0x41a5d0
+old instr: 0x404ef9: call 0x4012d0
+    new instr:0x7f589de3a08d: call 0x7f589de36464
+old instr: 0x404efe: mov edi, 0x3
+    new instr:0x7f589de3a092: mov edi, 0x3
+old instr: 0x404f03: call 0x4012c0
+    new instr:0x7f589de3a097: call 0x7f589de36454
+rtn name: BZ2_bz__AssertH__fail : 2
+old instr: 0x40274b: push rbp
+    new instr:0x7f589de3a09c: push rbp
+old instr: 0x40274c: mov rbp, rsp
+    new instr:0x7f589de3a09d: mov rbp, rsp
+old instr: 0x40274f: mov rax, qword ptr [rip+0x21ab5a]
+    new instr:0x7f589de3a0a0: mov rax, qword ptr [rip+0x21ab5a]
+old instr: 0x402756: mov rcx, rax
+    new instr:0x7f589de3a0a7: mov rcx, rax
+old instr: 0x402759: mov edx, 0xeb
+    new instr:0x7f589de3a0aa: mov edx, 0xeb
+old instr: 0x40275e: mov esi, 0x1
+    new instr:0x7f589de3a0af: mov esi, 0x1
+old instr: 0x402763: mov edi, 0x419430
+    new instr:0x7f589de3a0b4: mov edi, 0x419430
+old instr: 0x402768: call 0x4012d0
+    new instr:0x7f589de3a0b9: call 0x7f589de38c21
+old instr: 0x40276d: mov edi, 0x3
+    new instr:0x7f589de3a0be: mov edi, 0x3
+old instr: 0x402772: call 0x4022ea
+    new instr:0x7f589de3a0c3: call 0x7f589de39c3b
+old instr: 0x402777: mov eax, dword ptr [rip+0x21b437]
+    new instr:0x7f589de3a0c8: mov eax, dword ptr [rip+0x21b437]
+old instr: 0x40277d: mov edi, eax
+    new instr:0x7f589de3a0ce: mov edi, eax
+old instr: 0x40277f: call 0x4012c0
+    new instr:0x7f589de3a0d0: call 0x7f589de38c11
+rtn name: configError : 3
+old instr: 0x418620: mov rdx, rsi
+    new instr:0x7f589de3a0d5: mov rdx, rsi
+old instr: 0x418623: mov rsi, rdi
+    new instr:0x7f589de3a0d8: mov rsi, rdi
+old instr: 0x418626: mov edi, 0x1
+    new instr:0x7f589de3a0db: mov edi, 0x1
+old instr: 0x41862b: jmp 0x401160
+    new instr:0x7f589de3a0e0: jmp 0x7f589de22c15
+rtn name: lstat : 4
+old instr: 0x402718: push rbp
+    new instr:0x7f589de3a0e5: push rbp
+old instr: 0x402719: mov rbp, rsp
+    new instr:0x7f589de3a0e6: mov rbp, rsp
+old instr: 0x40271c: mov rdx, qword ptr [rip+0x21bcd5]
+    new instr:0x7f589de3a0e9: mov rdx, qword ptr [rip+0x21bcd5]
+old instr: 0x402723: mov rax, qword ptr [rip+0x21ab86]
+    new instr:0x7f589de3a0f0: mov rax, qword ptr [rip+0x21ab86]
+old instr: 0x40272a: mov esi, 0x419408
+    new instr:0x7f589de3a0f7: mov esi, 0x419408
+old instr: 0x40272f: mov rdi, rax
+    new instr:0x7f589de3a0fc: mov rdi, rax
+old instr: 0x402732: mov eax, 0x0
+    new instr:0x7f589de3a0ff: mov eax, 0x0
+old instr: 0x402737: call 0x4011f0
+    new instr:0x7f589de3a104: call 0x7f589de38bbd
+old instr: 0x40273c: call 0x402336
+    new instr:0x7f589de3a109: call 0x7f589de39d03
+old instr: 0x402741: mov edi, 0x1
+    new instr:0x7f589de3a10e: mov edi, 0x1
+old instr: 0x402746: call 0x40236a
+    new instr:0x7f589de3a113: call 0x7f589de39d37
+rtn name: outOfMemory : 5
+old instr: 0x402697: push rbp
+    new instr:0x7f589de3a118: push rbp
+old instr: 0x402698: mov rbp, rsp
+    new instr:0x7f589de3a119: mov rbp, rsp
+old instr: 0x40269b: sub rsp, 0x10
+    new instr:0x7f589de3a11c: sub rsp, 0x10
+old instr: 0x40269f: mov dword ptr [rbp-0x4], edi
+    new instr:0x7f589de3a120: mov dword ptr [rbp-0x4], edi
+old instr: 0x4026a2: mov eax, dword ptr [rip+0x21bd48]
+    new instr:0x7f589de3a123: mov eax, dword ptr [rip+0x21bd48]
+old instr: 0x4026a8: cmp eax, 0x1
+    new instr:0x7f589de3a129: cmp eax, 0x1
+old instr: 0x4026ab: jnz 0x4026cf
+    new instr:0x7f589de3a12c: jnz 0x7f589de3a150
+old instr: 0x4026ad: mov rdx, qword ptr [rip+0x21bd44]
+    new instr:0x7f589de3a12e: mov rdx, qword ptr [rip+0x21bd44]
+old instr: 0x4026b4: mov rax, qword ptr [rip+0x21abf5]
+    new instr:0x7f589de3a135: mov rax, qword ptr [rip+0x21abf5]
+old instr: 0x4026bb: mov esi, 0x418cb8
+    new instr:0x7f589de3a13c: mov esi, 0x418cb8
+old instr: 0x4026c0: mov rdi, rax
+    new instr:0x7f589de3a141: mov rdi, rax
+old instr: 0x4026c3: mov eax, 0x0
+    new instr:0x7f589de3a144: mov eax, 0x0
+old instr: 0x4026c8: call 0x4011f0
+    new instr:0x7f589de3a149: call 0x7f589de38c71
+old instr: 0x4026cd: jmp 0x4026ef
+    new instr:0x7f589de3a14e: jmp 0x7f589de3a170
+old instr: 0x4026cf: mov rdx, qword ptr [rip+0x21bd22]
+    new instr:0x7f589de3a150: mov rdx, qword ptr [rip+0x21bd22]
+old instr: 0x4026d6: mov rax, qword ptr [rip+0x21abd3]
+    new instr:0x7f589de3a157: mov rax, qword ptr [rip+0x21abd3]
+old instr: 0x4026dd: mov esi, 0x419020
+    new instr:0x7f589de3a15e: mov esi, 0x419020
+old instr: 0x4026e2: mov rdi, rax
+    new instr:0x7f589de3a163: mov rdi, rax
+old instr: 0x4026e5: mov eax, 0x0
+    new instr:0x7f589de3a166: mov eax, 0x0
+old instr: 0x4026ea: call 0x4011f0
+    new instr:0x7f589de3a16b: call 0x7f589de38c71
+old instr: 0x4026ef: call 0x402336
+    new instr:0x7f589de3a170: call 0x7f589de39db7
+old instr: 0x4026f4: mov eax, dword ptr [rip+0x21bcf6]
+    new instr:0x7f589de3a175: mov eax, dword ptr [rip+0x21bcf6]
+old instr: 0x4026fa: cmp eax, 0x1
+    new instr:0x7f589de3a17b: cmp eax, 0x1
+old instr: 0x4026fd: jnz 0x402709
+    new instr:0x7f589de3a17e: jnz 0x7f589de3a18a
+old instr: 0x4026ff: mov edi, 0x3
+    new instr:0x7f589de3a180: mov edi, 0x3
+old instr: 0x402704: call 0x40236a
+    new instr:0x7f589de3a185: call 0x7f589de39deb
+old instr: 0x402709: call 0x402307
+    new instr:0x7f589de3a18a: call 0x7f589de39d88
+old instr: 0x40270e: mov edi, 0x2
+    new instr:0x7f589de3a18f: mov edi, 0x2
+old instr: 0x402713: call 0x40236a
+    new instr:0x7f589de3a194: call 0x7f589de39deb
+rtn name: mySIGSEGVorSIGBUScatcher : 6
+old instr: 0x402662: push rbp
+    new instr:0x7f589de3a199: push rbp
+old instr: 0x402663: mov rbp, rsp
+    new instr:0x7f589de3a19a: mov rbp, rsp
+old instr: 0x402666: sub rsp, 0x10
+    new instr:0x7f589de3a19d: sub rsp, 0x10
+old instr: 0x40266a: mov dword ptr [rbp-0x4], edi
+    new instr:0x7f589de3a1a1: mov dword ptr [rbp-0x4], edi
+old instr: 0x40266d: mov rdx, qword ptr [rip+0x21bd84]
+    new instr:0x7f589de3a1a4: mov rdx, qword ptr [rip+0x21bd84]
+old instr: 0x402674: mov rax, qword ptr [rip+0x21ac35]
+    new instr:0x7f589de3a1ab: mov rax, qword ptr [rip+0x21ac35]
+old instr: 0x40267b: mov esi, 0x418c88
+    new instr:0x7f589de3a1b2: mov esi, 0x418c88
+old instr: 0x402680: mov rdi, rax
+    new instr:0x7f589de3a1b7: mov rdi, rax
+old instr: 0x402683: mov eax, 0x0
+    new instr:0x7f589de3a1ba: mov eax, 0x0
+old instr: 0x402688: call 0x4011f0
+    new instr:0x7f589de3a1bf: call 0x7f589de38d27
+old instr: 0x40268d: mov edi, 0x1
+    new instr:0x7f589de3a1c4: mov edi, 0x1
+old instr: 0x402692: call 0x40236a
+    new instr:0x7f589de3a1c9: call 0x7f589de39ea1
+rtn name: mySignalCatcher : 7
+old instr: 0x402620: push rbp
+    new instr:0x7f589de3a1ce: push rbp
+old instr: 0x402621: mov rbp, rsp
+    new instr:0x7f589de3a1cf: mov rbp, rsp
+old instr: 0x402624: mov rdx, qword ptr [rip+0x21bdcd]
+    new instr:0x7f589de3a1d2: mov rdx, qword ptr [rip+0x21bdcd]
+old instr: 0x40262b: mov rax, qword ptr [rip+0x21ac7e]
+    new instr:0x7f589de3a1d9: mov rax, qword ptr [rip+0x21ac7e]
+old instr: 0x402632: mov esi, 0x418c40
+    new instr:0x7f589de3a1e0: mov esi, 0x418c40
+old instr: 0x402637: mov rdi, rax
+    new instr:0x7f589de3a1e5: mov rdi, rax
+old instr: 0x40263a: mov eax, 0x0
+    new instr:0x7f589de3a1e8: mov eax, 0x0
+old instr: 0x40263f: call 0x4011f0
+    new instr:0x7f589de3a1ed: call 0x7f589de38d9e
+old instr: 0x402644: mov rax, qword ptr [rip+0x21bdad]
+    new instr:0x7f589de3a1f2: mov rax, qword ptr [rip+0x21bdad]
+old instr: 0x40264b: mov rdi, rax
+    new instr:0x7f589de3a1f9: mov rdi, rax
+old instr: 0x40264e: call 0x4012a0
+    new instr:0x7f589de3a1fc: call 0x7f589de38e4e
+old instr: 0x402653: call 0x402336
+    new instr:0x7f589de3a201: call 0x7f589de39ee4
+old instr: 0x402658: mov edi, 0x1
+    new instr:0x7f589de3a206: mov edi, 0x1
+old instr: 0x40265d: call 0x40236a
+    new instr:0x7f589de3a20b: call 0x7f589de39f18
+rtn name: ioError : 8
+old instr: 0x4025ce: push rbp
+    new instr:0x7f589de3a210: push rbp
+old instr: 0x4025cf: mov rbp, rsp
+    new instr:0x7f589de3a211: mov rbp, rsp
+old instr: 0x4025d2: movzx eax, byte ptr [rip+0x21b5df]
+    new instr:0x7f589de3a214: movzx eax, byte ptr [rip+0x21b5df]
+old instr: 0x4025d9: test al, al
+    new instr:0x7f589de3a21b: test al, al
+old instr: 0x4025db: jz 0x402616
+    new instr:0x7f589de3a21d: jz 0x7f589de3a258
+old instr: 0x4025dd: mov rdx, qword ptr [rip+0x21be14]
+    new instr:0x7f589de3a21f: mov rdx, qword ptr [rip+0x21be14]
+old instr: 0x4025e4: mov rax, qword ptr [rip+0x21acc5]
+    new instr:0x7f589de3a226: mov rax, qword ptr [rip+0x21acc5]
+old instr: 0x4025eb: mov esi, 0x418be0
+    new instr:0x7f589de3a22d: mov esi, 0x418be0
+old instr: 0x4025f0: mov rdi, rax
+    new instr:0x7f589de3a232: mov rdi, rax
+old instr: 0x4025f3: mov eax, 0x0
+    new instr:0x7f589de3a235: mov eax, 0x0
+old instr: 0x4025f8: call 0x4011f0
+    new instr:0x7f589de3a23a: call 0x7f589de38e32
+old instr: 0x4025fd: mov rax, qword ptr [rip+0x21bdf4]
+    new instr:0x7f589de3a23f: mov rax, qword ptr [rip+0x21bdf4]
+old instr: 0x402604: mov rdi, rax
+    new instr:0x7f589de3a246: mov rdi, rax
+old instr: 0x402607: call 0x4012a0
+    new instr:0x7f589de3a249: call 0x7f589de38ee2
+old instr: 0x40260c: call 0x402336
+    new instr:0x7f589de3a24e: call 0x7f589de39f78
+old instr: 0x402611: call 0x402307
+    new instr:0x7f589de3a253: call 0x7f589de39f49
+old instr: 0x402616: mov edi, 0x2
+    new instr:0x7f589de3a258: mov edi, 0x2
+old instr: 0x40261b: call 0x40236a
+    new instr:0x7f589de3a25d: call 0x7f589de39fac
+rtn name: compressedStreamEOF : 9
+old instr: 0x402596: push rbp
+    new instr:0x7f589de3a262: push rbp
+old instr: 0x402597: mov rbp, rsp
+    new instr:0x7f589de3a263: mov rbp, rsp
+old instr: 0x40259a: mov rdx, qword ptr [rip+0x21be57]
+    new instr:0x7f589de3a266: mov rdx, qword ptr [rip+0x21be57]
+old instr: 0x4025a1: mov rax, qword ptr [rip+0x21ad08]
+    new instr:0x7f589de3a26d: mov rax, qword ptr [rip+0x21ad08]
+old instr: 0x4025a8: mov esi, 0x418bb0
+    new instr:0x7f589de3a274: mov esi, 0x418bb0
+old instr: 0x4025ad: mov rdi, rax
+    new instr:0x7f589de3a279: mov rdi, rax
+old instr: 0x4025b0: mov eax, 0x0
+    new instr:0x7f589de3a27c: mov eax, 0x0
+old instr: 0x4025b5: call 0x4011f0
+    new instr:0x7f589de3a281: call 0x7f589de38ebc
+old instr: 0x4025ba: call 0x402336
+    new instr:0x7f589de3a286: call 0x7f589de3a002
+old instr: 0x4025bf: call 0x402307
+    new instr:0x7f589de3a28b: call 0x7f589de39fd3
+old instr: 0x4025c4: mov edi, 0x2
+    new instr:0x7f589de3a290: mov edi, 0x2
+old instr: 0x4025c9: call 0x40236a
+    new instr:0x7f589de3a295: call 0x7f589de3a036
+rtn name: crcError : 10
+old instr: 0x402557: push rbp
+    new instr:0x7f589de3a29a: push rbp
+old instr: 0x402558: mov rbp, rsp
+    new instr:0x7f589de3a29b: mov rbp, rsp
+old instr: 0x40255b: sub rsp, 0x10
+    new instr:0x7f589de3a29e: sub rsp, 0x10
+old instr: 0x40255f: mov qword ptr [rbp-0x8], rdi
+    new instr:0x7f589de3a2a2: mov qword ptr [rbp-0x8], rdi
+old instr: 0x402563: mov rdx, qword ptr [rip+0x21be8e]
+    new instr:0x7f589de3a2a6: mov rdx, qword ptr [rip+0x21be8e]
+old instr: 0x40256a: mov rax, qword ptr [rip+0x21ad3f]
+    new instr:0x7f589de3a2ad: mov rax, qword ptr [rip+0x21ad3f]
+old instr: 0x402571: mov rcx, qword ptr [rbp-0x8]
+    new instr:0x7f589de3a2b4: mov rcx, qword ptr [rbp-0x8]
+old instr: 0x402575: mov esi, 0x418b40
+    new instr:0x7f589de3a2b8: mov esi, 0x418b40
+old instr: 0x40257a: mov rdi, rax
+    new instr:0x7f589de3a2bd: mov rdi, rax
+old instr: 0x40257d: mov eax, 0x0
+    new instr:0x7f589de3a2c0: mov eax, 0x0
+old instr: 0x402582: call 0x4011f0
+    new instr:0x7f589de3a2c5: call 0x7f589de38f33
+old instr: 0x402587: call 0x402336
+    new instr:0x7f589de3a2ca: call 0x7f589de3a079
+old instr: 0x40258c: mov edi, 0x3
+    new instr:0x7f589de3a2cf: mov edi, 0x3
+old instr: 0x402591: call 0x40236a
+    new instr:0x7f589de3a2d4: call 0x7f589de3a0ad
+rtn name: panic : 11
+old instr: 0x40236a: push rbp
+    new instr:0x7f589de3a2d9: push rbp
+old instr: 0x40236b: mov rbp, rsp
+    new instr:0x7f589de3a2da: mov rbp, rsp
+old instr: 0x40236e: sub rsp, 0xb0
+    new instr:0x7f589de3a2dd: sub rsp, 0xb0
+old instr: 0x402375: mov dword ptr [rbp-0xa4], edi
+    new instr:0x7f589de3a2e4: mov dword ptr [rbp-0xa4], edi
+old instr: 0x40237b: mov eax, dword ptr [rip+0x21b827]
+    new instr:0x7f589de3a2ea: mov eax, dword ptr [rip+0x21b827]
+old instr: 0x402381: cmp eax, 0x3
+    new instr:0x7f589de3a2f0: cmp eax, 0x3
+old instr: 0x402384: jnz 0x4024d5
+    new instr:0x7f589de3a2f3: jnz 0x7f589de3a444
+old instr: 0x40238a: mov eax, dword ptr [rip+0x21c060]
+    new instr:0x7f589de3a2f9: mov eax, dword ptr [rip+0x21c060]
+old instr: 0x402390: cmp eax, 0x3
+    new instr:0x7f589de3a2ff: cmp eax, 0x3
+old instr: 0x402393: jz 0x4024d5
+    new instr:0x7f589de3a302: jz 0x7f589de3a444
+old instr: 0x402399: movzx eax, byte ptr [rip+0x21c04c]
+    new instr:0x7f589de3a308: movzx eax, byte ptr [rip+0x21c04c]
+old instr: 0x4023a0: test al, al
+    new instr:0x7f589de3a30f: test al, al
+old instr: 0x4023a2: jz 0x4024d5
+    new instr:0x7f589de3a311: jz 0x7f589de3a444
+old instr: 0x4023a8: lea rax, ptr [rbp-0xa0]
+    new instr:0x7f589de3a317: lea rax, ptr [rbp-0xa0]
+old instr: 0x4023af: mov rsi, rax
+    new instr:0x7f589de3a31e: mov rsi, rax
+old instr: 0x4023b2: mov edi, 0x61dfe0
+    new instr:0x7f589de3a321: mov edi, 0x61dfe0
+old instr: 0x4023b7: call 0x418610
+    new instr:0x7f589de3a326: call 0x7f589de5057f
+old instr: 0x4023bc: mov dword ptr [rbp-0x4], eax
+    new instr:0x7f589de3a32b: mov dword ptr [rbp-0x4], eax
+old instr: 0x4023bf: cmp dword ptr [rbp-0x4], 0x0
+    new instr:0x7f589de3a32e: cmp dword ptr [rbp-0x4], 0x0
+old instr: 0x4023c3: jnz 0x402450
+    new instr:0x7f589de3a332: jnz 0x7f589de3a3bf
+old instr: 0x4023c9: movzx eax, byte ptr [rip+0x21b7e8]
+    new instr:0x7f589de3a338: movzx eax, byte ptr [rip+0x21b7e8]
+old instr: 0x4023d0: test al, al
+    new instr:0x7f589de3a33f: test al, al
+old instr: 0x4023d2: jz 0x4023f9
+    new instr:0x7f589de3a341: jz 0x7f589de3a368
+old instr: 0x4023d4: mov rdx, qword ptr [rip+0x21c01d]
+    new instr:0x7f589de3a343: mov rdx, qword ptr [rip+0x21c01d]
+old instr: 0x4023db: mov rax, qword ptr [rip+0x21aece]
+    new instr:0x7f589de3a34a: mov rax, qword ptr [rip+0x21aece]
+old instr: 0x4023e2: mov ecx, 0x61dbc0
+    new instr:0x7f589de3a351: mov ecx, 0x61dbc0
+old instr: 0x4023e7: mov esi, 0x418990
+    new instr:0x7f589de3a356: mov esi, 0x418990
+old instr: 0x4023ec: mov rdi, rax
+    new instr:0x7f589de3a35b: mov rdi, rax
+old instr: 0x4023ef: mov eax, 0x0
+    new instr:0x7f589de3a35e: mov eax, 0x0
+old instr: 0x4023f4: call 0x4011f0
+    new instr:0x7f589de3a363: call 0x7f589de3915f
+old instr: 0x4023f9: mov rax, qword ptr [rip+0x21b798]
+    new instr:0x7f589de3a368: mov rax, qword ptr [rip+0x21b798]
+old instr: 0x402400: test rax, rax
+    new instr:0x7f589de3a36f: test rax, rax
+old instr: 0x402403: jz 0x402414
+    new instr:0x7f589de3a372: jz 0x7f589de3a383
+old instr: 0x402405: mov rax, qword ptr [rip+0x21b78c]
+    new instr:0x7f589de3a374: mov rax, qword ptr [rip+0x21b78c]
+old instr: 0x40240c: mov rdi, rax
+    new instr:0x7f589de3a37b: mov rdi, rax
+old instr: 0x40240f: call 0x401120
+    new instr:0x7f589de3a37e: call 0x7f589de3908f
+old instr: 0x402414: mov edi, 0x61dbc0
+    new instr:0x7f589de3a383: mov edi, 0x61dbc0
+old instr: 0x402419: call 0x4010b0
+    new instr:0x7f589de3a388: call 0x7f589de3901f
+old instr: 0x40241e: mov dword ptr [rbp-0x4], eax
+    new instr:0x7f589de3a38d: mov dword ptr [rbp-0x4], eax
+old instr: 0x402421: cmp dword ptr [rbp-0x4], 0x0
+    new instr:0x7f589de3a390: cmp dword ptr [rbp-0x4], 0x0
+old instr: 0x402425: jz 0x4024d5
+    new instr:0x7f589de3a394: jz 0x7f589de3a444
+old instr: 0x40242b: mov rdx, qword ptr [rip+0x21bfc6]
+    new instr:0x7f589de3a39a: mov rdx, qword ptr [rip+0x21bfc6]
+old instr: 0x402432: mov rax, qword ptr [rip+0x21ae77]
+    new instr:0x7f589de3a3a1: mov rax, qword ptr [rip+0x21ae77]
+old instr: 0x402439: mov esi, 0x4189c0
+    new instr:0x7f589de3a3a8: mov esi, 0x4189c0
+old instr: 0x40243e: mov rdi, rax
+    new instr:0x7f589de3a3ad: mov rdi, rax
+old instr: 0x402441: mov eax, 0x0
+    new instr:0x7f589de3a3b0: mov eax, 0x0
+old instr: 0x402446: call 0x4011f0
+    new instr:0x7f589de3a3b5: call 0x7f589de3915f
+old instr: 0x40244b: jmp 0x4024d5
+    new instr:0x7f589de3a3ba: jmp 0x7f589de3a444
+old instr: 0x402450: mov rdx, qword ptr [rip+0x21bfa1]
+    new instr:0x7f589de3a3bf: mov rdx, qword ptr [rip+0x21bfa1]
+old instr: 0x402457: mov rax, qword ptr [rip+0x21ae52]
+    new instr:0x7f589de3a3c6: mov rax, qword ptr [rip+0x21ae52]
+old instr: 0x40245e: mov esi, 0x418a00
+    new instr:0x7f589de3a3cd: mov esi, 0x418a00
+old instr: 0x402463: mov rdi, rax
+    new instr:0x7f589de3a3d2: mov rdi, rax
+old instr: 0x402466: mov eax, 0x0
+    new instr:0x7f589de3a3d5: mov eax, 0x0
+old instr: 0x40246b: call 0x4011f0
+    new instr:0x7f589de3a3da: call 0x7f589de3915f
+old instr: 0x402470: mov rdx, qword ptr [rip+0x21bf81]
+    new instr:0x7f589de3a3df: mov rdx, qword ptr [rip+0x21bf81]
+old instr: 0x402477: mov rax, qword ptr [rip+0x21ae32]
+    new instr:0x7f589de3a3e6: mov rax, qword ptr [rip+0x21ae32]
+old instr: 0x40247e: mov esi, 0x418a38
+    new instr:0x7f589de3a3ed: mov esi, 0x418a38
+old instr: 0x402483: mov rdi, rax
+    new instr:0x7f589de3a3f2: mov rdi, rax
+old instr: 0x402486: mov eax, 0x0
+    new instr:0x7f589de3a3f5: mov eax, 0x0
+old instr: 0x40248b: call 0x4011f0
+    new instr:0x7f589de3a3fa: call 0x7f589de3915f
+old instr: 0x402490: mov rdx, qword ptr [rip+0x21bf61]
+    new instr:0x7f589de3a3ff: mov rdx, qword ptr [rip+0x21bf61]
+old instr: 0x402497: mov rax, qword ptr [rip+0x21ae12]
+    new instr:0x7f589de3a406: mov rax, qword ptr [rip+0x21ae12]
+old instr: 0x40249e: mov ecx, 0x61dbc0
+    new instr:0x7f589de3a40d: mov ecx, 0x61dbc0
+old instr: 0x4024a3: mov esi, 0x418a70
+    new instr:0x7f589de3a412: mov esi, 0x418a70
+old instr: 0x4024a8: mov rdi, rax
+    new instr:0x7f589de3a417: mov rdi, rax
+old instr: 0x4024ab: mov eax, 0x0
+    new instr:0x7f589de3a41a: mov eax, 0x0
+old instr: 0x4024b0: call 0x4011f0
+    new instr:0x7f589de3a41f: call 0x7f589de3915f
+old instr: 0x4024b5: mov rdx, qword ptr [rip+0x21bf3c]
+    new instr:0x7f589de3a424: mov rdx, qword ptr [rip+0x21bf3c]
+old instr: 0x4024bc: mov rax, qword ptr [rip+0x21aded]
+    new instr:0x7f589de3a42b: mov rax, qword ptr [rip+0x21aded]
+old instr: 0x4024c3: mov esi, 0x418a90
+    new instr:0x7f589de3a432: mov esi, 0x418a90
+old instr: 0x4024c8: mov rdi, rax
+    new instr:0x7f589de3a437: mov rdi, rax
+old instr: 0x4024cb: mov eax, 0x0
+    new instr:0x7f589de3a43a: mov eax, 0x0
+old instr: 0x4024d0: call 0x4011f0
+    new instr:0x7f589de3a43f: call 0x7f589de3915f
+old instr: 0x4024d5: movzx eax, byte ptr [rip+0x21b6dc]
+    new instr:0x7f589de3a444: movzx eax, byte ptr [rip+0x21b6dc]
+old instr: 0x4024dc: test al, al
+    new instr:0x7f589de3a44b: test al, al
+old instr: 0x4024de: jz 0x40253d
+    new instr:0x7f589de3a44d: jz 0x7f589de3a4ac
+old instr: 0x4024e0: mov eax, dword ptr [rip+0x21b6ba]
+    new instr:0x7f589de3a44f: mov eax, dword ptr [rip+0x21b6ba]
+old instr: 0x4024e6: test eax, eax
+    new instr:0x7f589de3a455: test eax, eax
+old instr: 0x4024e8: jle 0x40253d
+    new instr:0x7f589de3a457: jle 0x7f589de3a4ac
+old instr: 0x4024ea: mov edx, dword ptr [rip+0x21b6a0]
+    new instr:0x7f589de3a459: mov edx, dword ptr [rip+0x21b6a0]
+old instr: 0x4024f0: mov eax, dword ptr [rip+0x21b6aa]
+    new instr:0x7f589de3a45f: mov eax, dword ptr [rip+0x21b6aa]
+old instr: 0x4024f6: cmp edx, eax
+    new instr:0x7f589de3a465: cmp edx, eax
+old instr: 0x4024f8: jnl 0x40253d
+    new instr:0x7f589de3a467: jnl 0x7f589de3a4ac
+old instr: 0x4024fa: mov edx, dword ptr [rip+0x21b6a0]
+    new instr:0x7f589de3a469: mov edx, dword ptr [rip+0x21b6a0]
+old instr: 0x402500: mov eax, dword ptr [rip+0x21b68a]
+    new instr:0x7f589de3a46f: mov eax, dword ptr [rip+0x21b68a]
+old instr: 0x402506: mov edi, edx
+    new instr:0x7f589de3a475: mov edi, edx
+old instr: 0x402508: sub edi, eax
+    new instr:0x7f589de3a477: sub edi, eax
+old instr: 0x40250a: mov esi, dword ptr [rip+0x21b690]
+    new instr:0x7f589de3a479: mov esi, dword ptr [rip+0x21b690]
+old instr: 0x402510: mov rcx, qword ptr [rip+0x21bee1]
+    new instr:0x7f589de3a47f: mov rcx, qword ptr [rip+0x21bee1]
+old instr: 0x402517: mov rdx, qword ptr [rip+0x21beda]
+    new instr:0x7f589de3a486: mov rdx, qword ptr [rip+0x21beda]
+old instr: 0x40251e: mov rax, qword ptr [rip+0x21ad8b]
+    new instr:0x7f589de3a48d: mov rax, qword ptr [rip+0x21ad8b]
+old instr: 0x402525: mov r9d, edi
+    new instr:0x7f589de3a494: mov r9d, edi
+old instr: 0x402528: mov r8d, esi
+    new instr:0x7f589de3a497: mov r8d, esi
+old instr: 0x40252b: mov esi, 0x418ad0
+    new instr:0x7f589de3a49a: mov esi, 0x418ad0
+old instr: 0x402530: mov rdi, rax
+    new instr:0x7f589de3a49f: mov rdi, rax
+old instr: 0x402533: mov eax, 0x0
+    new instr:0x7f589de3a4a2: mov eax, 0x0
+old instr: 0x402538: call 0x4011f0
+    new instr:0x7f589de3a4a7: call 0x7f589de3915f
+old instr: 0x40253d: mov eax, dword ptr [rbp-0xa4]
+    new instr:0x7f589de3a4ac: mov eax, dword ptr [rbp-0xa4]
+old instr: 0x402543: mov edi, eax
+    new instr:0x7f589de3a4b2: mov edi, eax
+old instr: 0x402545: call 0x4022ea
+    new instr:0x7f589de3a4b4: call 0x7f589de3a259
+old instr: 0x40254a: mov eax, dword ptr [rip+0x21b664]
+    new instr:0x7f589de3a4b9: mov eax, dword ptr [rip+0x21b664]
+old instr: 0x402550: mov edi, eax
+    new instr:0x7f589de3a4bf: mov edi, eax
+old instr: 0x402552: call 0x4012c0
+    new instr:0x7f589de3a4c1: call 0x7f589de3922f
+rtn name: cleanUpAndFail : 12
+after identifying candidate routines
+after calculate direct br targets
+starting a pass of fixing instructions displacements: 
+10:  orig_ins_addr: 401334 new_ins_addr: 7f589de3a024 orig_targ_addr: 4011b0 new_targ_addr: 4011b0    new instr:0x7f589de3a024: call qword ptr [rip-0x2b56d8a]
+17:  orig_ins_addr: 41861b new_ins_addr: 7f589de3a038 orig_targ_addr: 401210 new_targ_addr: 401210    new instr:0x7f589de3a038: jmp qword ptr [rip-0x2b56bde]
+22:  orig_ins_addr: 404eb3 new_ins_addr: 7f589de3a049 orig_targ_addr: 408f13 new_targ_addr: 408f13    new instr:0x7f589de3a049: call qword ptr [rip-0x2b56aaf]
+24:  orig_ins_addr: 404ebb new_ins_addr: 7f589de3a052 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a052: mov rax, qword ptr [0x61d2b0]
+29:  orig_ins_addr: 404ed2 new_ins_addr: 7f589de3a06a orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a06a: call qword ptr [rip-0x2b56910]
+31:  orig_ins_addr: 404ede new_ins_addr: 7f589de3a077 orig_targ_addr: 404efe new_targ_addr: 7f589de3a092    new instr:0x7f589de3a077: jnz 0x7f589de3a092
+32:  orig_ins_addr: 404ee0 new_ins_addr: 7f589de3a07d orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a07d: mov rax, qword ptr [0x61d2b0]
+37:  orig_ins_addr: 404ef9 new_ins_addr: 7f589de3a097 orig_targ_addr: 4012d0 new_targ_addr: 4012d0    new instr:0x7f589de3a097: call qword ptr [rip-0x2b5673d]
+39:  orig_ins_addr: 404f03 new_ins_addr: 7f589de3a0a2 orig_targ_addr: 4012c0 new_targ_addr: 4012c0    new instr:0x7f589de3a0a2: call qword ptr [rip-0x2b566c8]
+42:  orig_ins_addr: 40274f new_ins_addr: 7f589de3a0ac orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a0ac: mov rax, qword ptr [0x61d2b0]
+47:  orig_ins_addr: 402768 new_ins_addr: 7f589de3a0c6 orig_targ_addr: 4012d0 new_targ_addr: 4012d0    new instr:0x7f589de3a0c6: call qword ptr [rip-0x2b564ec]
+49:  orig_ins_addr: 402772 new_ins_addr: 7f589de3a0d1 orig_targ_addr: 4022ea new_targ_addr: 4022ea    new instr:0x7f589de3a0d1: call qword ptr [rip-0x2b56477]
+50:  orig_ins_addr: 402777 new_ins_addr: 7f589de3a0d7 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a0d7: mov eax, dword ptr [0x61dbb4]
+52:  orig_ins_addr: 40277f new_ins_addr: 7f589de3a0e0 orig_targ_addr: 4012c0 new_targ_addr: 4012c0    new instr:0x7f589de3a0e0: call qword ptr [rip-0x2b563c6]
+56:  orig_ins_addr: 41862b new_ins_addr: 7f589de3a0f1 orig_targ_addr: 401160 new_targ_addr: 401160    new instr:0x7f589de3a0f1: jmp qword ptr [rip-0x2b562d7]
+59:  orig_ins_addr: 40271c new_ins_addr: 7f589de3a0fb orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a0fb: mov rdx, qword ptr [0x61e3f8]
+60:  orig_ins_addr: 402723 new_ins_addr: 7f589de3a103 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a103: mov rax, qword ptr [0x61d2b0]
+64:  orig_ins_addr: 402737 new_ins_addr: 7f589de3a118 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a118: call qword ptr [rip-0x2b560fe]
+65:  orig_ins_addr: 40273c new_ins_addr: 7f589de3a11e orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a11e: call qword ptr [rip-0x2b560c4]
+67:  orig_ins_addr: 402746 new_ins_addr: 7f589de3a129 orig_targ_addr: 40236a new_targ_addr: 7f589de3a2d9    new instr:0x7f589de3a129: call 0x7f589de3a2d9
+72:  orig_ins_addr: 4026a2 new_ins_addr: 7f589de3a139 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a139: mov eax, dword ptr [0x61e3f0]
+74:  orig_ins_addr: 4026ab new_ins_addr: 7f589de3a143 orig_targ_addr: 4026cf new_targ_addr: 7f589de3a150    new instr:0x7f589de3a143: jnz 0x7f589de3a150
+75:  orig_ins_addr: 4026ad new_ins_addr: 7f589de3a149 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a149: mov rdx, qword ptr [0x61e3f8]
+76:  orig_ins_addr: 4026b4 new_ins_addr: 7f589de3a151 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a151: mov rax, qword ptr [0x61d2b0]
+80:  orig_ins_addr: 4026c8 new_ins_addr: 7f589de3a166 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a166: call qword ptr [rip-0x2b55d4c]
+81:  orig_ins_addr: 4026cd new_ins_addr: 7f589de3a16c orig_targ_addr: 4026ef new_targ_addr: 7f589de3a170    new instr:0x7f589de3a16c: jmp 0x7f589de3a170
+82:  orig_ins_addr: 4026cf new_ins_addr: 7f589de3a171 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a171: mov rdx, qword ptr [0x61e3f8]
+83:  orig_ins_addr: 4026d6 new_ins_addr: 7f589de3a179 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a179: mov rax, qword ptr [0x61d2b0]
+87:  orig_ins_addr: 4026ea new_ins_addr: 7f589de3a18e orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a18e: call qword ptr [rip-0x2b55bb4]
+88:  orig_ins_addr: 4026ef new_ins_addr: 7f589de3a194 orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a194: call qword ptr [rip-0x2b55b7a]
+89:  orig_ins_addr: 4026f4 new_ins_addr: 7f589de3a19a orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a19a: mov eax, dword ptr [0x61e3f0]
+91:  orig_ins_addr: 4026fd new_ins_addr: 7f589de3a1a4 orig_targ_addr: 402709 new_targ_addr: 7f589de3a18a    new instr:0x7f589de3a1a4: jnz 0x7f589de3a18a
+93:  orig_ins_addr: 402704 new_ins_addr: 7f589de3a1af orig_targ_addr: 40236a new_targ_addr: 7f589de3a2d9    new instr:0x7f589de3a1af: call 0x7f589de3a2d9
+94:  orig_ins_addr: 402709 new_ins_addr: 7f589de3a1b4 orig_targ_addr: 402307 new_targ_addr: 402307    new instr:0x7f589de3a1b4: call qword ptr [rip-0x2b55a1a]
+96:  orig_ins_addr: 402713 new_ins_addr: 7f589de3a1bf orig_targ_addr: 40236a new_targ_addr: 7f589de3a2d9    new instr:0x7f589de3a1bf: call 0x7f589de3a2d9
+101:  orig_ins_addr: 40266d new_ins_addr: 7f589de3a1cf orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a1cf: mov rdx, qword ptr [0x61e3f8]
+102:  orig_ins_addr: 402674 new_ins_addr: 7f589de3a1d7 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a1d7: mov rax, qword ptr [0x61d2b0]
+106:  orig_ins_addr: 402688 new_ins_addr: 7f589de3a1ec orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a1ec: call qword ptr [rip-0x2b55752]
+108:  orig_ins_addr: 402692 new_ins_addr: 7f589de3a1f7 orig_targ_addr: 40236a new_targ_addr: 7f589de3a2d9    new instr:0x7f589de3a1f7: call 0x7f589de3a2d9
+111:  orig_ins_addr: 402624 new_ins_addr: 7f589de3a200 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a200: mov rdx, qword ptr [0x61e3f8]
+112:  orig_ins_addr: 40262b new_ins_addr: 7f589de3a208 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a208: mov rax, qword ptr [0x61d2b0]
+116:  orig_ins_addr: 40263f new_ins_addr: 7f589de3a21d orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a21d: call qword ptr [rip-0x2b55503]
+117:  orig_ins_addr: 402644 new_ins_addr: 7f589de3a223 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a223: mov rax, qword ptr [0x61e3f8]
+119:  orig_ins_addr: 40264e new_ins_addr: 7f589de3a22e orig_targ_addr: 4012a0 new_targ_addr: 4012a0    new instr:0x7f589de3a22e: call qword ptr [rip-0x2b55454]
+120:  orig_ins_addr: 402653 new_ins_addr: 7f589de3a234 orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a234: call qword ptr [rip-0x2b5541a]
+122:  orig_ins_addr: 40265d new_ins_addr: 7f589de3a23f orig_targ_addr: 40236a new_targ_addr: 7f589de3a2d9    new instr:0x7f589de3a23f: call 0x7f589de3a2d9
+125:  orig_ins_addr: 4025d2 new_ins_addr: 7f589de3a248 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a248: movzx eax, byte ptr [0x61dbb8]
+127:  orig_ins_addr: 4025db new_ins_addr: 7f589de3a252 orig_targ_addr: 402616 new_targ_addr: 7f589de3a258    new instr:0x7f589de3a252: jz 0x7f589de3a258
+128:  orig_ins_addr: 4025dd new_ins_addr: 7f589de3a258 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a258: mov rdx, qword ptr [0x61e3f8]
+129:  orig_ins_addr: 4025e4 new_ins_addr: 7f589de3a260 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a260: mov rax, qword ptr [0x61d2b0]
+133:  orig_ins_addr: 4025f8 new_ins_addr: 7f589de3a275 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a275: call qword ptr [rip-0x2b5511b]
+134:  orig_ins_addr: 4025fd new_ins_addr: 7f589de3a27b orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a27b: mov rax, qword ptr [0x61e3f8]
+136:  orig_ins_addr: 402607 new_ins_addr: 7f589de3a286 orig_targ_addr: 4012a0 new_targ_addr: 4012a0    new instr:0x7f589de3a286: call qword ptr [rip-0x2b5506c]
+137:  orig_ins_addr: 40260c new_ins_addr: 7f589de3a28c orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a28c: call qword ptr [rip-0x2b55032]
+138:  orig_ins_addr: 402611 new_ins_addr: 7f589de3a292 orig_targ_addr: 402307 new_targ_addr: 402307    new instr:0x7f589de3a292: call qword ptr [rip-0x2b54ff8]
+140:  orig_ins_addr: 40261b new_ins_addr: 7f589de3a29d orig_targ_addr: 40236a new_targ_addr: 7f589de3a2d9    new instr:0x7f589de3a29d: call 0x7f589de3a2d9
+143:  orig_ins_addr: 40259a new_ins_addr: 7f589de3a2a6 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a2a6: mov rdx, qword ptr [0x61e3f8]
+144:  orig_ins_addr: 4025a1 new_ins_addr: 7f589de3a2ae orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a2ae: mov rax, qword ptr [0x61d2b0]
+148:  orig_ins_addr: 4025b5 new_ins_addr: 7f589de3a2c3 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a2c3: call qword ptr [rip-0x2b54da9]
+149:  orig_ins_addr: 4025ba new_ins_addr: 7f589de3a2c9 orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a2c9: call qword ptr [rip-0x2b54d6f]
+150:  orig_ins_addr: 4025bf new_ins_addr: 7f589de3a2cf orig_targ_addr: 402307 new_targ_addr: 402307    new instr:0x7f589de3a2cf: call qword ptr [rip-0x2b54d35]
+152:  orig_ins_addr: 4025c9 new_ins_addr: 7f589de3a2da orig_targ_addr: 40236a new_targ_addr: 7f589de3a2d9    new instr:0x7f589de3a2da: call 0x7f589de3a2d9
+157:  orig_ins_addr: 402563 new_ins_addr: 7f589de3a2eb orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a2eb: mov rdx, qword ptr [0x61e3f8]
+158:  orig_ins_addr: 40256a new_ins_addr: 7f589de3a2f3 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a2f3: mov rax, qword ptr [0x61d2b0]
+163:  orig_ins_addr: 402582 new_ins_addr: 7f589de3a30c orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a30c: call qword ptr [rip-0x2b54a32]
+164:  orig_ins_addr: 402587 new_ins_addr: 7f589de3a312 orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a312: call qword ptr [rip-0x2b549f8]
+166:  orig_ins_addr: 402591 new_ins_addr: 7f589de3a31d orig_targ_addr: 40236a new_targ_addr: 7f589de3a2d9    new instr:0x7f589de3a31d: call 0x7f589de3a2d9
+171:  orig_ins_addr: 40237b new_ins_addr: 7f589de3a333 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a333: mov eax, dword ptr [0x61dba8]
+173:  orig_ins_addr: 402384 new_ins_addr: 7f589de3a33d orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a444    new instr:0x7f589de3a33d: jnz 0x7f589de3a444
+174:  orig_ins_addr: 40238a new_ins_addr: 7f589de3a343 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a343: mov eax, dword ptr [0x61e3f0]
+176:  orig_ins_addr: 402393 new_ins_addr: 7f589de3a34d orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a444    new instr:0x7f589de3a34d: jz 0x7f589de3a444
+177:  orig_ins_addr: 402399 new_ins_addr: 7f589de3a353 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a353: movzx eax, byte ptr [0x61e3ec]
+179:  orig_ins_addr: 4023a2 new_ins_addr: 7f589de3a35d orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a444    new instr:0x7f589de3a35d: jz 0x7f589de3a444
+183:  orig_ins_addr: 4023b7 new_ins_addr: 7f589de3a372 orig_targ_addr: 418610 new_targ_addr: 7f589de3a02d    new instr:0x7f589de3a372: call 0x7f589de3a02d
+186:  orig_ins_addr: 4023c3 new_ins_addr: 7f589de3a37e orig_targ_addr: 402450 new_targ_addr: 7f589de3a3bf    new instr:0x7f589de3a37e: jnz 0x7f589de3a3bf
+187:  orig_ins_addr: 4023c9 new_ins_addr: 7f589de3a384 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a384: movzx eax, byte ptr [0x61dbb8]
+189:  orig_ins_addr: 4023d2 new_ins_addr: 7f589de3a38e orig_targ_addr: 4023f9 new_targ_addr: 7f589de3a368    new instr:0x7f589de3a38e: jz 0x7f589de3a368
+190:  orig_ins_addr: 4023d4 new_ins_addr: 7f589de3a394 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a394: mov rdx, qword ptr [0x61e3f8]
+191:  orig_ins_addr: 4023db new_ins_addr: 7f589de3a39c orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a39c: mov rax, qword ptr [0x61d2b0]
+196:  orig_ins_addr: 4023f4 new_ins_addr: 7f589de3a3b6 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a3b6: call qword ptr [rip-0x2b5429c]
+197:  orig_ins_addr: 4023f9 new_ins_addr: 7f589de3a3bc orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a3bc: mov rax, qword ptr [0x61db98]
+199:  orig_ins_addr: 402403 new_ins_addr: 7f589de3a3c7 orig_targ_addr: 402414 new_targ_addr: 7f589de3a383    new instr:0x7f589de3a3c7: jz 0x7f589de3a383
+200:  orig_ins_addr: 402405 new_ins_addr: 7f589de3a3cd orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a3cd: mov rax, qword ptr [0x61db98]
+202:  orig_ins_addr: 40240f new_ins_addr: 7f589de3a3d8 orig_targ_addr: 401120 new_targ_addr: 401120    new instr:0x7f589de3a3d8: call qword ptr [rip-0x2b5413e]
+204:  orig_ins_addr: 402419 new_ins_addr: 7f589de3a3e3 orig_targ_addr: 4010b0 new_targ_addr: 4010b0    new instr:0x7f589de3a3e3: call qword ptr [rip-0x2b540c9]
+207:  orig_ins_addr: 402425 new_ins_addr: 7f589de3a3f0 orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a444    new instr:0x7f589de3a3f0: jz 0x7f589de3a444
+208:  orig_ins_addr: 40242b new_ins_addr: 7f589de3a3f6 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a3f6: mov rdx, qword ptr [0x61e3f8]
+209:  orig_ins_addr: 402432 new_ins_addr: 7f589de3a3fe orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a3fe: mov rax, qword ptr [0x61d2b0]
+213:  orig_ins_addr: 402446 new_ins_addr: 7f589de3a413 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a413: call qword ptr [rip-0x2b53eb9]
+214:  orig_ins_addr: 40244b new_ins_addr: 7f589de3a419 orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a444    new instr:0x7f589de3a419: jmp 0x7f589de3a444
+215:  orig_ins_addr: 402450 new_ins_addr: 7f589de3a41e orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a41e: mov rdx, qword ptr [0x61e3f8]
+216:  orig_ins_addr: 402457 new_ins_addr: 7f589de3a426 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a426: mov rax, qword ptr [0x61d2b0]
+220:  orig_ins_addr: 40246b new_ins_addr: 7f589de3a43b orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a43b: call qword ptr [rip-0x2b53d21]
+221:  orig_ins_addr: 402470 new_ins_addr: 7f589de3a441 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a441: mov rdx, qword ptr [0x61e3f8]
+222:  orig_ins_addr: 402477 new_ins_addr: 7f589de3a449 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a449: mov rax, qword ptr [0x61d2b0]
+226:  orig_ins_addr: 40248b new_ins_addr: 7f589de3a45e orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a45e: call qword ptr [rip-0x2b53bc4]
+227:  orig_ins_addr: 402490 new_ins_addr: 7f589de3a464 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a464: mov rdx, qword ptr [0x61e3f8]
+228:  orig_ins_addr: 402497 new_ins_addr: 7f589de3a46c orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a46c: mov rax, qword ptr [0x61d2b0]
+233:  orig_ins_addr: 4024b0 new_ins_addr: 7f589de3a486 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a486: call qword ptr [rip-0x2b53a2c]
+234:  orig_ins_addr: 4024b5 new_ins_addr: 7f589de3a48c orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a48c: mov rdx, qword ptr [0x61e3f8]
+235:  orig_ins_addr: 4024bc new_ins_addr: 7f589de3a494 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a494: mov rax, qword ptr [0x61d2b0]
+239:  orig_ins_addr: 4024d0 new_ins_addr: 7f589de3a4a9 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a4a9: call qword ptr [rip-0x2b538cf]
+240:  orig_ins_addr: 4024d5 new_ins_addr: 7f589de3a4af orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a4af: movzx eax, byte ptr [0x61dbb8]
+242:  orig_ins_addr: 4024de new_ins_addr: 7f589de3a4b9 orig_targ_addr: 40253d new_targ_addr: 7f589de3a4ac    new instr:0x7f589de3a4b9: jz 0x7f589de3a4ac
+243:  orig_ins_addr: 4024e0 new_ins_addr: 7f589de3a4bf orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a4bf: mov eax, dword ptr [0x61dba0]
+245:  orig_ins_addr: 4024e8 new_ins_addr: 7f589de3a4c8 orig_targ_addr: 40253d new_targ_addr: 7f589de3a4ac    new instr:0x7f589de3a4c8: jle 0x7f589de3a4ac
+246:  orig_ins_addr: 4024ea new_ins_addr: 7f589de3a4ce orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a4ce: mov edx, dword ptr [0x61db90]
+247:  orig_ins_addr: 4024f0 new_ins_addr: 7f589de3a4d5 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a4d5: mov eax, dword ptr [0x61dba0]
+249:  orig_ins_addr: 4024f8 new_ins_addr: 7f589de3a4de orig_targ_addr: 40253d new_targ_addr: 7f589de3a4ac    new instr:0x7f589de3a4de: jnl 0x7f589de3a4ac
+250:  orig_ins_addr: 4024fa new_ins_addr: 7f589de3a4e4 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a4e4: mov edx, dword ptr [0x61dba0]
+251:  orig_ins_addr: 402500 new_ins_addr: 7f589de3a4eb orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a4eb: mov eax, dword ptr [0x61db90]
+254:  orig_ins_addr: 40250a new_ins_addr: 7f589de3a4f6 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a4f6: mov esi, dword ptr [0x61dba0]
+255:  orig_ins_addr: 402510 new_ins_addr: 7f589de3a4fd orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a4fd: mov rcx, qword ptr [0x61e3f8]
+256:  orig_ins_addr: 402517 new_ins_addr: 7f589de3a505 orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a505: mov rdx, qword ptr [0x61e3f8]
+257:  orig_ins_addr: 40251e new_ins_addr: 7f589de3a50d orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a50d: mov rax, qword ptr [0x61d2b0]
+263:  orig_ins_addr: 402538 new_ins_addr: 7f589de3a528 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a528: call qword ptr [rip-0x2b5334e]
+266:  orig_ins_addr: 402545 new_ins_addr: 7f589de3a536 orig_targ_addr: 4022ea new_targ_addr: 4022ea    new instr:0x7f589de3a536: call qword ptr [rip-0x2b5329c]
+267:  orig_ins_addr: 40254a new_ins_addr: 7f589de3a53c orig_targ_addr: 0 new_targ_addr: 0    new instr:0x7f589de3a53c: mov eax, dword ptr [0x61dbb4]
+269:  orig_ins_addr: 402552 new_ins_addr: 7f589de3a545 orig_targ_addr: 4012c0 new_targ_addr: 4012c0    new instr:0x7f589de3a545: call qword ptr [rip-0x2b531eb]
+starting a pass of fixing instructions displacements: 
+10:  orig_ins_addr: 401334 new_ins_addr: 7f589de3a024 orig_targ_addr: 4011b0 new_targ_addr: 4011b0    new instr:0x7f589de3a024: call qword ptr [rip-0x2b56d8a]
+17:  orig_ins_addr: 41861b new_ins_addr: 7f589de3a038 orig_targ_addr: 401210 new_targ_addr: 401210    new instr:0x7f589de3a038: jmp qword ptr [rip-0x2b56bde]
+22:  orig_ins_addr: 404eb3 new_ins_addr: 7f589de3a049 orig_targ_addr: 408f13 new_targ_addr: 408f13    new instr:0x7f589de3a049: call qword ptr [rip-0x2b56aaf]
+29:  orig_ins_addr: 404ed2 new_ins_addr: 7f589de3a06a orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a06a: call qword ptr [rip-0x2b56910]
+31:  orig_ins_addr: 404ede new_ins_addr: 7f589de3a077 orig_targ_addr: 404efe new_targ_addr: 7f589de3a09d    new instr:0x7f589de3a077: jnz 0x7f589de3a09d
+37:  orig_ins_addr: 404ef9 new_ins_addr: 7f589de3a097 orig_targ_addr: 4012d0 new_targ_addr: 4012d0    new instr:0x7f589de3a097: call qword ptr [rip-0x2b5673d]
+39:  orig_ins_addr: 404f03 new_ins_addr: 7f589de3a0a2 orig_targ_addr: 4012c0 new_targ_addr: 4012c0    new instr:0x7f589de3a0a2: call qword ptr [rip-0x2b566c8]
+47:  orig_ins_addr: 402768 new_ins_addr: 7f589de3a0c6 orig_targ_addr: 4012d0 new_targ_addr: 4012d0    new instr:0x7f589de3a0c6: call qword ptr [rip-0x2b564ec]
+49:  orig_ins_addr: 402772 new_ins_addr: 7f589de3a0d1 orig_targ_addr: 4022ea new_targ_addr: 4022ea    new instr:0x7f589de3a0d1: call qword ptr [rip-0x2b56477]
+52:  orig_ins_addr: 40277f new_ins_addr: 7f589de3a0e0 orig_targ_addr: 4012c0 new_targ_addr: 4012c0    new instr:0x7f589de3a0e0: call qword ptr [rip-0x2b563c6]
+56:  orig_ins_addr: 41862b new_ins_addr: 7f589de3a0f1 orig_targ_addr: 401160 new_targ_addr: 401160    new instr:0x7f589de3a0f1: jmp qword ptr [rip-0x2b562d7]
+64:  orig_ins_addr: 402737 new_ins_addr: 7f589de3a118 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a118: call qword ptr [rip-0x2b560fe]
+65:  orig_ins_addr: 40273c new_ins_addr: 7f589de3a11e orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a11e: call qword ptr [rip-0x2b560c4]
+67:  orig_ins_addr: 402746 new_ins_addr: 7f589de3a129 orig_targ_addr: 40236a new_targ_addr: 7f589de3a322    new instr:0x7f589de3a129: call 0x7f589de3a322
+74:  orig_ins_addr: 4026ab new_ins_addr: 7f589de3a143 orig_targ_addr: 4026cf new_targ_addr: 7f589de3a171    new instr:0x7f589de3a143: jnz 0x7f589de3a171
+80:  orig_ins_addr: 4026c8 new_ins_addr: 7f589de3a166 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a166: call qword ptr [rip-0x2b55d4c]
+81:  orig_ins_addr: 4026cd new_ins_addr: 7f589de3a16c orig_targ_addr: 4026ef new_targ_addr: 7f589de3a194    new instr:0x7f589de3a16c: jmp 0x7f589de3a194
+87:  orig_ins_addr: 4026ea new_ins_addr: 7f589de3a18e orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a18e: call qword ptr [rip-0x2b55bb4]
+88:  orig_ins_addr: 4026ef new_ins_addr: 7f589de3a194 orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a194: call qword ptr [rip-0x2b55b7a]
+91:  orig_ins_addr: 4026fd new_ins_addr: 7f589de3a1a4 orig_targ_addr: 402709 new_targ_addr: 7f589de3a1b4    new instr:0x7f589de3a1a4: jnz 0x7f589de3a1b4
+93:  orig_ins_addr: 402704 new_ins_addr: 7f589de3a1af orig_targ_addr: 40236a new_targ_addr: 7f589de3a322    new instr:0x7f589de3a1af: call 0x7f589de3a322
+94:  orig_ins_addr: 402709 new_ins_addr: 7f589de3a1b4 orig_targ_addr: 402307 new_targ_addr: 402307    new instr:0x7f589de3a1b4: call qword ptr [rip-0x2b55a1a]
+96:  orig_ins_addr: 402713 new_ins_addr: 7f589de3a1bf orig_targ_addr: 40236a new_targ_addr: 7f589de3a322    new instr:0x7f589de3a1bf: call 0x7f589de3a322
+106:  orig_ins_addr: 402688 new_ins_addr: 7f589de3a1ec orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a1ec: call qword ptr [rip-0x2b55752]
+108:  orig_ins_addr: 402692 new_ins_addr: 7f589de3a1f7 orig_targ_addr: 40236a new_targ_addr: 7f589de3a322    new instr:0x7f589de3a1f7: call 0x7f589de3a322
+116:  orig_ins_addr: 40263f new_ins_addr: 7f589de3a21d orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a21d: call qword ptr [rip-0x2b55503]
+119:  orig_ins_addr: 40264e new_ins_addr: 7f589de3a22e orig_targ_addr: 4012a0 new_targ_addr: 4012a0    new instr:0x7f589de3a22e: call qword ptr [rip-0x2b55454]
+120:  orig_ins_addr: 402653 new_ins_addr: 7f589de3a234 orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a234: call qword ptr [rip-0x2b5541a]
+122:  orig_ins_addr: 40265d new_ins_addr: 7f589de3a23f orig_targ_addr: 40236a new_targ_addr: 7f589de3a322    new instr:0x7f589de3a23f: call 0x7f589de3a322
+127:  orig_ins_addr: 4025db new_ins_addr: 7f589de3a252 orig_targ_addr: 402616 new_targ_addr: 7f589de3a298    new instr:0x7f589de3a252: jz 0x7f589de3a298
+133:  orig_ins_addr: 4025f8 new_ins_addr: 7f589de3a275 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a275: call qword ptr [rip-0x2b5511b]
+136:  orig_ins_addr: 402607 new_ins_addr: 7f589de3a286 orig_targ_addr: 4012a0 new_targ_addr: 4012a0    new instr:0x7f589de3a286: call qword ptr [rip-0x2b5506c]
+137:  orig_ins_addr: 40260c new_ins_addr: 7f589de3a28c orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a28c: call qword ptr [rip-0x2b55032]
+138:  orig_ins_addr: 402611 new_ins_addr: 7f589de3a292 orig_targ_addr: 402307 new_targ_addr: 402307    new instr:0x7f589de3a292: call qword ptr [rip-0x2b54ff8]
+140:  orig_ins_addr: 40261b new_ins_addr: 7f589de3a29d orig_targ_addr: 40236a new_targ_addr: 7f589de3a322    new instr:0x7f589de3a29d: call 0x7f589de3a322
+148:  orig_ins_addr: 4025b5 new_ins_addr: 7f589de3a2c3 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a2c3: call qword ptr [rip-0x2b54da9]
+149:  orig_ins_addr: 4025ba new_ins_addr: 7f589de3a2c9 orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a2c9: call qword ptr [rip-0x2b54d6f]
+150:  orig_ins_addr: 4025bf new_ins_addr: 7f589de3a2cf orig_targ_addr: 402307 new_targ_addr: 402307    new instr:0x7f589de3a2cf: call qword ptr [rip-0x2b54d35]
+152:  orig_ins_addr: 4025c9 new_ins_addr: 7f589de3a2da orig_targ_addr: 40236a new_targ_addr: 7f589de3a322    new instr:0x7f589de3a2da: call 0x7f589de3a322
+163:  orig_ins_addr: 402582 new_ins_addr: 7f589de3a30c orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a30c: call qword ptr [rip-0x2b54a32]
+164:  orig_ins_addr: 402587 new_ins_addr: 7f589de3a312 orig_targ_addr: 402336 new_targ_addr: 402336    new instr:0x7f589de3a312: call qword ptr [rip-0x2b549f8]
+166:  orig_ins_addr: 402591 new_ins_addr: 7f589de3a31d orig_targ_addr: 40236a new_targ_addr: 7f589de3a322    new instr:0x7f589de3a31d: call 0x7f589de3a322
+173:  orig_ins_addr: 402384 new_ins_addr: 7f589de3a33d orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a4af    new instr:0x7f589de3a33d: jnz 0x7f589de3a4af
+176:  orig_ins_addr: 402393 new_ins_addr: 7f589de3a34d orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a4af    new instr:0x7f589de3a34d: jz 0x7f589de3a4af
+179:  orig_ins_addr: 4023a2 new_ins_addr: 7f589de3a35d orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a4af    new instr:0x7f589de3a35d: jz 0x7f589de3a4af
+183:  orig_ins_addr: 4023b7 new_ins_addr: 7f589de3a372 orig_targ_addr: 418610 new_targ_addr: 7f589de3a02d    new instr:0x7f589de3a372: call 0x7f589de3a02d
+186:  orig_ins_addr: 4023c3 new_ins_addr: 7f589de3a37e orig_targ_addr: 402450 new_targ_addr: 7f589de3a41e    new instr:0x7f589de3a37e: jnz 0x7f589de3a41e
+189:  orig_ins_addr: 4023d2 new_ins_addr: 7f589de3a38e orig_targ_addr: 4023f9 new_targ_addr: 7f589de3a3bc    new instr:0x7f589de3a38e: jz 0x7f589de3a3bc
+196:  orig_ins_addr: 4023f4 new_ins_addr: 7f589de3a3b6 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a3b6: call qword ptr [rip-0x2b5429c]
+199:  orig_ins_addr: 402403 new_ins_addr: 7f589de3a3c7 orig_targ_addr: 402414 new_targ_addr: 7f589de3a3de    new instr:0x7f589de3a3c7: jz 0x7f589de3a3de
+202:  orig_ins_addr: 40240f new_ins_addr: 7f589de3a3d8 orig_targ_addr: 401120 new_targ_addr: 401120    new instr:0x7f589de3a3d8: call qword ptr [rip-0x2b5413e]
+204:  orig_ins_addr: 402419 new_ins_addr: 7f589de3a3e3 orig_targ_addr: 4010b0 new_targ_addr: 4010b0    new instr:0x7f589de3a3e3: call qword ptr [rip-0x2b540c9]
+207:  orig_ins_addr: 402425 new_ins_addr: 7f589de3a3f0 orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a4af    new instr:0x7f589de3a3f0: jz 0x7f589de3a4af
+213:  orig_ins_addr: 402446 new_ins_addr: 7f589de3a413 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a413: call qword ptr [rip-0x2b53eb9]
+214:  orig_ins_addr: 40244b new_ins_addr: 7f589de3a419 orig_targ_addr: 4024d5 new_targ_addr: 7f589de3a4af    new instr:0x7f589de3a419: jmp 0x7f589de3a4af
+220:  orig_ins_addr: 40246b new_ins_addr: 7f589de3a43b orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a43b: call qword ptr [rip-0x2b53d21]
+226:  orig_ins_addr: 40248b new_ins_addr: 7f589de3a45e orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a45e: call qword ptr [rip-0x2b53bc4]
+233:  orig_ins_addr: 4024b0 new_ins_addr: 7f589de3a486 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a486: call qword ptr [rip-0x2b53a2c]
+239:  orig_ins_addr: 4024d0 new_ins_addr: 7f589de3a4a9 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a4a9: call qword ptr [rip-0x2b538cf]
+242:  orig_ins_addr: 4024de new_ins_addr: 7f589de3a4b9 orig_targ_addr: 40253d new_targ_addr: 7f589de3a52e    new instr:0x7f589de3a4b9: jz 0x7f589de3a52e
+245:  orig_ins_addr: 4024e8 new_ins_addr: 7f589de3a4c8 orig_targ_addr: 40253d new_targ_addr: 7f589de3a52e    new instr:0x7f589de3a4c8: jle 0x7f589de3a52e
+249:  orig_ins_addr: 4024f8 new_ins_addr: 7f589de3a4de orig_targ_addr: 40253d new_targ_addr: 7f589de3a52e    new instr:0x7f589de3a4de: jnl 0x7f589de3a52e
+263:  orig_ins_addr: 402538 new_ins_addr: 7f589de3a528 orig_targ_addr: 4011f0 new_targ_addr: 4011f0    new instr:0x7f589de3a528: call qword ptr [rip-0x2b5334e]
+266:  orig_ins_addr: 402545 new_ins_addr: 7f589de3a536 orig_targ_addr: 4022ea new_targ_addr: 4022ea    new instr:0x7f589de3a536: call qword ptr [rip-0x2b5329c]
+269:  orig_ins_addr: 402552 new_ins_addr: 7f589de3a545 orig_targ_addr: 4012c0 new_targ_addr: 4012c0    new instr:0x7f589de3a545: call qword ptr [rip-0x2b531eb]
+after fix instructions displacements
+after write all new instructions to memory tc
+Translation Cache dump:
+0x7f589de3a000: xor ebp, ebp
+0x7f589de3a002: mov r9, rdx
+0x7f589de3a005: pop rsi
+0x7f589de3a006: mov rdx, rsp
+0x7f589de3a009: and rsp, 0xfffffffffffffff0
+0x7f589de3a00d: push rax
+0x7f589de3a00e: push rsp
+0x7f589de3a00f: mov r8, 0x418570
+0x7f589de3a016: mov rcx, 0x418580
+0x7f589de3a01d: mov rdi, 0x4040af
+0x7f589de3a024: call qword ptr [rip-0x2b56d8a]
+0x7f589de3a02a: hlt
+0x7f589de3a02b: nop
+0x7f589de3a02c: nop
+0x7f589de3a02d: mov rdx, rsi
+0x7f589de3a030: mov rsi, rdi
+0x7f589de3a033: mov edi, 0x1
+0x7f589de3a038: jmp qword ptr [rip-0x2b56bde]
+0x7f589de3a03e: push rbp
+0x7f589de3a03f: mov rbp, rsp
+0x7f589de3a042: sub rsp, 0x10
+0x7f589de3a046: mov dword ptr [rbp-0x4], edi
+0x7f589de3a049: call qword ptr [rip-0x2b56aaf]
+0x7f589de3a04f: mov rcx, rax
+0x7f589de3a052: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a05a: mov edx, dword ptr [rbp-0x4]
+0x7f589de3a05d: mov esi, 0x41a410
+0x7f589de3a062: mov rdi, rax
+0x7f589de3a065: mov eax, 0x0
+0x7f589de3a06a: call qword ptr [rip-0x2b56910]
+0x7f589de3a070: cmp dword ptr [rbp-0x4], 0x3ef
+0x7f589de3a077: jnz 0x7f589de3a09d
+0x7f589de3a07d: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a085: mov rcx, rax
+0x7f589de3a088: mov edx, 0x420
+0x7f589de3a08d: mov esi, 0x1
+0x7f589de3a092: mov edi, 0x41a5d0
+0x7f589de3a097: call qword ptr [rip-0x2b5673d]
+0x7f589de3a09d: mov edi, 0x3
+0x7f589de3a0a2: call qword ptr [rip-0x2b566c8]
+0x7f589de3a0a8: push rbp
+0x7f589de3a0a9: mov rbp, rsp
+0x7f589de3a0ac: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a0b4: mov rcx, rax
+0x7f589de3a0b7: mov edx, 0xeb
+0x7f589de3a0bc: mov esi, 0x1
+0x7f589de3a0c1: mov edi, 0x419430
+0x7f589de3a0c6: call qword ptr [rip-0x2b564ec]
+0x7f589de3a0cc: mov edi, 0x3
+0x7f589de3a0d1: call qword ptr [rip-0x2b56477]
+0x7f589de3a0d7: mov eax, dword ptr [0x61dbb4]
+0x7f589de3a0de: mov edi, eax
+0x7f589de3a0e0: call qword ptr [rip-0x2b563c6]
+0x7f589de3a0e6: mov rdx, rsi
+0x7f589de3a0e9: mov rsi, rdi
+0x7f589de3a0ec: mov edi, 0x1
+0x7f589de3a0f1: jmp qword ptr [rip-0x2b562d7]
+0x7f589de3a0f7: push rbp
+0x7f589de3a0f8: mov rbp, rsp
+0x7f589de3a0fb: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a103: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a10b: mov esi, 0x419408
+0x7f589de3a110: mov rdi, rax
+0x7f589de3a113: mov eax, 0x0
+0x7f589de3a118: call qword ptr [rip-0x2b560fe]
+0x7f589de3a11e: call qword ptr [rip-0x2b560c4]
+0x7f589de3a124: mov edi, 0x1
+0x7f589de3a129: call 0x7f589de3a322
+0x7f589de3a12e: push rbp
+0x7f589de3a12f: mov rbp, rsp
+0x7f589de3a132: sub rsp, 0x10
+0x7f589de3a136: mov dword ptr [rbp-0x4], edi
+0x7f589de3a139: mov eax, dword ptr [0x61e3f0]
+0x7f589de3a140: cmp eax, 0x1
+0x7f589de3a143: jnz 0x7f589de3a171
+0x7f589de3a149: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a151: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a159: mov esi, 0x418cb8
+0x7f589de3a15e: mov rdi, rax
+0x7f589de3a161: mov eax, 0x0
+0x7f589de3a166: call qword ptr [rip-0x2b55d4c]
+0x7f589de3a16c: jmp 0x7f589de3a194
+0x7f589de3a171: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a179: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a181: mov esi, 0x419020
+0x7f589de3a186: mov rdi, rax
+0x7f589de3a189: mov eax, 0x0
+0x7f589de3a18e: call qword ptr [rip-0x2b55bb4]
+0x7f589de3a194: call qword ptr [rip-0x2b55b7a]
+0x7f589de3a19a: mov eax, dword ptr [0x61e3f0]
+0x7f589de3a1a1: cmp eax, 0x1
+0x7f589de3a1a4: jnz 0x7f589de3a1b4
+0x7f589de3a1aa: mov edi, 0x3
+0x7f589de3a1af: call 0x7f589de3a322
+0x7f589de3a1b4: call qword ptr [rip-0x2b55a1a]
+0x7f589de3a1ba: mov edi, 0x2
+0x7f589de3a1bf: call 0x7f589de3a322
+0x7f589de3a1c4: push rbp
+0x7f589de3a1c5: mov rbp, rsp
+0x7f589de3a1c8: sub rsp, 0x10
+0x7f589de3a1cc: mov dword ptr [rbp-0x4], edi
+0x7f589de3a1cf: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a1d7: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a1df: mov esi, 0x418c88
+0x7f589de3a1e4: mov rdi, rax
+0x7f589de3a1e7: mov eax, 0x0
+0x7f589de3a1ec: call qword ptr [rip-0x2b55752]
+0x7f589de3a1f2: mov edi, 0x1
+0x7f589de3a1f7: call 0x7f589de3a322
+0x7f589de3a1fc: push rbp
+0x7f589de3a1fd: mov rbp, rsp
+0x7f589de3a200: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a208: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a210: mov esi, 0x418c40
+0x7f589de3a215: mov rdi, rax
+0x7f589de3a218: mov eax, 0x0
+0x7f589de3a21d: call qword ptr [rip-0x2b55503]
+0x7f589de3a223: mov rax, qword ptr [0x61e3f8]
+0x7f589de3a22b: mov rdi, rax
+0x7f589de3a22e: call qword ptr [rip-0x2b55454]
+0x7f589de3a234: call qword ptr [rip-0x2b5541a]
+0x7f589de3a23a: mov edi, 0x1
+0x7f589de3a23f: call 0x7f589de3a322
+0x7f589de3a244: push rbp
+0x7f589de3a245: mov rbp, rsp
+0x7f589de3a248: movzx eax, byte ptr [0x61dbb8]
+0x7f589de3a250: test al, al
+0x7f589de3a252: jz 0x7f589de3a298
+0x7f589de3a258: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a260: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a268: mov esi, 0x418be0
+0x7f589de3a26d: mov rdi, rax
+0x7f589de3a270: mov eax, 0x0
+0x7f589de3a275: call qword ptr [rip-0x2b5511b]
+0x7f589de3a27b: mov rax, qword ptr [0x61e3f8]
+0x7f589de3a283: mov rdi, rax
+0x7f589de3a286: call qword ptr [rip-0x2b5506c]
+0x7f589de3a28c: call qword ptr [rip-0x2b55032]
+0x7f589de3a292: call qword ptr [rip-0x2b54ff8]
+0x7f589de3a298: mov edi, 0x2
+0x7f589de3a29d: call 0x7f589de3a322
+0x7f589de3a2a2: push rbp
+0x7f589de3a2a3: mov rbp, rsp
+0x7f589de3a2a6: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a2ae: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a2b6: mov esi, 0x418bb0
+0x7f589de3a2bb: mov rdi, rax
+0x7f589de3a2be: mov eax, 0x0
+0x7f589de3a2c3: call qword ptr [rip-0x2b54da9]
+0x7f589de3a2c9: call qword ptr [rip-0x2b54d6f]
+0x7f589de3a2cf: call qword ptr [rip-0x2b54d35]
+0x7f589de3a2d5: mov edi, 0x2
+0x7f589de3a2da: call 0x7f589de3a322
+0x7f589de3a2df: push rbp
+0x7f589de3a2e0: mov rbp, rsp
+0x7f589de3a2e3: sub rsp, 0x10
+0x7f589de3a2e7: mov qword ptr [rbp-0x8], rdi
+0x7f589de3a2eb: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a2f3: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a2fb: mov rcx, qword ptr [rbp-0x8]
+0x7f589de3a2ff: mov esi, 0x418b40
+0x7f589de3a304: mov rdi, rax
+0x7f589de3a307: mov eax, 0x0
+0x7f589de3a30c: call qword ptr [rip-0x2b54a32]
+0x7f589de3a312: call qword ptr [rip-0x2b549f8]
+0x7f589de3a318: mov edi, 0x3
+0x7f589de3a31d: call 0x7f589de3a322
+0x7f589de3a322: push rbp
+0x7f589de3a323: mov rbp, rsp
+0x7f589de3a326: sub rsp, 0xb0
+0x7f589de3a32d: mov dword ptr [rbp-0xa4], edi
+0x7f589de3a333: mov eax, dword ptr [0x61dba8]
+0x7f589de3a33a: cmp eax, 0x3
+0x7f589de3a33d: jnz 0x7f589de3a4af
+0x7f589de3a343: mov eax, dword ptr [0x61e3f0]
+0x7f589de3a34a: cmp eax, 0x3
+0x7f589de3a34d: jz 0x7f589de3a4af
+0x7f589de3a353: movzx eax, byte ptr [0x61e3ec]
+0x7f589de3a35b: test al, al
+0x7f589de3a35d: jz 0x7f589de3a4af
+0x7f589de3a363: lea rax, ptr [rbp-0xa0]
+0x7f589de3a36a: mov rsi, rax
+0x7f589de3a36d: mov edi, 0x61dfe0
+0x7f589de3a372: call 0x7f589de3a02d
+0x7f589de3a377: mov dword ptr [rbp-0x4], eax
+0x7f589de3a37a: cmp dword ptr [rbp-0x4], 0x0
+0x7f589de3a37e: jnz 0x7f589de3a41e
+0x7f589de3a384: movzx eax, byte ptr [0x61dbb8]
+0x7f589de3a38c: test al, al
+0x7f589de3a38e: jz 0x7f589de3a3bc
+0x7f589de3a394: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a39c: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a3a4: mov ecx, 0x61dbc0
+0x7f589de3a3a9: mov esi, 0x418990
+0x7f589de3a3ae: mov rdi, rax
+0x7f589de3a3b1: mov eax, 0x0
+0x7f589de3a3b6: call qword ptr [rip-0x2b5429c]
+0x7f589de3a3bc: mov rax, qword ptr [0x61db98]
+0x7f589de3a3c4: test rax, rax
+0x7f589de3a3c7: jz 0x7f589de3a3de
+0x7f589de3a3cd: mov rax, qword ptr [0x61db98]
+0x7f589de3a3d5: mov rdi, rax
+0x7f589de3a3d8: call qword ptr [rip-0x2b5413e]
+0x7f589de3a3de: mov edi, 0x61dbc0
+0x7f589de3a3e3: call qword ptr [rip-0x2b540c9]
+0x7f589de3a3e9: mov dword ptr [rbp-0x4], eax
+0x7f589de3a3ec: cmp dword ptr [rbp-0x4], 0x0
+0x7f589de3a3f0: jz 0x7f589de3a4af
+0x7f589de3a3f6: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a3fe: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a406: mov esi, 0x4189c0
+0x7f589de3a40b: mov rdi, rax
+0x7f589de3a40e: mov eax, 0x0
+0x7f589de3a413: call qword ptr [rip-0x2b53eb9]
+0x7f589de3a419: jmp 0x7f589de3a4af
+0x7f589de3a41e: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a426: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a42e: mov esi, 0x418a00
+0x7f589de3a433: mov rdi, rax
+0x7f589de3a436: mov eax, 0x0
+0x7f589de3a43b: call qword ptr [rip-0x2b53d21]
+0x7f589de3a441: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a449: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a451: mov esi, 0x418a38
+0x7f589de3a456: mov rdi, rax
+0x7f589de3a459: mov eax, 0x0
+0x7f589de3a45e: call qword ptr [rip-0x2b53bc4]
+0x7f589de3a464: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a46c: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a474: mov ecx, 0x61dbc0
+0x7f589de3a479: mov esi, 0x418a70
+0x7f589de3a47e: mov rdi, rax
+0x7f589de3a481: mov eax, 0x0
+0x7f589de3a486: call qword ptr [rip-0x2b53a2c]
+0x7f589de3a48c: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a494: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a49c: mov esi, 0x418a90
+0x7f589de3a4a1: mov rdi, rax
+0x7f589de3a4a4: mov eax, 0x0
+0x7f589de3a4a9: call qword ptr [rip-0x2b538cf]
+0x7f589de3a4af: movzx eax, byte ptr [0x61dbb8]
+0x7f589de3a4b7: test al, al
+0x7f589de3a4b9: jz 0x7f589de3a52e
+0x7f589de3a4bf: mov eax, dword ptr [0x61dba0]
+0x7f589de3a4c6: test eax, eax
+
+instructions map dump:
+_start:
+0x7f589de3a000: xor ebp, ebp
+0x7f589de3a002: mov r9, rdx
+0x7f589de3a005: pop rsi
+0x7f589de3a006: mov rdx, rsp
+0x7f589de3a009: and rsp, 0xfffffffffffffff0
+0x7f589de3a00d: push rax
+0x7f589de3a00e: push rsp
+0x7f589de3a00f: mov r8, 0x418570
+0x7f589de3a016: mov rcx, 0x418580
+0x7f589de3a01d: mov rdi, 0x4040af
+0x7f589de3a024: call qword ptr [rip-0x2b56d8a]
+0x7f589de3a02a: hlt
+0x7f589de3a02b: nop
+0x7f589de3a02c: nop
+stat:
+0x7f589de3a02d: mov rdx, rsi
+0x7f589de3a030: mov rsi, rdi
+0x7f589de3a033: mov edi, 0x1
+0x7f589de3a038: jmp qword ptr [rip-0x2b56bde]
+BZ2_bz__AssertH__fail:
+0x7f589de3a03e: push rbp
+0x7f589de3a03f: mov rbp, rsp
+0x7f589de3a042: sub rsp, 0x10
+0x7f589de3a046: mov dword ptr [rbp-0x4], edi
+0x7f589de3a049: call qword ptr [rip-0x2b56aaf]
+0x7f589de3a04f: mov rcx, rax
+0x7f589de3a052: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a05a: mov edx, dword ptr [rbp-0x4]
+0x7f589de3a05d: mov esi, 0x41a410
+0x7f589de3a062: mov rdi, rax
+0x7f589de3a065: mov eax, 0x0
+0x7f589de3a06a: call qword ptr [rip-0x2b56910]
+0x7f589de3a070: cmp dword ptr [rbp-0x4], 0x3ef
+0x7f589de3a077: jnz 0x7f589de3a09d
+0x7f589de3a07d: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a085: mov rcx, rax
+0x7f589de3a088: mov edx, 0x420
+0x7f589de3a08d: mov esi, 0x1
+0x7f589de3a092: mov edi, 0x41a5d0
+0x7f589de3a097: call qword ptr [rip-0x2b5673d]
+0x7f589de3a09d: mov edi, 0x3
+0x7f589de3a0a2: call qword ptr [rip-0x2b566c8]
+configError:
+0x7f589de3a0a8: push rbp
+0x7f589de3a0a9: mov rbp, rsp
+0x7f589de3a0ac: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a0b4: mov rcx, rax
+0x7f589de3a0b7: mov edx, 0xeb
+0x7f589de3a0bc: mov esi, 0x1
+0x7f589de3a0c1: mov edi, 0x419430
+0x7f589de3a0c6: call qword ptr [rip-0x2b564ec]
+0x7f589de3a0cc: mov edi, 0x3
+0x7f589de3a0d1: call qword ptr [rip-0x2b56477]
+0x7f589de3a0d7: mov eax, dword ptr [0x61dbb4]
+0x7f589de3a0de: mov edi, eax
+0x7f589de3a0e0: call qword ptr [rip-0x2b563c6]
+lstat:
+0x7f589de3a0e6: mov rdx, rsi
+0x7f589de3a0e9: mov rsi, rdi
+0x7f589de3a0ec: mov edi, 0x1
+0x7f589de3a0f1: jmp qword ptr [rip-0x2b562d7]
+outOfMemory:
+0x7f589de3a0f7: push rbp
+0x7f589de3a0f8: mov rbp, rsp
+0x7f589de3a0fb: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a103: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a10b: mov esi, 0x419408
+0x7f589de3a110: mov rdi, rax
+0x7f589de3a113: mov eax, 0x0
+0x7f589de3a118: call qword ptr [rip-0x2b560fe]
+0x7f589de3a11e: call qword ptr [rip-0x2b560c4]
+0x7f589de3a124: mov edi, 0x1
+0x7f589de3a129: call 0x7f589de3a322
+mySIGSEGVorSIGBUScatcher:
+0x7f589de3a12e: push rbp
+0x7f589de3a12f: mov rbp, rsp
+0x7f589de3a132: sub rsp, 0x10
+0x7f589de3a136: mov dword ptr [rbp-0x4], edi
+0x7f589de3a139: mov eax, dword ptr [0x61e3f0]
+0x7f589de3a140: cmp eax, 0x1
+0x7f589de3a143: jnz 0x7f589de3a171
+0x7f589de3a149: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a151: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a159: mov esi, 0x418cb8
+0x7f589de3a15e: mov rdi, rax
+0x7f589de3a161: mov eax, 0x0
+0x7f589de3a166: call qword ptr [rip-0x2b55d4c]
+0x7f589de3a16c: jmp 0x7f589de3a194
+0x7f589de3a171: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a179: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a181: mov esi, 0x419020
+0x7f589de3a186: mov rdi, rax
+0x7f589de3a189: mov eax, 0x0
+0x7f589de3a18e: call qword ptr [rip-0x2b55bb4]
+0x7f589de3a194: call qword ptr [rip-0x2b55b7a]
+0x7f589de3a19a: mov eax, dword ptr [0x61e3f0]
+0x7f589de3a1a1: cmp eax, 0x1
+0x7f589de3a1a4: jnz 0x7f589de3a1b4
+0x7f589de3a1aa: mov edi, 0x3
+0x7f589de3a1af: call 0x7f589de3a322
+0x7f589de3a1b4: call qword ptr [rip-0x2b55a1a]
+0x7f589de3a1ba: mov edi, 0x2
+0x7f589de3a1bf: call 0x7f589de3a322
+mySignalCatcher:
+0x7f589de3a1c4: push rbp
+0x7f589de3a1c5: mov rbp, rsp
+0x7f589de3a1c8: sub rsp, 0x10
+0x7f589de3a1cc: mov dword ptr [rbp-0x4], edi
+0x7f589de3a1cf: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a1d7: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a1df: mov esi, 0x418c88
+0x7f589de3a1e4: mov rdi, rax
+0x7f589de3a1e7: mov eax, 0x0
+0x7f589de3a1ec: call qword ptr [rip-0x2b55752]
+0x7f589de3a1f2: mov edi, 0x1
+0x7f589de3a1f7: call 0x7f589de3a322
+ioError:
+0x7f589de3a1fc: push rbp
+0x7f589de3a1fd: mov rbp, rsp
+0x7f589de3a200: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a208: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a210: mov esi, 0x418c40
+0x7f589de3a215: mov rdi, rax
+0x7f589de3a218: mov eax, 0x0
+0x7f589de3a21d: call qword ptr [rip-0x2b55503]
+0x7f589de3a223: mov rax, qword ptr [0x61e3f8]
+0x7f589de3a22b: mov rdi, rax
+0x7f589de3a22e: call qword ptr [rip-0x2b55454]
+0x7f589de3a234: call qword ptr [rip-0x2b5541a]
+0x7f589de3a23a: mov edi, 0x1
+0x7f589de3a23f: call 0x7f589de3a322
+compressedStreamEOF:
+0x7f589de3a244: push rbp
+0x7f589de3a245: mov rbp, rsp
+0x7f589de3a248: movzx eax, byte ptr [0x61dbb8]
+0x7f589de3a250: test al, al
+0x7f589de3a252: jz 0x7f589de3a298
+0x7f589de3a258: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a260: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a268: mov esi, 0x418be0
+0x7f589de3a26d: mov rdi, rax
+0x7f589de3a270: mov eax, 0x0
+0x7f589de3a275: call qword ptr [rip-0x2b5511b]
+0x7f589de3a27b: mov rax, qword ptr [0x61e3f8]
+0x7f589de3a283: mov rdi, rax
+0x7f589de3a286: call qword ptr [rip-0x2b5506c]
+0x7f589de3a28c: call qword ptr [rip-0x2b55032]
+0x7f589de3a292: call qword ptr [rip-0x2b54ff8]
+0x7f589de3a298: mov edi, 0x2
+0x7f589de3a29d: call 0x7f589de3a322
+crcError:
+0x7f589de3a2a2: push rbp
+0x7f589de3a2a3: mov rbp, rsp
+0x7f589de3a2a6: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a2ae: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a2b6: mov esi, 0x418bb0
+0x7f589de3a2bb: mov rdi, rax
+0x7f589de3a2be: mov eax, 0x0
+0x7f589de3a2c3: call qword ptr [rip-0x2b54da9]
+0x7f589de3a2c9: call qword ptr [rip-0x2b54d6f]
+0x7f589de3a2cf: call qword ptr [rip-0x2b54d35]
+0x7f589de3a2d5: mov edi, 0x2
+0x7f589de3a2da: call 0x7f589de3a322
+panic:
+0x7f589de3a2df: push rbp
+0x7f589de3a2e0: mov rbp, rsp
+0x7f589de3a2e3: sub rsp, 0x10
+0x7f589de3a2e7: mov qword ptr [rbp-0x8], rdi
+0x7f589de3a2eb: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a2f3: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a2fb: mov rcx, qword ptr [rbp-0x8]
+0x7f589de3a2ff: mov esi, 0x418b40
+0x7f589de3a304: mov rdi, rax
+0x7f589de3a307: mov eax, 0x0
+0x7f589de3a30c: call qword ptr [rip-0x2b54a32]
+0x7f589de3a312: call qword ptr [rip-0x2b549f8]
+0x7f589de3a318: mov edi, 0x3
+0x7f589de3a31d: call 0x7f589de3a322
+cleanUpAndFail:
+0x7f589de3a322: push rbp
+0x7f589de3a323: mov rbp, rsp
+0x7f589de3a326: sub rsp, 0xb0
+0x7f589de3a32d: mov dword ptr [rbp-0xa4], edi
+0x7f589de3a333: mov eax, dword ptr [0x61dba8]
+0x7f589de3a33a: cmp eax, 0x3
+0x7f589de3a33d: jnz 0x7f589de3a4af
+0x7f589de3a343: mov eax, dword ptr [0x61e3f0]
+0x7f589de3a34a: cmp eax, 0x3
+0x7f589de3a34d: jz 0x7f589de3a4af
+0x7f589de3a353: movzx eax, byte ptr [0x61e3ec]
+0x7f589de3a35b: test al, al
+0x7f589de3a35d: jz 0x7f589de3a4af
+0x7f589de3a363: lea rax, ptr [rbp-0xa0]
+0x7f589de3a36a: mov rsi, rax
+0x7f589de3a36d: mov edi, 0x61dfe0
+0x7f589de3a372: call 0x7f589de3a02d
+0x7f589de3a377: mov dword ptr [rbp-0x4], eax
+0x7f589de3a37a: cmp dword ptr [rbp-0x4], 0x0
+0x7f589de3a37e: jnz 0x7f589de3a41e
+0x7f589de3a384: movzx eax, byte ptr [0x61dbb8]
+0x7f589de3a38c: test al, al
+0x7f589de3a38e: jz 0x7f589de3a3bc
+0x7f589de3a394: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a39c: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a3a4: mov ecx, 0x61dbc0
+0x7f589de3a3a9: mov esi, 0x418990
+0x7f589de3a3ae: mov rdi, rax
+0x7f589de3a3b1: mov eax, 0x0
+0x7f589de3a3b6: call qword ptr [rip-0x2b5429c]
+0x7f589de3a3bc: mov rax, qword ptr [0x61db98]
+0x7f589de3a3c4: test rax, rax
+0x7f589de3a3c7: jz 0x7f589de3a3de
+0x7f589de3a3cd: mov rax, qword ptr [0x61db98]
+0x7f589de3a3d5: mov rdi, rax
+0x7f589de3a3d8: call qword ptr [rip-0x2b5413e]
+0x7f589de3a3de: mov edi, 0x61dbc0
+0x7f589de3a3e3: call qword ptr [rip-0x2b540c9]
+0x7f589de3a3e9: mov dword ptr [rbp-0x4], eax
+0x7f589de3a3ec: cmp dword ptr [rbp-0x4], 0x0
+0x7f589de3a3f0: jz 0x7f589de3a4af
+0x7f589de3a3f6: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a3fe: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a406: mov esi, 0x4189c0
+0x7f589de3a40b: mov rdi, rax
+0x7f589de3a40e: mov eax, 0x0
+0x7f589de3a413: call qword ptr [rip-0x2b53eb9]
+0x7f589de3a419: jmp 0x7f589de3a4af
+0x7f589de3a41e: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a426: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a42e: mov esi, 0x418a00
+0x7f589de3a433: mov rdi, rax
+0x7f589de3a436: mov eax, 0x0
+0x7f589de3a43b: call qword ptr [rip-0x2b53d21]
+0x7f589de3a441: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a449: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a451: mov esi, 0x418a38
+0x7f589de3a456: mov rdi, rax
+0x7f589de3a459: mov eax, 0x0
+0x7f589de3a45e: call qword ptr [rip-0x2b53bc4]
+0x7f589de3a464: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a46c: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a474: mov ecx, 0x61dbc0
+0x7f589de3a479: mov esi, 0x418a70
+0x7f589de3a47e: mov rdi, rax
+0x7f589de3a481: mov eax, 0x0
+0x7f589de3a486: call qword ptr [rip-0x2b53a2c]
+0x7f589de3a48c: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a494: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a49c: mov esi, 0x418a90
+0x7f589de3a4a1: mov rdi, rax
+0x7f589de3a4a4: mov eax, 0x0
+0x7f589de3a4a9: call qword ptr [rip-0x2b538cf]
+0x7f589de3a4af: movzx eax, byte ptr [0x61dbb8]
+0x7f589de3a4b7: test al, al
+0x7f589de3a4b9: jz 0x7f589de3a52e
+0x7f589de3a4bf: mov eax, dword ptr [0x61dba0]
+0x7f589de3a4c6: test eax, eax
+0x7f589de3a4c8: jle 0x7f589de3a52e
+0x7f589de3a4ce: mov edx, dword ptr [0x61db90]
+0x7f589de3a4d5: mov eax, dword ptr [0x61dba0]
+0x7f589de3a4dc: cmp edx, eax
+0x7f589de3a4de: jnl 0x7f589de3a52e
+0x7f589de3a4e4: mov edx, dword ptr [0x61dba0]
+0x7f589de3a4eb: mov eax, dword ptr [0x61db90]
+0x7f589de3a4f2: mov edi, edx
+0x7f589de3a4f4: sub edi, eax
+0x7f589de3a4f6: mov esi, dword ptr [0x61dba0]
+0x7f589de3a4fd: mov rcx, qword ptr [0x61e3f8]
+0x7f589de3a505: mov rdx, qword ptr [0x61e3f8]
+0x7f589de3a50d: mov rax, qword ptr [0x61d2b0]
+0x7f589de3a515: mov r9d, edi
+0x7f589de3a518: mov r8d, esi
+0x7f589de3a51b: mov esi, 0x418ad0
+0x7f589de3a520: mov rdi, rax
+0x7f589de3a523: mov eax, 0x0
+0x7f589de3a528: call qword ptr [rip-0x2b5334e]
+0x7f589de3a52e: mov eax, dword ptr [rbp-0xa4]
+0x7f589de3a534: mov edi, eax
+0x7f589de3a536: call qword ptr [rip-0x2b5329c]
+0x7f589de3a53c: mov eax, dword ptr [0x61dbb4]
+0x7f589de3a543: mov edi, eax
+0x7f589de3a545: call qword ptr [rip-0x2b531eb]
+committing rtN: _start from: 0x401310 to: 0x7f589de3a000
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x401310 replacement routine addr: 0x7f589de3a000
+0x401310: jmp qword ptr [rip+0x1bcea]
+committing rtN: stat from: 0x418610 to: 0x7f589de3a02d
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x418610 replacement routine addr: 0x7f589de3a02d
+0x418610: jmp qword ptr [rip+0x49f2]
+committing rtN: BZ2_bz__AssertH__fail from: 0x404ea8 to: 0x7f589de3a03e
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x404ea8 replacement routine addr: 0x7f589de3a03e
+0x404ea8: jmp qword ptr [rip+0x18162]
+committing rtN: configError from: 0x40274b to: 0x7f589de3a0a8
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40274b replacement routine addr: 0x7f589de3a0a8
+0x40274b: jmp qword ptr [rip+0x1a8c7]
+committing rtN: lstat from: 0x418620 to: 0x7f589de3a0e6
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x418620 replacement routine addr: 0x7f589de3a0e6
+0x418620: jmp qword ptr [rip+0x49fa]
+committing rtN: outOfMemory from: 0x402718 to: 0x7f589de3a0f7
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402718 replacement routine addr: 0x7f589de3a0f7
+0x402718: jmp qword ptr [rip+0x1a90a]
+committing rtN: mySIGSEGVorSIGBUScatcher from: 0x402697 to: 0x7f589de3a12e
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402697 replacement routine addr: 0x7f589de3a12e
+0x402697: jmp qword ptr [rip+0x1a993]
+committing rtN: mySignalCatcher from: 0x402662 to: 0x7f589de3a1c4
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402662 replacement routine addr: 0x7f589de3a1c4
+0x402662: jmp qword ptr [rip+0x1a9d0]
+committing rtN: ioError from: 0x402620 to: 0x7f589de3a1fc
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402620 replacement routine addr: 0x7f589de3a1fc
+0x402620: jmp qword ptr [rip+0x1aa1a]
+committing rtN: compressedStreamEOF from: 0x4025ce to: 0x7f589de3a244
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x4025ce replacement routine addr: 0x7f589de3a244
+0x4025ce: jmp qword ptr [rip+0x1aa74]
+committing rtN: crcError from: 0x402596 to: 0x7f589de3a2a2
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402596 replacement routine addr: 0x7f589de3a2a2
+0x402596: jmp qword ptr [rip+0x1aab4]
+committing rtN: panic from: 0x402557 to: 0x7f589de3a2df
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x402557 replacement routine addr: 0x7f589de3a2df
+0x402557: jmp qword ptr [rip+0x1aafb]
+committing rtN: cleanUpAndFail from: 0x40236a to: 0x7f589de3a322
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40236a replacement routine addr: 0x7f589de3a322
+0x40236a: jmp qword ptr [rip+0x1acf0]
+after commit translated routines
