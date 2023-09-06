@@ -1413,7 +1413,7 @@ int find_candidate_rtns_for_translation(IMG img)
 		USIZE rtn_size = RTN_Size(rtn);
 	//iterate over all the bbl in the rtn
 		std::vector<BBLdata> bbl_vec = bbls[rtn_addr];
-		cout << bbl_vec.size() << endl;
+		//cout << bbl_vec.size() << endl;
 		for (size_t i = 0; i < bbl_vec.size(); i ++)
 		{
 			BBLdata bbl_entry = bbl_vec[i];
@@ -1426,12 +1426,16 @@ int find_candidate_rtns_for_translation(IMG img)
 					continue;
 				start_ins = ins;
 			}
-			cout << std::hex << bbl_entry.bbl_addr << endl;
+			//cout << std::hex << bbl_entry.bbl_addr << endl;
 			INS last_ins = start_ins;
 			// insert all the body of the bbl until last instruction
 			for (INS ins = start_ins; INS_Valid(ins) && INS_Address(ins) <= bbl_entry.last_addr; ins = INS_Next(ins))
 			{
-				if (INS_Address(ins) == bbl_entry.last_addr){
+//				cout << bbl_entry.last_addr <<endl;
+				if (bbl_entry.last_addr != 0 && INS_Address(ins) == bbl_entry.last_addr){
+					last_ins = ins;
+				}
+				else if (bbl_entry.last_addr == 0  && INS_Address(INS_Next(ins)) == bbl_entry.fallthrough_addr){
 					last_ins = ins;
 				}
 				else if(!INS_IsDirectControlFlow(ins))
@@ -1444,6 +1448,12 @@ int find_candidate_rtns_for_translation(IMG img)
 			}
 			// insert the new last instruction according to the reorder
 			ADDRINT addr = INS_Address(last_ins);
+			if(!INS_IsDirectControlFlow(last_ins))
+			{
+				insert_instruction(last_ins);
+				continue;
+			}
+			int rc;
 			if(INS_IsCall(last_ins))
 			{
 				for(Candidate cand: local_candidates)
@@ -1454,14 +1464,24 @@ int find_candidate_rtns_for_translation(IMG img)
 						rtn_size += inline_rtn(addr, cand);
 						// get back to the next instruction in the rtn
 						RTN_Open(rtn);
+						if( i == (bbl_vec.size() -1))
+						{
+							rc = insert_jump(bbl_entry.fallthrough_addr, INS_NextAddress(last_ins), -1);
+							if ( rc <= 0){
+								cerr << "ERROR: failed during instructon translation." << endl;
+								translated_rtn[translated_rtn_num].instr_map_entry = -1;
+								exit(1);
+							}
+						}
 						break;
 					}
 				}
 			}
-			int rc;
 			// if that is the last bbl
 			if( i == (bbl_vec.size() -1))
 			{
+				insert_instruction(last_ins);
+				//cout << "last bbl\n\n" << endl;
 				//if there is fallthrough address - add a jump to the fallthrough
 				if(INS_HasFallThrough(last_ins))
 				{
@@ -1482,7 +1502,7 @@ int find_candidate_rtns_for_translation(IMG img)
 			// if the target is the next block revert the branch (earase it if it is an unconditional branch)
 			if(target_addr == next_bbl.bbl_addr)
 			{
-				cout << "in revert " << endl;
+				//cout << "in revert " << endl;
 
 				revert_jump(last_ins, fallthrough_addr);
 				
@@ -1500,11 +1520,11 @@ int find_candidate_rtns_for_translation(IMG img)
 					insert_instruction(last_ins);
 				}
 				
-				cout << "inserted instruction" << endl;
+				//cout << "inserted instruction" << endl;
 				// if the reorder moved the next block so jump there
 				if (fallthrough_addr != ADDRINT(-1) && fallthrough_addr !=  next_bbl.bbl_addr)
 				{
-					cout << "add jump to " << endl;
+					//cout << "add jump to " << endl;
 					rc = insert_jump(bbl_entry.fallthrough_addr, -1, -1);
 					if ( rc <= 0){
 						cerr << "ERROR: failed during instructon translation." << endl;
@@ -1528,6 +1548,8 @@ int find_candidate_rtns_for_translation(IMG img)
 		translated_rtn_num++;
 
 	} // end for RTN..
+
+
 		//} // end for SEC...
 	return 0;
 }
