@@ -1444,7 +1444,7 @@ int find_candidate_rtns_for_translation(IMG img)
 						RTN_Open(rtn);
 						if( i == (bbl_vec.size() -1))
 						{
-							rc = insert_jump(bbl_entry.fallthrough_addr, INS_NextAddress(last_ins), -1);
+							rc = insert_jump(bbl_entry.fallthrough_addr, -1, -1);
 							if ( rc <= 0){
 								cerr << "ERROR: failed during instructon translation." << endl;
 								translated_rtn[translated_rtn_num].instr_map_entry = -1;
