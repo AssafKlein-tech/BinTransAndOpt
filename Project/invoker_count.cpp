@@ -589,6 +589,11 @@ VOID Fini(INT32 code, VOID *v)
     {
         ReorderBBLs(iterator->rtn_addr);
     }
+    //this addition make sure that the routine being inlined is already ordered by
+    for(std::vector<Invoker>::iterator iterator2 = final_candidates.begin(); iterator2 != final_candidates.end(); iterator2++)
+    {
+        ReorderBBLs(iterator2->target_addr);
+    }
 
     std::ofstream resultsRTNBBLOrder("RTNBBLOrder.csv"); 
     for(std::map<ADDRINT,std::vector<BBL_info>>::iterator itr_rtn = rtn_bbls_order.begin(); 
