@@ -537,69 +537,49 @@ int add_inline_function(UINT target, ADDRINT rtn_addr, ADDRINT inline_start)
 	USIZE rc = 0;
 	
 	// if ret ! next != end so jump to end, if ret and next = end remove and replace with subtruct rsp.
+	for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins)) {
+		
+		//debug print of orig instruction:
+		if (KnobVerbose) {
+			cerr << "old instr: ";
+			cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;
+			//xed_print_hex_line(reinterpret_cast<UINT8*>(INS_Address (ins)), INS_Size(ins));				   			
+		}				
 
-	//here we go over each instruction in the rtn, should be each inst in the bbl and go over the bbl in the reorder
-	std::vector<BBLdata> bbl_vec = bbls[rtn_addr];
-	cout<< "HERE and bbl_size is " << bbl_vec.size() << "and the rtn im reordering now is"<<rtn_addr << endl;
-	for (size_t i = 0; i < bbl_vec.size(); i ++){
+		ADDRINT addr = INS_Address(ins);
+					
+		xed_decoded_inst_t xedd;
+		xed_error_enum_t xed_code;							
+		
+		xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
 
-		BBLdata bbl_entry = bbl_vec[i];
-		INS last_ins;
-		for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins)) {
-			if(INS_Address(ins) < bbl_entry.bbl_addr || INS_Address(ins) >= bbl_entry.last_addr)
-			{	
-				if(INS_Address(ins) == bbl_entry.last_addr)
-				{
-					last_ins = ins;
-				}
-				continue;
-			}
-			//debug print of orig instruction:
-			if (KnobVerbose) {
-				cerr << "old instr: ";
-				cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;
-				//xed_print_hex_line(reinterpret_cast<UINT8*>(INS_Address (ins)), INS_Size(ins));				   			
-			}				
-
-			ADDRINT addr = INS_Address(ins);
-						
-			xed_decoded_inst_t xedd;
-			xed_error_enum_t xed_code;							
-			
-			xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
-
-			xed_code = xed_decode(&xedd, reinterpret_cast<UINT8*>(addr), max_inst_len);
-			if (xed_code != XED_ERROR_NONE) {
-				cerr << "ERROR: xed decode failed for instr at: " << "0x" << hex << addr << endl;
-				translated_rtn[translated_rtn_num].instr_map_entry = -1;
-				break;
-			}
-
-			if(xed_decoded_inst_get_iclass(&xedd) == XED_ICLASS_RET_NEAR)
-			{
-				if( !INS_Valid(INS_Next(ins)))
-					break;
-				//cout << "fixing ret" << endl;
-				rc = insert_jump(target,INS_Address(ins), inline_start);
-			}
-
-			// Add instr into instr map:
-			else
-			{
-				rc = add_new_instr_entry(&xedd, INS_Address(ins), INS_Size(ins),inline_start);
-			}
-
-			if (rc < 0) {
-				cerr << "ERROR: failed during instructon translation." << endl;
-				translated_rtn[translated_rtn_num].instr_map_entry = -1;
-				break;
-			}
-			rtn_size += rc;
-		}
-		if(INS_IsRet(last_ins))
-		{
+		xed_code = xed_decode(&xedd, reinterpret_cast<UINT8*>(addr), max_inst_len);
+		if (xed_code != XED_ERROR_NONE) {
+			cerr << "ERROR: xed decode failed for instr at: " << "0x" << hex << addr << endl;
+			translated_rtn[translated_rtn_num].instr_map_entry = -1;
 			break;
 		}
+
+		if(xed_decoded_inst_get_iclass(&xedd) == XED_ICLASS_RET_NEAR)
+		{
+			if( !INS_Valid(INS_Next(ins)))
+				break;
+			//cout << "fixing ret" << endl;
+			rc = insert_jump(target,INS_Address(ins), inline_start);
+		}
+
+		// Add instr into instr map:
+		else
+		{
+			rc = add_new_instr_entry(&xedd, INS_Address(ins), INS_Size(ins),inline_start);
+		}
+
+		if (rc < 0) {
+			cerr << "ERROR: failed during instructon translation." << endl;
+			translated_rtn[translated_rtn_num].instr_map_entry = -1;
+			break;
+		}
+		rtn_size += rc;
 	}
 	RTN_Close( rtn ); 
 	return rtn_size;

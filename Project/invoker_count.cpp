@@ -413,7 +413,11 @@ void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
 }
 
 
-VOID ReorderBBLs(ADDRINT curr_rtn_address)
+
+
+
+
+VOID ReorderBBLs(ADDRINT curr_rtn_address, std::vector<Invoker> inline_cand)
 {
     std::vector<BBL_info> rtn_bbls;
     for(std::map<ADDRINT,BBL_info>::iterator itr = BBL_map.begin(); itr!= BBL_map.end();itr++)
@@ -454,14 +458,75 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         }
         //insert final vector
         rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
+        cout<< "inserted bbl " <<std::hex << BBL_map[top.bbl_addr].BBL_head_address << endl;
         //make visited
         BBL_map[top.bbl_addr].visited = true;
         //insert children
         heap_element target = {BBL_map[top.bbl_addr].branch_target_address, BBL_map[top.bbl_addr].branch_times_taken};
         heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
-        if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
+        if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1)) 
+        // all this if statement refers to inlinng a function 
+        //-- There is a massive code duplication, maybe it would be better to outsource it to an Aux function--
         {
            fallthrough.in_degree = top.in_degree;
+           for(Invoker inv_entry: inline_cand)
+                {
+                    if (BBL_map[top.bbl_addr].is_call && BBL_map[top.bbl_addr].branch_target_address == inv_entry.target_addr)
+                    {
+                        std::vector<BBL_info> inline_rtn_bbls;
+                        for(std::map<ADDRINT,BBL_info>::iterator itr = BBL_map.begin(); itr!= BBL_map.end();itr++)
+                        {
+                            if (itr->second.rtn_address  == inv_entry.target_addr)
+                            {
+                                inline_rtn_bbls.push_back(itr->second);
+                            }
+                        }
+                        std::vector<heap_element> heap_aux;
+                        if(inline_rtn_bbls.empty()) return;
+                        eliminate_overlapping_bbls(inline_rtn_bbls);
+                        heap_element first_aux = {inline_rtn_bbls.begin()->BBL_head_address, 0};
+
+                        std::make_heap(heap_aux.begin(),heap_aux.end(), [](const heap_element el1, const heap_element el2) { return el1.in_degree >= el2.in_degree; });
+                        heap_aux.push_back(first_aux);
+                        std::push_heap(heap_aux.begin(),heap_aux.end());
+                        while (!heap_aux.empty())
+                        {
+                            heap_element top_aux = heap_aux.front();
+                            std::pop_heap(heap_aux.begin(),heap_aux.end());
+                            heap_aux.pop_back();
+                            if(BBL_map[top_aux.bbl_addr].visited)
+                            {
+                                continue;
+                            }
+                            rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top_aux.bbl_addr]);
+                            cout<< "inserted bbl " << std::hex <<  BBL_map[top_aux.bbl_addr].BBL_head_address << endl;
+                            BBL_map[top_aux.bbl_addr].visited = true;
+
+                            heap_element target_aux = {BBL_map[top_aux.bbl_addr].branch_target_address, BBL_map[top_aux.bbl_addr].branch_times_taken};
+                            heap_element fallthrough_aux = {BBL_map[top_aux.bbl_addr].fallthrough_address, BBL_map[top_aux.bbl_addr].branch_times_not_taken};
+                            if (BBL_map[top_aux.bbl_addr].is_call || BBL_map[top_aux.bbl_addr].branch_target_address == ADDRINT(-1)) 
+                            {
+                                fallthrough_aux.in_degree = top_aux.in_degree;
+                            }
+                            if (BBL_map[target_aux.bbl_addr].rtn_address == inv_entry.target_addr)
+                            {
+                                heap_aux.push_back(target_aux);
+                                std::push_heap(heap_aux.begin(),heap_aux.end());
+                            }
+                            if(BBL_map[fallthrough_aux.bbl_addr].rtn_address == inv_entry.target_addr)
+                            {
+                                heap.push_back(fallthrough_aux);
+                                std::push_heap(heap_aux.begin(),heap_aux.end());
+                            }  
+
+                        }
+
+                    
+
+
+
+                    }
+                }
         }
         if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address)
         {
@@ -474,6 +539,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
             std::push_heap(heap.begin(),heap.end());
         }       
     }
+
 }
 
 
@@ -563,7 +629,7 @@ VOID Fini(INT32 code, VOID *v)
     //print RTN for translation and RTN for inlining
     std::ofstream results("Count.csv");
     int vec_size = rtn_vec.size();
-    results << vec_size;
+    results <<std::dec << vec_size;
     for (RTN_reorder_info rtn_entry: rtn_vec)
     {
         results << ",0x" << std::hex << rtn_entry.rtn_addr;
@@ -587,13 +653,13 @@ VOID Fini(INT32 code, VOID *v)
 
     for(std::vector<RTN_reorder_info>::iterator iterator = rtn_vec.begin(); iterator != rtn_vec.end(); iterator++)
     {
-        ReorderBBLs(iterator->rtn_addr);
+        ReorderBBLs(iterator->rtn_addr,final_candidates);
     }
     //this addition make sure that the routine being inlined is already ordered by
-    for(std::vector<Invoker>::iterator iterator2 = final_candidates.begin(); iterator2 != final_candidates.end(); iterator2++)
-    {
-        ReorderBBLs(iterator2->target_addr);
-    }
+    //for(std::vector<Invoker>::iterator iterator2 = final_candidates.begin(); iterator2 != final_candidates.end(); iterator2++)
+    //{
+    //    ReorderBBLs(iterator2->target_addr);
+    //}
 
     std::ofstream resultsRTNBBLOrder("RTNBBLOrder.csv"); 
     for(std::map<ADDRINT,std::vector<BBL_info>>::iterator itr_rtn = rtn_bbls_order.begin(); 
