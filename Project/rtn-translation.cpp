@@ -1176,7 +1176,7 @@ void revert_jump(INS ins, ADDRINT addr)
 	xed_decoded_inst_t *xedd = INS_XedDec(ins);
     xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
 
-	if (category_enum == XED_CATEGORY_UNCOND_BR) 
+	if (category_enum == XED_CATEGORY_UNCOND_BR || addr == ADDRINT(-1)) 
 	{
 		//remove jump
 		insert_dummy(ins);
@@ -1489,6 +1489,11 @@ int find_candidate_rtns_for_translation(IMG img)
 				// if that is the last bbl
 				if( i == (bbl_vec.size() -1))
 				{
+					if (INS_HasFallThrough(last_ins) && bbl_entry.fallthrough_addr == ADDRINT(-1))
+					{
+						insert_jump(bbl_entry.target_addr, last_ins_addr, -1);
+						continue;
+					}
 					insert_instruction(last_ins);
 					//if there is fallthrough address - add a jump to the fallthrough
 					if(INS_HasFallThrough(last_ins))
