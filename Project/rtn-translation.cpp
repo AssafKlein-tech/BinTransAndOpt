@@ -906,8 +906,8 @@ int fix_instructions_displacements()
 		}
 
 		for (int i=0; i < num_of_instr_map_entries; i++) {
-			if (instr_map[i].size == 0)
-				continue;
+			//if (instr_map[i].size == 0)
+			//	continue;
 			instr_map[i].new_ins_addr += size_diff;
 				   
 			int new_size = 0;
@@ -1157,7 +1157,20 @@ void insert_instruction(INS ins)
 		exit(1);
 	}
 }
-	
+
+void insert_dummy(INS ins)
+{
+	//need to add dummy entry for jumps to that address
+	instr_map[num_of_instr_map_entries].orig_ins_addr = INS_Address(ins);
+	instr_map[num_of_instr_map_entries].new_ins_addr = (ADDRINT)&tc[tc_cursor];  // set an initial estimated addr in tc
+	instr_map[num_of_instr_map_entries].orig_targ_addr = 0; 
+	instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
+	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
+	instr_map[num_of_instr_map_entries].size = 0;	
+	instr_map[num_of_instr_map_entries].inline_start_addr = -1;
+	num_of_instr_map_entries++;
+}
+
 void revert_jump(INS ins, ADDRINT addr)
 {
 	xed_decoded_inst_t *xedd = INS_XedDec(ins);
@@ -1166,16 +1179,7 @@ void revert_jump(INS ins, ADDRINT addr)
 	if (category_enum == XED_CATEGORY_UNCOND_BR) 
 	{
 		//remove jump
-		cout << "removing jump and inserting a dummy entry " << endl;
-		//need to add dummy entry for jumps to that address
-		instr_map[num_of_instr_map_entries].orig_ins_addr = INS_Address(ins);
-		instr_map[num_of_instr_map_entries].new_ins_addr = (ADDRINT)&tc[tc_cursor];  // set an initial estimated addr in tc
-		instr_map[num_of_instr_map_entries].orig_targ_addr = 0; 
-		instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
-		instr_map[num_of_instr_map_entries].targ_map_entry = -1;
-		instr_map[num_of_instr_map_entries].size = 0;	
-		instr_map[num_of_instr_map_entries].inline_start_addr = -1;
-		num_of_instr_map_entries++;
+		insert_dummy(ins);
 		return;
 	}
 	if(category_enum == XED_CATEGORY_COND_BR)
@@ -1392,10 +1396,11 @@ int find_candidate_rtns_for_translation(IMG img)
 		USIZE rtn_size = RTN_Size(rtn);
 	//iterate over all the bbl in the rtn
 		std::vector<BBLdata> bbl_vec = bbls[rtn_addr];
-		cout << bbl_vec.size() << endl;
+		//cout << bbl_vec.size() << endl;
 		for (size_t i = 0; i < bbl_vec.size(); i ++)
 		{
 			BBLdata bbl_entry = bbl_vec[i];
+
 			//set the start instruction to the bbl start address
 			INS start_ins = RTN_InsHead(rtn);
 			for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
@@ -1405,7 +1410,8 @@ int find_candidate_rtns_for_translation(IMG img)
 					continue;
 				start_ins = ins;
 			}
-			cout << std::hex << bbl_entry.bbl_addr << endl;
+
+			//cout << std::hex << bbl_entry.bbl_addr << endl;
 			INS last_ins = start_ins;
 			// insert all the body of the bbl until last instruction
 			for (INS ins = start_ins; INS_Valid(ins) && INS_Address(ins) <= bbl_entry.last_addr; ins = INS_Next(ins))
@@ -1415,6 +1421,7 @@ int find_candidate_rtns_for_translation(IMG img)
 				}
 				else if (bbl_entry.last_addr == 0  && INS_NextAddress(ins) == bbl_entry.fallthrough_addr){
 					last_ins = ins;
+					break;
 				}
 				else if(!INS_IsDirectControlFlow(ins))
 				{
@@ -1424,71 +1431,49 @@ int find_candidate_rtns_for_translation(IMG img)
 					cerr << "Branch instruction in the middle of a bbl " << std::hex << INS_Address(ins) << " in bbl: " << bbl_entry.bbl_addr << std::dec << endl;
 				}
 			}
+
 			// insert the new last instruction according to the reorder
-			ADDRINT addr = INS_Address(last_ins);
-			if(!INS_IsDirectControlFlow(last_ins))
-			{
-				insert_instruction(last_ins);
-				continue;
-			}
+			ADDRINT last_ins_addr = INS_Address(last_ins);
+		
+			//here is the double ret?
+			//if(!INS_IsDirectControlFlow(last_ins))
+			//{
+			//	insert_instruction(last_ins);
+			//	continue;
+			//}
 			int rc;
 			if(INS_IsCall(last_ins))
 			{
+				bool inlined = false;
 				for(Candidate cand: local_candidates)
 				{
-					if (cand.call_point == addr)
+					if (cand.call_point == last_ins_addr)
 					{
 						RTN_Close(rtn);
-						rtn_size += inline_rtn(addr, cand);
+						rtn_size += inline_rtn(last_ins_addr, cand);
 						// get back to the next instruction in the rtn
 						RTN_Open(rtn);
-						if( i == (bbl_vec.size() -1))
-						{
-							rc = insert_jump(bbl_entry.fallthrough_addr, INS_NextAddress(last_ins), -1);
-							if ( rc <= 0){
-								cerr << "ERROR: failed during instructon translation." << endl;
-								translated_rtn[translated_rtn_num].instr_map_entry = -1;
-								exit(1);
-							}
-						}
+						inlined = true;
 						break;
 					}
 				}
-			}
-			// if that is the last bbl
-			if( i == (bbl_vec.size() -1))
-			{
-				//if there is fallthrough address - add a jump to the fallthrough
-				if(INS_HasFallThrough(last_ins))
+				if(!inlined)
 				{
-					rc = insert_jump(bbl_entry.fallthrough_addr, INS_NextAddress(last_ins), -1);
+					insert_instruction(last_ins);
+				}
+				if( i == (bbl_vec.size() -1))
+				{
+					rc = insert_jump(bbl_entry.fallthrough_addr, -1, -1);
 					if ( rc <= 0){
 						cerr << "ERROR: failed during instructon translation." << endl;
 						translated_rtn[translated_rtn_num].instr_map_entry = -1;
 						exit(1);
 					}
-				continue;
+					continue;
 				}
-			}
-
-
-			ADDRINT target_addr = bbl_entry.target_addr;
-			ADDRINT fallthrough_addr = bbl_entry.fallthrough_addr;
-			BBLdata next_bbl = bbl_vec[i+1];
-			// if the target is the next block revert the branch (earase it if it is an unconditional branch)
-			if(target_addr == next_bbl.bbl_addr)
-			{
-				cout << "in revert " << endl;
-				revert_jump(last_ins, fallthrough_addr);
-			// if the block ends with a jump to the next block. earase it
-			}
-			else //no need to revert the jump
-			{
-				//insert the original jump instruction
-				insert_instruction(last_ins);
-				cout << "inserted instruction" << endl;
-				// if the reorder moved the next block so jump there
-				if (fallthrough_addr != ADDRINT(-1) && fallthrough_addr !=  next_bbl.bbl_addr)
+				BBLdata next_bbl = bbl_vec[i+1];
+				ADDRINT fallthrough_addr = bbl_entry.fallthrough_addr;
+				if (fallthrough_addr != next_bbl.bbl_addr)
 				{
 					cout << "add jump to " << endl;
 					rc = insert_jump(bbl_entry.fallthrough_addr, -1, -1);
@@ -1498,6 +1483,60 @@ int find_candidate_rtns_for_translation(IMG img)
 						exit(1);
 					}
 				}	
+			}
+			else 
+			{
+				// if that is the last bbl
+				if( i == (bbl_vec.size() -1))
+				{
+					insert_instruction(last_ins);
+					//if there is fallthrough address - add a jump to the fallthrough
+					if(INS_HasFallThrough(last_ins))
+					{
+						rc = insert_jump(bbl_entry.fallthrough_addr, -1, -1);
+						if ( rc <= 0){
+							cerr << "ERROR: failed during instructon translation." << endl;
+							translated_rtn[translated_rtn_num].instr_map_entry = -1;
+							exit(1);
+						}
+					}
+					continue;
+				}
+
+				ADDRINT target_addr = bbl_entry.target_addr;
+				ADDRINT fallthrough_addr = bbl_entry.fallthrough_addr;
+				BBLdata next_bbl = bbl_vec[i+1];
+
+				// if the target is the next block revert the branch (earase it if it is an unconditional branch)
+				if(target_addr == next_bbl.bbl_addr)
+				{
+					revert_jump(last_ins, fallthrough_addr);
+				// if the block ends with a jump to the next block. earase it
+				}
+				else //no need to revert the jump
+				{
+					if(target_addr == ADDRINT(-1) && !INS_IsRet(last_ins))	
+					{
+						insert_dummy(last_ins); // ????
+					}
+					//insert the original jump instruction
+					else
+					{
+						insert_instruction(last_ins);
+					}
+					//cout << "inserted instruction" << endl;
+
+					// if the reorder moved the next block so jump there
+					if (fallthrough_addr != ADDRINT(-1) && fallthrough_addr !=  next_bbl.bbl_addr)
+					{
+						rc = insert_jump(bbl_entry.fallthrough_addr, -1, -1);
+						if ( rc <= 0){
+							cerr << "ERROR: failed during instructon translation." << endl;
+							translated_rtn[translated_rtn_num].instr_map_entry = -1;
+							exit(1);
+						}
+					}	
+				}
 			}
 		}
 		

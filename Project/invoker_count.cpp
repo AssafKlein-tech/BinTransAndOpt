@@ -45,6 +45,7 @@ END_LEGAL */
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <queue>
 using std::cout;
 using std::endl;
 using std::cerr;
@@ -341,16 +342,16 @@ VOID profBranches(TRACE trc, VOID *v)
         {
             if(BBL_map.find(head) == BBL_map.end())
             {
-                if (head == 4244574)
-                {
-                    cout << "no bugs found" << endl;
-                }
+                //if (head == 4244574)
+                //{
+                //    cout << "no bugs found" << endl;
+                //}
                 xed_decoded_inst_t *xedd = INS_XedDec(last_ins);
                 xed_iclass_enum_t type_info = xed_decoded_inst_get_iclass(xedd);
                 ADDRINT rtn_addr =RTN_Address(RTN_FindByAddress(head));
                 ADDRINT last_addr = INS_Address(last_ins);
                 ADDRINT fallthrough ;
-                if(INS_HasFallThrough(last_ins))
+                if(INS_HasFallThrough(last_ins) || INS_IsCall(last_ins))
                     fallthrough = INS_NextAddress(last_ins);
                 else
                     fallthrough = -1;
@@ -359,9 +360,9 @@ VOID profBranches(TRACE trc, VOID *v)
                     target_addr = INS_DirectControlFlowTargetAddress(last_ins);
                 }
                 else{
-                    target_addr =-1;
+                    target_addr = -1;
                 }
-                bool is_call = (type_info == XED_ICLASS_CALL_NEAR );
+                bool is_call = INS_IsCall(last_ins);
                 BBL_info BBL_inst = {bbl,rtn_addr,head,last_addr,fallthrough,target_addr,type_info,0,0,is_call,-1,false};
                 BBL_map[head] = BBL_inst;
             }
@@ -377,7 +378,7 @@ class heap_element
     ADDRINT bbl_addr;
     UINT64 in_degree;
     bool operator<(const heap_element& other) const {
-        return in_degree < other.in_degree;
+        return in_degree <= other.in_degree;
     }
 };
  
@@ -425,54 +426,53 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
     }
 
     
-    std::vector<heap_element> heap;
-    //cout<< "0x" << std::hex << curr_rtn_address <<endl;
+    std::priority_queue<heap_element> heap;
     if(rtn_bbls.empty()) return;
-    eliminate_overlapping_bbls(rtn_bbls);
+    //eliminate_overlapping_bbls(rtn_bbls);
     heap_element first = {rtn_bbls.begin()->BBL_head_address, 0};
     
-    std::make_heap(heap.begin(),heap.end(), [](const heap_element el1, const heap_element el2) { return el1.in_degree >= el2.in_degree; });
-    heap.push_back(first);
-    std::push_heap(heap.begin(),heap.end());
-    
 
+    heap.push(first);
     while (!heap.empty())
     {
         //take out
-        heap_element top = heap.front();
-       // if (curr_rtn_address == 4241446)
-       // {
-       //     cout << std::hex << top.bbl_addr  << " target address:" << BBL_map[top.bbl_addr].branch_target_address<< ", " << BBL_map[top.bbl_addr].branch_times_taken << " , and fallback address:" << BBL_map[top.bbl_addr].fallthrough_address << ", " << BBL_map[top.bbl_addr].branch_times_not_taken << endl;
-//
-       // }
-        std::pop_heap(heap.begin(),heap.end());
-        heap.pop_back();
-        if(BBL_map[top.bbl_addr].visited)
-        {
-           // cout << "visited" << endl;
-            continue;
-        }
-        //insert final vector
-        rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
-        //make visited
-        BBL_map[top.bbl_addr].visited = true;
+        heap_element top = heap.top();
+        heap.pop();
+        if(BBL_map[top.bbl_addr].visited) continue;
+
+        
         //insert children
         heap_element target = {BBL_map[top.bbl_addr].branch_target_address, BBL_map[top.bbl_addr].branch_times_taken};
+        if(BBL_map[top.bbl_addr].branch_times_taken == 0 || BBL_map[top.bbl_addr].is_call)
+        { 
+            BBL_map[top.bbl_addr].branch_target_address = -1;
+        }
+        
         heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
+        if(BBL_map[top.bbl_addr].branch_times_not_taken == 0  && !BBL_map[top.bbl_addr].is_call)
+        {
+            BBL_map[top.bbl_addr].fallthrough_address =-1;
+        }
+
+
         if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
            fallthrough.in_degree = top.in_degree;
         }
-        if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address)
+        
+        if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address && BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1))
         {
-            heap.push_back(target);
-            std::push_heap(heap.begin(),heap.end());
+            heap.push(target);
         }
-        if(BBL_map[fallthrough.bbl_addr].rtn_address == curr_rtn_address)
+        if(BBL_map[fallthrough.bbl_addr].rtn_address == curr_rtn_address && BBL_map[top.bbl_addr].fallthrough_address != ADDRINT(-1))
         {
-            heap.push_back(fallthrough);
-            std::push_heap(heap.begin(),heap.end());
-        }       
+            heap.push(fallthrough);
+
+        }  
+        //make visited
+        BBL_map[top.bbl_addr].visited = true;
+        //insert to final vector
+        rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);     
     }
 }
 
@@ -492,7 +492,7 @@ VOID Fini(INT32 code, VOID *v)
     //sort invoker map by the time of invokes on each entry and crate called_map
     for(std::map<ADDRINT,Invoker>::iterator itr = invokers_map.begin(); itr!= invokers_map.end();itr++)
     {
-        if (itr->second.num_invokes > 0)
+        if (itr->second.num_invokes > 1)
             inv_vec.push_back(itr->second);
         called_map[itr->second.target_addr].push_back(itr->second.num_invokes);
     }
@@ -522,7 +522,7 @@ VOID Fini(INT32 code, VOID *v)
     {
         if ( counter == NUM_INLINED_FUNC)
             break;
-        if( inv_entry.num_invokes > 1 && ((too_hot_to_handle[inv_entry.target_addr]  && inv_entry.num_invokes < 400 )|| single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
+        if(((too_hot_to_handle[inv_entry.target_addr]  && inv_entry.num_invokes > 400 )|| single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
         {
             final_candidates.push_back(inv_entry);
             counter++;
