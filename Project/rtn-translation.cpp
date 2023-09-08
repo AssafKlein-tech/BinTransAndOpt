@@ -265,7 +265,7 @@ void dump_tc()
   ADDRINT address = (ADDRINT)&tc[0];
   unsigned int size = 0;
 
-  while (address < (ADDRINT)&tc[tc_cursor]) {
+  while (address <= (ADDRINT)&tc[tc_cursor]) {
 
       address += size;
 
@@ -686,6 +686,8 @@ int fix_rip_displacement(int instr_map_entry)
 /************************************/
 int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 {
+	cout << "fixing jump to orig addr " <<  std::hex << instr_map[instr_map_entry].orig_ins_addr << endl;
+	cout << "to target address " << instr_map[instr_map_entry].orig_targ_addr << endl;
 
 	xed_decoded_inst_t xedd;
 	xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
@@ -702,8 +704,8 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 
 		cerr << "ERROR: Invalid direct jump from translated code to original code in rotuine: " 
 			  << RTN_Name(RTN_FindByAddress(instr_map[instr_map_entry].orig_ins_addr)) << "  " << instr_map[instr_map_entry].size  << "  " << std::hex << instr_map[instr_map_entry+1].new_ins_addr << endl;
-		cout << instr_map[instr_map_entry].orig_ins_addr << " " <<  std::hex << instr_map[instr_map_entry+1].orig_ins_addr << endl;
-		cout << instr_map[instr_map_entry].new_ins_addr << " " <<  std::hex << instr_map[instr_map_entry+1].new_ins_addr << endl;
+		cout <<  std::hex  << instr_map[instr_map_entry].orig_ins_addr << endl; 
+		cout <<  std::hex << instr_map[instr_map_entry].new_ins_addr << endl;
 		dump_instr_map_entry(instr_map_entry);
 		return -1;
 	}
@@ -747,7 +749,7 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 
 	xed_error_enum_t xed_error = xed_encode(&enc_req, reinterpret_cast<UINT8*>(instr_map[instr_map_entry].encoded_ins), ilen, &olen);
 	if (xed_error != XED_ERROR_NONE) {
-		cerr << "ENCODE ERROR: " << xed_error_enum_t2str(xed_error) << endl;
+		cerr << "ENCODE ERROR: " << xed_error_enum_t2str(xed_error) << " fgdshb" << endl;
 	    dump_instr_map_entry(instr_map_entry); 
         return -1;
     }
@@ -778,7 +780,7 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 
 		xed_error = xed_encode (&enc_req, reinterpret_cast<UINT8*>(instr_map[instr_map_entry].encoded_ins), ilen , &olen);
 		if (xed_error != XED_ERROR_NONE) {
-			cerr << "ENCODE ERROR: " << xed_error_enum_t2str(xed_error) << endl;
+			cerr << "ENCODE ERROR: " << xed_error_enum_t2str(xed_error) << " fgdshb2222"<< endl;
 			dump_instr_map_entry(instr_map_entry);
 			return -1;
 		}		
@@ -1176,7 +1178,7 @@ void revert_jump(INS ins, ADDRINT addr)
 	xed_decoded_inst_t *xedd = INS_XedDec(ins);
     xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
 
-	if (category_enum == XED_CATEGORY_UNCOND_BR || addr == ADDRINT(-1)) 
+	if (category_enum == XED_CATEGORY_UNCOND_BR) 
 	{
 		//remove jump
 		insert_dummy(ins);
@@ -1400,7 +1402,13 @@ int find_candidate_rtns_for_translation(IMG img)
 		for (size_t i = 0; i < bbl_vec.size(); i ++)
 		{
 			BBLdata bbl_entry = bbl_vec[i];
-
+			INS ins = RTN_InsHead(rtn);
+			ADDRINT top_addr = INS_Address(ins);
+			if (bbl_entry.bbl_addr < top_addr)
+			{
+				insert_jump(bbl_entry.target_addr, bbl_entry.bbl_addr ,-1);
+				continue;
+			}
 			//set the start instruction to the bbl start address
 			INS start_ins = RTN_InsHead(rtn);
 			for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
@@ -1475,7 +1483,6 @@ int find_candidate_rtns_for_translation(IMG img)
 				ADDRINT fallthrough_addr = bbl_entry.fallthrough_addr;
 				if (fallthrough_addr != next_bbl.bbl_addr)
 				{
-					cout << "add jump to " << endl;
 					rc = insert_jump(bbl_entry.fallthrough_addr, -1, -1);
 					if ( rc <= 0){
 						cerr << "ERROR: failed during instructon translation." << endl;
@@ -1489,11 +1496,6 @@ int find_candidate_rtns_for_translation(IMG img)
 				// if that is the last bbl
 				if( i == (bbl_vec.size() -1))
 				{
-					if (INS_HasFallThrough(last_ins) && bbl_entry.fallthrough_addr == ADDRINT(-1))
-					{
-						insert_jump(bbl_entry.target_addr, last_ins_addr, -1);
-						continue;
-					}
 					insert_instruction(last_ins);
 					//if there is fallthrough address - add a jump to the fallthrough
 					if(INS_HasFallThrough(last_ins))
@@ -1520,15 +1522,7 @@ int find_candidate_rtns_for_translation(IMG img)
 				}
 				else //no need to revert the jump
 				{
-					if(target_addr == ADDRINT(-1) && !INS_IsRet(last_ins))	
-					{
-						insert_dummy(last_ins); // ????
-					}
-					//insert the original jump instruction
-					else
-					{
-						insert_instruction(last_ins);
-					}
+					insert_instruction(last_ins);
 					//cout << "inserted instruction" << endl;
 
 					// if the reorder moved the next block so jump there

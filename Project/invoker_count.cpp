@@ -81,7 +81,7 @@ public:
     UINT32 branch_times_not_taken;
     UINT32 branch_times_taken;
     bool is_call; //ret or uncond jmp
-    int position;
+    int is_cond;
     bool visited;
     bool operator==(const BBL_info& other) const {
         return BBL_head_address == other.BBL_head_address;
@@ -363,7 +363,9 @@ VOID profBranches(TRACE trc, VOID *v)
                     target_addr = -1;
                 }
                 bool is_call = INS_IsCall(last_ins);
-                BBL_info BBL_inst = {bbl,rtn_addr,head,last_addr,fallthrough,target_addr,type_info,0,0,is_call,-1,false};
+                xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
+                bool is_cond = (category_enum == XED_CATEGORY_COND_BR);
+                BBL_info BBL_inst = {bbl,rtn_addr,head,last_addr,fallthrough,target_addr,type_info,0,0,is_call,is_cond,false};
                 BBL_map[head] = BBL_inst;
             }
             INS_InsertCall(last_ins, IPOINT_BEFORE, (AFUNPTR)BranchCount, IARG_BRANCH_TAKEN, IARG_PTR, &BBL_map[head], IARG_END);
@@ -398,7 +400,7 @@ void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
         if (itr->second.size() == 1)
             continue;
 
-        cout << "splits address:" << std::hex <<  itr->first << ", num bbl: " << itr->second.size() << endl;
+        //cout << "splits address:" << std::hex <<  itr->first << ", num bbl: " << itr->second.size() << endl;
 
         //inex vector
         std::vector<size_t> bbl_overlap = itr->second;
@@ -423,14 +425,12 @@ void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
             BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_target_address = -1;
 
         }
-        for ( size_t j = 0; j < bbl_overlap.size(); j++)
-        {
-            cout << "head: " << rtn_bbls[bbl_overlap[j]].BBL_head_address << endl;
-            cout << "fallthrough: " << BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].fallthrough_address << endl;
-        }
     }
 }
 
+int redirection = 1;
+
+std::map<int, ADDRINT> redirection_map;
 
 VOID ReorderBBLs(ADDRINT curr_rtn_address)
 {
@@ -456,36 +456,65 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         //take out
         heap_element top = heap.top();
         heap.pop();
+        if(top.bbl_addr < ADDRINT(redirection))
+        {
+            if( redirection_map[top.bbl_addr] != 0)
+            {
+                cout << "entered new redirection " << top.bbl_addr << endl;
+                BBL_info BBL_inst = {-1,curr_rtn_address,top.bbl_addr,top.bbl_addr,0,redirection_map[top.bbl_addr],XED_ICLASS_LAST,0,0,false,false,false};
+                BBL_map[top.bbl_addr] = BBL_inst;
+                rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
+                redirection_map[top.bbl_addr] = 0;
+                continue;
+            }
+        }
         if(BBL_map[top.bbl_addr].visited) continue;
+
+        bool insert_target = true;
+        bool insert_fallthrough = true;
 
         
         //insert children
         heap_element target = {BBL_map[top.bbl_addr].branch_target_address, BBL_map[top.bbl_addr].branch_times_taken};
         if(BBL_map[top.bbl_addr].branch_times_taken == 0 || BBL_map[top.bbl_addr].is_call)
-        { 
-            BBL_map[top.bbl_addr].branch_target_address = -1;
+        {
+            insert_target = false;
+            if(BBL_map[top.bbl_addr].is_cond)
+            {
+                redirection_map[redirection] = BBL_map[top.bbl_addr].branch_target_address;
+                target.bbl_addr = ADDRINT(redirection);
+                heap_element fake_target =  {ADDRINT(redirection), BBL_map[top.bbl_addr].branch_times_taken};
+                heap.push(fake_target);
+                redirection++;
+            }
         }
         
         heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
         if(BBL_map[top.bbl_addr].branch_times_not_taken == 0  && BBL_map[top.bbl_addr].last_address != 0 && !BBL_map[top.bbl_addr].is_call)
         {
-            BBL_map[top.bbl_addr].fallthrough_address = -1;
+            insert_fallthrough = false;
+            if(BBL_map[top.bbl_addr].is_cond)
+            {
+                redirection_map[redirection] = BBL_map[top.bbl_addr].fallthrough_address;
+                fallthrough.bbl_addr = ADDRINT(redirection);
+                heap_element fake_target =  {ADDRINT(redirection), BBL_map[top.bbl_addr].branch_times_not_taken};
+                heap.push(fake_target);
+                redirection++;
+            }
         }
-
 
         if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
            fallthrough.in_degree = top.in_degree;
         }
         
-        if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address && BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1))
+        if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address && (insert_target  || BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1)))
         {
             heap.push(target);
         }
-        if(BBL_map[fallthrough.bbl_addr].rtn_address == curr_rtn_address && BBL_map[top.bbl_addr].fallthrough_address != ADDRINT(-1))
+        if(BBL_map[fallthrough.bbl_addr].rtn_address == curr_rtn_address && insert_fallthrough)
         {
             heap.push(fallthrough);
-
         }  
         //make visited
         BBL_map[top.bbl_addr].visited = true;
