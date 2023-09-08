@@ -1,0 +1,2107 @@
+after memory allocation
+old instr: 0x40b826: push rbp
+    new instr:0x7f8da3d19000: push rbp
+old instr: 0x40b827: mov rbp, rsp
+    new instr:0x7f8da3d19001: mov rbp, rsp
+old instr: 0x40b82a: push rbx
+    new instr:0x7f8da3d19004: push rbx
+old instr: 0x40b82b: sub rsp, 0xd98
+    new instr:0x7f8da3d19005: sub rsp, 0xd98
+old instr: 0x40b832: mov qword ptr [rbp-0xd68], rdi
+    new instr:0x7f8da3d1900c: mov qword ptr [rbp-0xd68], rdi
+old instr: 0x40b839: mov qword ptr [rbp-0xd70], rsi
+    new instr:0x7f8da3d19013: mov qword ptr [rbp-0xd70], rsi
+old instr: 0x40b840: mov qword ptr [rbp-0xd78], rdx
+    new instr:0x7f8da3d1901a: mov qword ptr [rbp-0xd78], rdx
+old instr: 0x40b847: mov qword ptr [rbp-0xd80], rcx
+    new instr:0x7f8da3d19021: mov qword ptr [rbp-0xd80], rcx
+old instr: 0x40b84e: mov dword ptr [rbp-0xd84], r8d
+    new instr:0x7f8da3d19028: mov dword ptr [rbp-0xd84], r8d
+old instr: 0x40b855: mov dword ptr [rbp-0xd88], r9d
+    new instr:0x7f8da3d1902f: mov dword ptr [rbp-0xd88], r9d
+old instr: 0x40b85c: cmp dword ptr [rbp-0xd88], 0x3
+    new instr:0x7f8da3d19036: cmp dword ptr [rbp-0xd88], 0x3
+    new instr:0x7f8da3d1903d: jnle 0x7f8da3d1905d
+old instr: 0x40b883: mov dword ptr [rbp-0x14], 0x10000
+    new instr:0x7f8da3d1903f: mov dword ptr [rbp-0x14], 0x10000
+old instr: 0x40b8ad: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d19046: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d1904a: js 0x7f8da3d19025
+old instr: 0x40b88c: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1904c: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40b88f: cdqe 
+    new instr:0x7f8da3d1904f: cdqe 
+old instr: 0x40b891: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19051: lea rdx, ptr [rax*4]
+old instr: 0x40b899: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19059: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40b8a0: add rax, rdx
+    new instr:0x7f8da3d19060: add rax, rdx
+old instr: 0x40b8a3: mov dword ptr [rax], 0x0
+    new instr:0x7f8da3d19063: mov dword ptr [rax], 0x0
+old instr: 0x40b8a9: sub dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d19069: sub dword ptr [rbp-0x14], 0x1
+old instr: 0x40b8ad: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d1906d: cmp dword ptr [rbp-0x14], 0x0
+old instr: 0x40b8b1: jns 0x40b88c
+    new instr:0x7f8da3d19071: jns 0x7f8da3d1904c
+old instr: 0x40b8b3: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19073: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40b8ba: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d1907a: movzx eax, byte ptr [rax]
+old instr: 0x40b8bd: movzx eax, al
+    new instr:0x7f8da3d1907d: movzx eax, al
+old instr: 0x40b8c0: shl eax, 0x8
+    new instr:0x7f8da3d19080: shl eax, 0x8
+old instr: 0x40b8c3: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d19083: mov dword ptr [rbp-0x18], eax
+old instr: 0x40b8c6: mov eax, dword ptr [rbp-0xd84]
+    new instr:0x7f8da3d19086: mov eax, dword ptr [rbp-0xd84]
+old instr: 0x40b8cc: sub eax, 0x1
+    new instr:0x7f8da3d1908c: sub eax, 0x1
+old instr: 0x40b8cf: mov dword ptr [rbp-0x14], eax
+    new instr:0x7f8da3d1908f: mov dword ptr [rbp-0x14], eax
+old instr: 0x40ba60: cmp dword ptr [rbp-0x14], 0x2
+    new instr:0x7f8da3d19092: cmp dword ptr [rbp-0x14], 0x2
+    new instr:0x7f8da3d19096: jle 0x7f8da3d18f09
+old instr: 0x40b8d7: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1909c: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40b8da: cdqe 
+    new instr:0x7f8da3d1909f: cdqe 
+old instr: 0x40b8dc: lea rdx, ptr [rax+rax*1]
+    new instr:0x7f8da3d190a1: lea rdx, ptr [rax+rax*1]
+old instr: 0x40b8e0: mov rax, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d190a5: mov rax, qword ptr [rbp-0xd78]
+old instr: 0x40b8e7: add rax, rdx
+    new instr:0x7f8da3d190ac: add rax, rdx
+old instr: 0x40b8ea: mov word ptr [rax], 0x0
+    new instr:0x7f8da3d190af: mov word ptr [rax], 0x0
+old instr: 0x40b8ef: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d190b4: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40b8f2: mov ecx, eax
+    new instr:0x7f8da3d190b7: mov ecx, eax
+old instr: 0x40b8f4: sar ecx, 0x8
+    new instr:0x7f8da3d190b9: sar ecx, 0x8
+old instr: 0x40b8f7: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d190bc: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40b8fa: movsxd rdx, eax
+    new instr:0x7f8da3d190bf: movsxd rdx, eax
+old instr: 0x40b8fd: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d190c2: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40b904: add rax, rdx
+    new instr:0x7f8da3d190c9: add rax, rdx
+old instr: 0x40b907: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d190cc: movzx eax, byte ptr [rax]
+old instr: 0x40b90a: movzx eax, al
+    new instr:0x7f8da3d190cf: movzx eax, al
+old instr: 0x40b90d: shl eax, 0x8
+    new instr:0x7f8da3d190d2: shl eax, 0x8
+old instr: 0x40b910: or eax, ecx
+    new instr:0x7f8da3d190d5: or eax, ecx
+old instr: 0x40b912: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d190d7: mov dword ptr [rbp-0x18], eax
+old instr: 0x40b915: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d190da: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40b918: cdqe 
+    new instr:0x7f8da3d190dd: cdqe 
+old instr: 0x40b91a: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d190df: lea rdx, ptr [rax*4]
+old instr: 0x40b922: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d190e7: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40b929: add rax, rdx
+    new instr:0x7f8da3d190ee: add rax, rdx
+old instr: 0x40b92c: mov edx, dword ptr [rax]
+    new instr:0x7f8da3d190f1: mov edx, dword ptr [rax]
+old instr: 0x40b92e: add edx, 0x1
+    new instr:0x7f8da3d190f3: add edx, 0x1
+old instr: 0x40b931: mov dword ptr [rax], edx
+    new instr:0x7f8da3d190f6: mov dword ptr [rax], edx
+old instr: 0x40b933: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d190f8: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40b936: cdqe 
+    new instr:0x7f8da3d190fb: cdqe 
+old instr: 0x40b938: sub rax, 0x1
+    new instr:0x7f8da3d190fd: sub rax, 0x1
+old instr: 0x40b93c: lea rdx, ptr [rax+rax*1]
+    new instr:0x7f8da3d19101: lea rdx, ptr [rax+rax*1]
+old instr: 0x40b940: mov rax, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d19105: mov rax, qword ptr [rbp-0xd78]
+old instr: 0x40b947: add rax, rdx
+    new instr:0x7f8da3d1910c: add rax, rdx
+old instr: 0x40b94a: mov word ptr [rax], 0x0
+    new instr:0x7f8da3d1910f: mov word ptr [rax], 0x0
+old instr: 0x40b94f: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19114: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40b952: mov edx, eax
+    new instr:0x7f8da3d19117: mov edx, eax
+old instr: 0x40b954: sar edx, 0x8
+    new instr:0x7f8da3d19119: sar edx, 0x8
+old instr: 0x40b957: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1911c: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40b95a: cdqe 
+    new instr:0x7f8da3d1911f: cdqe 
+old instr: 0x40b95c: lea rcx, ptr [rax-0x1]
+    new instr:0x7f8da3d19121: lea rcx, ptr [rax-0x1]
+old instr: 0x40b960: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19125: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40b967: add rax, rcx
+    new instr:0x7f8da3d1912c: add rax, rcx
+old instr: 0x40b96a: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d1912f: movzx eax, byte ptr [rax]
+old instr: 0x40b96d: movzx eax, al
+    new instr:0x7f8da3d19132: movzx eax, al
+old instr: 0x40b970: shl eax, 0x8
+    new instr:0x7f8da3d19135: shl eax, 0x8
+old instr: 0x40b973: or eax, edx
+    new instr:0x7f8da3d19138: or eax, edx
+old instr: 0x40b975: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d1913a: mov dword ptr [rbp-0x18], eax
+old instr: 0x40b978: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d1913d: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40b97b: cdqe 
+    new instr:0x7f8da3d19140: cdqe 
+old instr: 0x40b97d: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19142: lea rdx, ptr [rax*4]
+old instr: 0x40b985: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d1914a: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40b98c: add rax, rdx
+    new instr:0x7f8da3d19151: add rax, rdx
+old instr: 0x40b98f: mov edx, dword ptr [rax]
+    new instr:0x7f8da3d19154: mov edx, dword ptr [rax]
+old instr: 0x40b991: add edx, 0x1
+    new instr:0x7f8da3d19156: add edx, 0x1
+old instr: 0x40b994: mov dword ptr [rax], edx
+    new instr:0x7f8da3d19159: mov dword ptr [rax], edx
+old instr: 0x40b996: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1915b: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40b999: cdqe 
+    new instr:0x7f8da3d1915e: cdqe 
+old instr: 0x40b99b: sub rax, 0x2
+    new instr:0x7f8da3d19160: sub rax, 0x2
+old instr: 0x40b99f: lea rdx, ptr [rax+rax*1]
+    new instr:0x7f8da3d19164: lea rdx, ptr [rax+rax*1]
+old instr: 0x40b9a3: mov rax, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d19168: mov rax, qword ptr [rbp-0xd78]
+old instr: 0x40b9aa: add rax, rdx
+    new instr:0x7f8da3d1916f: add rax, rdx
+old instr: 0x40b9ad: mov word ptr [rax], 0x0
+    new instr:0x7f8da3d19172: mov word ptr [rax], 0x0
+old instr: 0x40b9b2: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19177: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40b9b5: mov edx, eax
+    new instr:0x7f8da3d1917a: mov edx, eax
+old instr: 0x40b9b7: sar edx, 0x8
+    new instr:0x7f8da3d1917c: sar edx, 0x8
+old instr: 0x40b9ba: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1917f: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40b9bd: cdqe 
+    new instr:0x7f8da3d19182: cdqe 
+old instr: 0x40b9bf: lea rcx, ptr [rax-0x2]
+    new instr:0x7f8da3d19184: lea rcx, ptr [rax-0x2]
+old instr: 0x40b9c3: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19188: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40b9ca: add rax, rcx
+    new instr:0x7f8da3d1918f: add rax, rcx
+old instr: 0x40b9d0: movzx eax, al
+    new instr:0x7f8da3d19192: movzx eax, al
+old instr: 0x40b9d3: shl eax, 0x8
+    new instr:0x7f8da3d19195: shl eax, 0x8
+old instr: 0x40b9d6: or eax, edx
+    new instr:0x7f8da3d19198: or eax, edx
+old instr: 0x40b9d8: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d1919a: mov dword ptr [rbp-0x18], eax
+old instr: 0x40b9db: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d1919d: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40b9de: cdqe 
+    new instr:0x7f8da3d191a0: cdqe 
+old instr: 0x40b9e0: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d191a2: lea rdx, ptr [rax*4]
+old instr: 0x40b9e8: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d191aa: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40b9ef: add rax, rdx
+    new instr:0x7f8da3d191b1: add rax, rdx
+old instr: 0x40b9f2: mov edx, dword ptr [rax]
+    new instr:0x7f8da3d191b4: mov edx, dword ptr [rax]
+old instr: 0x40b9f4: add edx, 0x1
+    new instr:0x7f8da3d191b6: add edx, 0x1
+old instr: 0x40b9f7: mov dword ptr [rax], edx
+    new instr:0x7f8da3d191b9: mov dword ptr [rax], edx
+old instr: 0x40b9f9: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d191bb: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40b9fc: cdqe 
+    new instr:0x7f8da3d191be: cdqe 
+old instr: 0x40b9fe: sub rax, 0x3
+    new instr:0x7f8da3d191c0: sub rax, 0x3
+old instr: 0x40ba02: lea rdx, ptr [rax+rax*1]
+    new instr:0x7f8da3d191c4: lea rdx, ptr [rax+rax*1]
+old instr: 0x40ba06: mov rax, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d191c8: mov rax, qword ptr [rbp-0xd78]
+old instr: 0x40ba0d: add rax, rdx
+    new instr:0x7f8da3d191cf: add rax, rdx
+old instr: 0x40ba10: mov word ptr [rax], 0x0
+    new instr:0x7f8da3d191d2: mov word ptr [rax], 0x0
+old instr: 0x40ba15: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d191d7: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40ba18: mov edx, eax
+    new instr:0x7f8da3d191da: mov edx, eax
+old instr: 0x40ba1a: sar edx, 0x8
+    new instr:0x7f8da3d191dc: sar edx, 0x8
+old instr: 0x40ba1d: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d191df: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40ba20: cdqe 
+    new instr:0x7f8da3d191e2: cdqe 
+old instr: 0x40ba22: lea rcx, ptr [rax-0x3]
+    new instr:0x7f8da3d191e4: lea rcx, ptr [rax-0x3]
+old instr: 0x40ba26: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d191e8: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40ba2d: add rax, rcx
+    new instr:0x7f8da3d191ef: add rax, rcx
+old instr: 0x40ba30: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d191f2: movzx eax, byte ptr [rax]
+old instr: 0x40ba33: movzx eax, al
+    new instr:0x7f8da3d191f5: movzx eax, al
+old instr: 0x40ba36: shl eax, 0x8
+    new instr:0x7f8da3d191f8: shl eax, 0x8
+old instr: 0x40ba39: or eax, edx
+    new instr:0x7f8da3d191fb: or eax, edx
+old instr: 0x40ba3b: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d191fd: mov dword ptr [rbp-0x18], eax
+old instr: 0x40ba3e: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19200: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40ba41: cdqe 
+    new instr:0x7f8da3d19203: cdqe 
+old instr: 0x40ba43: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19205: lea rdx, ptr [rax*4]
+old instr: 0x40ba4b: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d1920d: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40ba52: add rax, rdx
+    new instr:0x7f8da3d19214: add rax, rdx
+old instr: 0x40ba55: mov edx, dword ptr [rax]
+    new instr:0x7f8da3d19217: mov edx, dword ptr [rax]
+old instr: 0x40ba57: add edx, 0x1
+    new instr:0x7f8da3d19219: add edx, 0x1
+old instr: 0x40ba5a: mov dword ptr [rax], edx
+    new instr:0x7f8da3d1921c: mov dword ptr [rax], edx
+old instr: 0x40ba5c: sub dword ptr [rbp-0x14], 0x4
+    new instr:0x7f8da3d1921e: sub dword ptr [rbp-0x14], 0x4
+old instr: 0x40ba60: cmp dword ptr [rbp-0x14], 0x2
+    new instr:0x7f8da3d19222: cmp dword ptr [rbp-0x14], 0x2
+old instr: 0x40ba64: jnle 0x40b8d7
+    new instr:0x7f8da3d19226: jnle 0x7f8da3d19099
+old instr: 0x40bacc: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d1922c: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d19230: js 0x7f8da3d191cc
+old instr: 0x40ba6c: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19232: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40ba6f: cdqe 
+    new instr:0x7f8da3d19235: cdqe 
+old instr: 0x40ba71: lea rdx, ptr [rax+rax*1]
+    new instr:0x7f8da3d19237: lea rdx, ptr [rax+rax*1]
+old instr: 0x40ba75: mov rax, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d1923b: mov rax, qword ptr [rbp-0xd78]
+old instr: 0x40ba7c: add rax, rdx
+    new instr:0x7f8da3d19242: add rax, rdx
+old instr: 0x40ba7f: mov word ptr [rax], 0x0
+    new instr:0x7f8da3d19245: mov word ptr [rax], 0x0
+old instr: 0x40ba84: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d1924a: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40ba87: mov ecx, eax
+    new instr:0x7f8da3d1924d: mov ecx, eax
+old instr: 0x40ba89: sar ecx, 0x8
+    new instr:0x7f8da3d1924f: sar ecx, 0x8
+old instr: 0x40ba8c: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19252: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40ba8f: movsxd rdx, eax
+    new instr:0x7f8da3d19255: movsxd rdx, eax
+old instr: 0x40ba92: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19258: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40ba99: add rax, rdx
+    new instr:0x7f8da3d1925f: add rax, rdx
+old instr: 0x40ba9c: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d19262: movzx eax, byte ptr [rax]
+old instr: 0x40ba9f: movzx eax, al
+    new instr:0x7f8da3d19265: movzx eax, al
+old instr: 0x40baa2: shl eax, 0x8
+    new instr:0x7f8da3d19268: shl eax, 0x8
+old instr: 0x40baa5: or eax, ecx
+    new instr:0x7f8da3d1926b: or eax, ecx
+old instr: 0x40baa7: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d1926d: mov dword ptr [rbp-0x18], eax
+old instr: 0x40baaa: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19270: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40baad: cdqe 
+    new instr:0x7f8da3d19273: cdqe 
+old instr: 0x40baaf: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19275: lea rdx, ptr [rax*4]
+old instr: 0x40bab7: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d1927d: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40babe: add rax, rdx
+    new instr:0x7f8da3d19284: add rax, rdx
+old instr: 0x40bac1: mov edx, dword ptr [rax]
+    new instr:0x7f8da3d19287: mov edx, dword ptr [rax]
+old instr: 0x40bac3: add edx, 0x1
+    new instr:0x7f8da3d19289: add edx, 0x1
+old instr: 0x40bac6: mov dword ptr [rax], edx
+    new instr:0x7f8da3d1928c: mov dword ptr [rax], edx
+old instr: 0x40bac8: sub dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d1928e: sub dword ptr [rbp-0x14], 0x1
+old instr: 0x40bacc: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d19292: cmp dword ptr [rbp-0x14], 0x0
+old instr: 0x40bad0: jns 0x40ba6c
+    new instr:0x7f8da3d19296: jns 0x7f8da3d19232
+old instr: 0x40bad2: mov dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d19298: mov dword ptr [rbp-0x14], 0x0
+old instr: 0x40bb2c: cmp dword ptr [rbp-0x14], 0x21
+    new instr:0x7f8da3d1929f: cmp dword ptr [rbp-0x14], 0x21
+    new instr:0x7f8da3d192a3: jnle 0x7f8da3d1924e
+old instr: 0x40badb: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d192a5: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bade: mov edx, dword ptr [rbp-0xd84]
+    new instr:0x7f8da3d192a8: mov edx, dword ptr [rbp-0xd84]
+old instr: 0x40bae4: add eax, edx
+    new instr:0x7f8da3d192ae: add eax, edx
+old instr: 0x40bae6: movsxd rdx, eax
+    new instr:0x7f8da3d192b0: movsxd rdx, eax
+old instr: 0x40bae9: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d192b3: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40baf0: add rdx, rax
+    new instr:0x7f8da3d192ba: add rdx, rax
+old instr: 0x40baf3: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d192bd: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40baf6: movsxd rcx, eax
+    new instr:0x7f8da3d192c0: movsxd rcx, eax
+old instr: 0x40baf9: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d192c3: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40bb00: add rax, rcx
+    new instr:0x7f8da3d192ca: add rax, rcx
+old instr: 0x40bb03: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d192cd: movzx eax, byte ptr [rax]
+old instr: 0x40bb06: mov byte ptr [rdx], al
+    new instr:0x7f8da3d192d0: mov byte ptr [rdx], al
+old instr: 0x40bb08: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d192d2: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bb0b: mov edx, dword ptr [rbp-0xd84]
+    new instr:0x7f8da3d192d5: mov edx, dword ptr [rbp-0xd84]
+old instr: 0x40bb11: add eax, edx
+    new instr:0x7f8da3d192db: add eax, edx
+old instr: 0x40bb13: cdqe 
+    new instr:0x7f8da3d192dd: cdqe 
+old instr: 0x40bb15: lea rdx, ptr [rax+rax*1]
+    new instr:0x7f8da3d192df: lea rdx, ptr [rax+rax*1]
+old instr: 0x40bb19: mov rax, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d192e3: mov rax, qword ptr [rbp-0xd78]
+old instr: 0x40bb20: add rax, rdx
+    new instr:0x7f8da3d192ea: add rax, rdx
+old instr: 0x40bb23: mov word ptr [rax], 0x0
+    new instr:0x7f8da3d192ed: mov word ptr [rax], 0x0
+old instr: 0x40bb28: add dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d192f2: add dword ptr [rbp-0x14], 0x1
+old instr: 0x40bb2c: cmp dword ptr [rbp-0x14], 0x21
+    new instr:0x7f8da3d192f6: cmp dword ptr [rbp-0x14], 0x21
+old instr: 0x40bb30: jle 0x40badb
+    new instr:0x7f8da3d192fa: jle 0x7f8da3d192a5
+old instr: 0x40bb32: cmp dword ptr [rbp-0xd88], 0x3
+    new instr:0x7f8da3d192fc: cmp dword ptr [rbp-0xd88], 0x3
+    new instr:0x7f8da3d19303: jnle 0x7f8da3d19323
+old instr: 0x40bb59: mov dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d19305: mov dword ptr [rbp-0x14], 0x1
+old instr: 0x40bbb9: cmp dword ptr [rbp-0x14], 0x10000
+    new instr:0x7f8da3d1930c: cmp dword ptr [rbp-0x14], 0x10000
+    new instr:0x7f8da3d19313: jnle 0x7f8da3d192b5
+old instr: 0x40bb62: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19315: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bb65: cdqe 
+    new instr:0x7f8da3d19318: cdqe 
+old instr: 0x40bb67: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d1931a: lea rdx, ptr [rax*4]
+old instr: 0x40bb6f: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19322: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bb76: add rax, rdx
+    new instr:0x7f8da3d19329: add rax, rdx
+old instr: 0x40bb79: mov edx, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1932c: mov edx, dword ptr [rbp-0x14]
+old instr: 0x40bb7c: movsxd rdx, edx
+    new instr:0x7f8da3d1932f: movsxd rdx, edx
+old instr: 0x40bb7f: lea rcx, ptr [rdx*4]
+    new instr:0x7f8da3d19332: lea rcx, ptr [rdx*4]
+old instr: 0x40bb87: mov rdx, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d1933a: mov rdx, qword ptr [rbp-0xd80]
+old instr: 0x40bb8e: add rdx, rcx
+    new instr:0x7f8da3d19341: add rdx, rcx
+old instr: 0x40bb91: mov ecx, dword ptr [rdx]
+    new instr:0x7f8da3d19344: mov ecx, dword ptr [rdx]
+old instr: 0x40bb93: mov edx, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19346: mov edx, dword ptr [rbp-0x14]
+old instr: 0x40bb96: movsxd rdx, edx
+    new instr:0x7f8da3d19349: movsxd rdx, edx
+old instr: 0x40bb99: sub rdx, 0x1
+    new instr:0x7f8da3d1934c: sub rdx, 0x1
+old instr: 0x40bb9d: lea rsi, ptr [rdx*4]
+    new instr:0x7f8da3d19350: lea rsi, ptr [rdx*4]
+old instr: 0x40bba5: mov rdx, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19358: mov rdx, qword ptr [rbp-0xd80]
+old instr: 0x40bbac: add rdx, rsi
+    new instr:0x7f8da3d1935f: add rdx, rsi
+old instr: 0x40bbaf: mov edx, dword ptr [rdx]
+    new instr:0x7f8da3d19362: mov edx, dword ptr [rdx]
+old instr: 0x40bbb1: add edx, ecx
+    new instr:0x7f8da3d19364: add edx, ecx
+old instr: 0x40bbb3: mov dword ptr [rax], edx
+    new instr:0x7f8da3d19366: mov dword ptr [rax], edx
+old instr: 0x40bbb5: add dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d19368: add dword ptr [rbp-0x14], 0x1
+old instr: 0x40bbb9: cmp dword ptr [rbp-0x14], 0x10000
+    new instr:0x7f8da3d1936c: cmp dword ptr [rbp-0x14], 0x10000
+old instr: 0x40bbc0: jle 0x40bb62
+    new instr:0x7f8da3d19373: jle 0x7f8da3d19315
+old instr: 0x40bbc2: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19375: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40bbc9: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d1937c: movzx eax, byte ptr [rax]
+old instr: 0x40bbcc: movzx eax, al
+    new instr:0x7f8da3d1937f: movzx eax, al
+old instr: 0x40bbcf: shl eax, 0x8
+    new instr:0x7f8da3d19382: shl eax, 0x8
+old instr: 0x40bbd2: mov word ptr [rbp-0x22], ax
+    new instr:0x7f8da3d19385: mov word ptr [rbp-0x22], ax
+old instr: 0x40bbd6: mov eax, dword ptr [rbp-0xd84]
+    new instr:0x7f8da3d19389: mov eax, dword ptr [rbp-0xd84]
+old instr: 0x40bbdc: sub eax, 0x1
+    new instr:0x7f8da3d1938f: sub eax, 0x1
+old instr: 0x40bbdf: mov dword ptr [rbp-0x14], eax
+    new instr:0x7f8da3d19392: mov dword ptr [rbp-0x14], eax
+old instr: 0x40bdf5: cmp dword ptr [rbp-0x14], 0x2
+    new instr:0x7f8da3d19395: cmp dword ptr [rbp-0x14], 0x2
+    new instr:0x7f8da3d19399: jle 0x7f8da3d19187
+old instr: 0x40bbe7: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d1939f: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bbeb: shr ax, 0x8
+    new instr:0x7f8da3d193a3: shr ax, 0x8
+old instr: 0x40bbef: mov edx, eax
+    new instr:0x7f8da3d193a7: mov edx, eax
+old instr: 0x40bbf1: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d193a9: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bbf4: movsxd rcx, eax
+    new instr:0x7f8da3d193ac: movsxd rcx, eax
+old instr: 0x40bbf7: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d193af: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40bbfe: add rax, rcx
+    new instr:0x7f8da3d193b6: add rax, rcx
+old instr: 0x40bc01: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d193b9: movzx eax, byte ptr [rax]
+old instr: 0x40bc04: movzx eax, al
+    new instr:0x7f8da3d193bc: movzx eax, al
+old instr: 0x40bc07: shl eax, 0x8
+    new instr:0x7f8da3d193bf: shl eax, 0x8
+old instr: 0x40bc0a: or eax, edx
+    new instr:0x7f8da3d193c2: or eax, edx
+old instr: 0x40bc0c: mov word ptr [rbp-0x22], ax
+    new instr:0x7f8da3d193c4: mov word ptr [rbp-0x22], ax
+old instr: 0x40bc10: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d193c8: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bc14: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d193cc: lea rdx, ptr [rax*4]
+old instr: 0x40bc1c: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d193d4: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bc23: add rax, rdx
+    new instr:0x7f8da3d193db: add rax, rdx
+old instr: 0x40bc26: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d193de: mov eax, dword ptr [rax]
+old instr: 0x40bc28: sub eax, 0x1
+    new instr:0x7f8da3d193e0: sub eax, 0x1
+old instr: 0x40bc2b: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d193e3: mov dword ptr [rbp-0x18], eax
+old instr: 0x40bc2e: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d193e6: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bc32: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d193ea: lea rdx, ptr [rax*4]
+old instr: 0x40bc3a: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d193f2: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bc41: add rdx, rax
+    new instr:0x7f8da3d193f9: add rdx, rax
+old instr: 0x40bc44: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d193fc: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bc47: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d193ff: mov dword ptr [rdx], eax
+old instr: 0x40bc49: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19401: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bc4c: cdqe 
+    new instr:0x7f8da3d19404: cdqe 
+old instr: 0x40bc4e: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19406: lea rdx, ptr [rax*4]
+old instr: 0x40bc56: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d1940e: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40bc5d: add rdx, rax
+    new instr:0x7f8da3d19415: add rdx, rax
+old instr: 0x40bc60: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19418: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bc63: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d1941b: mov dword ptr [rdx], eax
+old instr: 0x40bc65: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d1941d: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bc69: shr ax, 0x8
+    new instr:0x7f8da3d19421: shr ax, 0x8
+old instr: 0x40bc6d: mov edx, eax
+    new instr:0x7f8da3d19425: mov edx, eax
+old instr: 0x40bc6f: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19427: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bc72: cdqe 
+    new instr:0x7f8da3d1942a: cdqe 
+old instr: 0x40bc74: lea rcx, ptr [rax-0x1]
+    new instr:0x7f8da3d1942c: lea rcx, ptr [rax-0x1]
+old instr: 0x40bc78: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19430: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40bc7f: add rax, rcx
+    new instr:0x7f8da3d19437: add rax, rcx
+old instr: 0x40bc82: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d1943a: movzx eax, byte ptr [rax]
+old instr: 0x40bc85: movzx eax, al
+    new instr:0x7f8da3d1943d: movzx eax, al
+old instr: 0x40bc88: shl eax, 0x8
+    new instr:0x7f8da3d19440: shl eax, 0x8
+old instr: 0x40bc8b: or eax, edx
+    new instr:0x7f8da3d19443: or eax, edx
+old instr: 0x40bc8d: mov word ptr [rbp-0x22], ax
+    new instr:0x7f8da3d19445: mov word ptr [rbp-0x22], ax
+old instr: 0x40bc91: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d19449: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bc95: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d1944d: lea rdx, ptr [rax*4]
+old instr: 0x40bc9d: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19455: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bca4: add rax, rdx
+    new instr:0x7f8da3d1945c: add rax, rdx
+old instr: 0x40bca7: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d1945f: mov eax, dword ptr [rax]
+old instr: 0x40bca9: sub eax, 0x1
+    new instr:0x7f8da3d19461: sub eax, 0x1
+old instr: 0x40bcac: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d19464: mov dword ptr [rbp-0x18], eax
+old instr: 0x40bcaf: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d19467: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bcb3: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d1946b: lea rdx, ptr [rax*4]
+old instr: 0x40bcbb: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19473: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bcc2: add rdx, rax
+    new instr:0x7f8da3d1947a: add rdx, rax
+old instr: 0x40bcc5: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d1947d: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bcc8: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d19480: mov dword ptr [rdx], eax
+old instr: 0x40bcca: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19482: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bccd: cdqe 
+    new instr:0x7f8da3d19485: cdqe 
+old instr: 0x40bccf: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19487: lea rdx, ptr [rax*4]
+old instr: 0x40bcd7: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d1948f: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40bcde: add rdx, rax
+    new instr:0x7f8da3d19496: add rdx, rax
+old instr: 0x40bce1: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19499: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bce4: sub eax, 0x1
+    new instr:0x7f8da3d1949c: sub eax, 0x1
+old instr: 0x40bce7: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d1949f: mov dword ptr [rdx], eax
+old instr: 0x40bce9: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d194a1: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bced: shr ax, 0x8
+    new instr:0x7f8da3d194a5: shr ax, 0x8
+old instr: 0x40bcf1: mov edx, eax
+    new instr:0x7f8da3d194a9: mov edx, eax
+old instr: 0x40bcf6: cdqe 
+    new instr:0x7f8da3d194ab: cdqe 
+old instr: 0x40bcf8: lea rcx, ptr [rax-0x2]
+    new instr:0x7f8da3d194ad: lea rcx, ptr [rax-0x2]
+old instr: 0x40bcfc: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d194b1: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40bd03: add rax, rcx
+    new instr:0x7f8da3d194b8: add rax, rcx
+old instr: 0x40bd06: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d194bb: movzx eax, byte ptr [rax]
+old instr: 0x40bd09: movzx eax, al
+    new instr:0x7f8da3d194be: movzx eax, al
+old instr: 0x40bd0c: shl eax, 0x8
+    new instr:0x7f8da3d194c1: shl eax, 0x8
+old instr: 0x40bd0f: or eax, edx
+    new instr:0x7f8da3d194c4: or eax, edx
+old instr: 0x40bd11: mov word ptr [rbp-0x22], ax
+    new instr:0x7f8da3d194c6: mov word ptr [rbp-0x22], ax
+old instr: 0x40bd15: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d194ca: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bd19: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d194ce: lea rdx, ptr [rax*4]
+old instr: 0x40bd21: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d194d6: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bd28: add rax, rdx
+    new instr:0x7f8da3d194dd: add rax, rdx
+old instr: 0x40bd2b: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d194e0: mov eax, dword ptr [rax]
+old instr: 0x40bd2d: sub eax, 0x1
+    new instr:0x7f8da3d194e2: sub eax, 0x1
+old instr: 0x40bd30: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d194e5: mov dword ptr [rbp-0x18], eax
+old instr: 0x40bd33: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d194e8: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bd37: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d194ec: lea rdx, ptr [rax*4]
+old instr: 0x40bd3f: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d194f4: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bd46: add rdx, rax
+    new instr:0x7f8da3d194fb: add rdx, rax
+old instr: 0x40bd49: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d194fe: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bd4c: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d19501: mov dword ptr [rdx], eax
+old instr: 0x40bd4e: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19503: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bd51: cdqe 
+    new instr:0x7f8da3d19506: cdqe 
+old instr: 0x40bd53: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19508: lea rdx, ptr [rax*4]
+old instr: 0x40bd5b: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d19510: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40bd62: add rdx, rax
+    new instr:0x7f8da3d19517: add rdx, rax
+old instr: 0x40bd65: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1951a: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bd68: sub eax, 0x2
+    new instr:0x7f8da3d1951d: sub eax, 0x2
+old instr: 0x40bd6b: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d19520: mov dword ptr [rdx], eax
+old instr: 0x40bd6d: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d19522: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bd71: shr ax, 0x8
+    new instr:0x7f8da3d19526: shr ax, 0x8
+old instr: 0x40bd75: mov edx, eax
+    new instr:0x7f8da3d1952a: mov edx, eax
+old instr: 0x40bd77: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1952c: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bd7a: cdqe 
+    new instr:0x7f8da3d1952f: cdqe 
+old instr: 0x40bd7c: lea rcx, ptr [rax-0x3]
+    new instr:0x7f8da3d19531: lea rcx, ptr [rax-0x3]
+old instr: 0x40bd80: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19535: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40bd87: add rax, rcx
+    new instr:0x7f8da3d1953c: add rax, rcx
+old instr: 0x40bd8a: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d1953f: movzx eax, byte ptr [rax]
+old instr: 0x40bd8d: movzx eax, al
+    new instr:0x7f8da3d19542: movzx eax, al
+old instr: 0x40bd90: shl eax, 0x8
+    new instr:0x7f8da3d19545: shl eax, 0x8
+old instr: 0x40bd93: or eax, edx
+    new instr:0x7f8da3d19548: or eax, edx
+old instr: 0x40bd95: mov word ptr [rbp-0x22], ax
+    new instr:0x7f8da3d1954a: mov word ptr [rbp-0x22], ax
+old instr: 0x40bd99: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d1954e: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bd9d: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19552: lea rdx, ptr [rax*4]
+old instr: 0x40bda5: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d1955a: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bdac: add rax, rdx
+    new instr:0x7f8da3d19561: add rax, rdx
+old instr: 0x40bdaf: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19564: mov eax, dword ptr [rax]
+old instr: 0x40bdb1: sub eax, 0x1
+    new instr:0x7f8da3d19566: sub eax, 0x1
+old instr: 0x40bdb4: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d19569: mov dword ptr [rbp-0x18], eax
+old instr: 0x40bdb7: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d1956c: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40bdbb: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19570: lea rdx, ptr [rax*4]
+old instr: 0x40bdc3: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19578: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bdca: add rdx, rax
+    new instr:0x7f8da3d1957f: add rdx, rax
+old instr: 0x40bdcd: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19582: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bdd0: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d19585: mov dword ptr [rdx], eax
+old instr: 0x40bdd2: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19587: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bdd5: cdqe 
+    new instr:0x7f8da3d1958a: cdqe 
+old instr: 0x40bdd7: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d1958c: lea rdx, ptr [rax*4]
+old instr: 0x40bddf: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d19594: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40bde6: add rdx, rax
+    new instr:0x7f8da3d1959b: add rdx, rax
+old instr: 0x40bde9: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1959e: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bdec: sub eax, 0x3
+    new instr:0x7f8da3d195a1: sub eax, 0x3
+old instr: 0x40bdef: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d195a4: mov dword ptr [rdx], eax
+old instr: 0x40bdf1: sub dword ptr [rbp-0x14], 0x4
+    new instr:0x7f8da3d195a6: sub dword ptr [rbp-0x14], 0x4
+old instr: 0x40bdf5: cmp dword ptr [rbp-0x14], 0x2
+    new instr:0x7f8da3d195aa: cmp dword ptr [rbp-0x14], 0x2
+old instr: 0x40bdf9: jnle 0x40bbe7
+    new instr:0x7f8da3d195ae: jnle 0x7f8da3d1939c
+old instr: 0x40be86: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d195b4: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d195b8: js 0x7f8da3d19532
+old instr: 0x40be04: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d195be: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40be08: shr ax, 0x8
+    new instr:0x7f8da3d195c2: shr ax, 0x8
+old instr: 0x40be0c: mov edx, eax
+    new instr:0x7f8da3d195c6: mov edx, eax
+old instr: 0x40be0e: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d195c8: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40be11: movsxd rcx, eax
+    new instr:0x7f8da3d195cb: movsxd rcx, eax
+old instr: 0x40be14: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d195ce: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40be1b: add rax, rcx
+    new instr:0x7f8da3d195d5: add rax, rcx
+old instr: 0x40be1e: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d195d8: movzx eax, byte ptr [rax]
+old instr: 0x40be21: movzx eax, al
+    new instr:0x7f8da3d195db: movzx eax, al
+old instr: 0x40be24: shl eax, 0x8
+    new instr:0x7f8da3d195de: shl eax, 0x8
+old instr: 0x40be27: or eax, edx
+    new instr:0x7f8da3d195e1: or eax, edx
+old instr: 0x40be29: mov word ptr [rbp-0x22], ax
+    new instr:0x7f8da3d195e3: mov word ptr [rbp-0x22], ax
+old instr: 0x40be2d: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d195e7: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40be31: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d195eb: lea rdx, ptr [rax*4]
+old instr: 0x40be39: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d195f3: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40be40: add rax, rdx
+    new instr:0x7f8da3d195fa: add rax, rdx
+old instr: 0x40be43: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d195fd: mov eax, dword ptr [rax]
+old instr: 0x40be45: sub eax, 0x1
+    new instr:0x7f8da3d195ff: sub eax, 0x1
+old instr: 0x40be48: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d19602: mov dword ptr [rbp-0x18], eax
+old instr: 0x40be4b: movzx eax, word ptr [rbp-0x22]
+    new instr:0x7f8da3d19605: movzx eax, word ptr [rbp-0x22]
+old instr: 0x40be4f: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19609: lea rdx, ptr [rax*4]
+old instr: 0x40be57: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19611: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40be5e: add rdx, rax
+    new instr:0x7f8da3d19618: add rdx, rax
+old instr: 0x40be61: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d1961b: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40be64: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d1961e: mov dword ptr [rdx], eax
+old instr: 0x40be66: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19620: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40be69: cdqe 
+    new instr:0x7f8da3d19623: cdqe 
+old instr: 0x40be6b: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19625: lea rdx, ptr [rax*4]
+old instr: 0x40be73: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d1962d: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40be7a: add rdx, rax
+    new instr:0x7f8da3d19634: add rdx, rax
+old instr: 0x40be7d: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19637: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40be80: mov dword ptr [rdx], eax
+    new instr:0x7f8da3d1963a: mov dword ptr [rdx], eax
+old instr: 0x40be82: sub dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d1963c: sub dword ptr [rbp-0x14], 0x1
+old instr: 0x40be86: cmp dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d19640: cmp dword ptr [rbp-0x14], 0x0
+old instr: 0x40be8a: jns 0x40be04
+    new instr:0x7f8da3d19644: jns 0x7f8da3d195be
+old instr: 0x40be90: mov dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d1964a: mov dword ptr [rbp-0x14], 0x0
+old instr: 0x40beb9: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d19651: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d19658: jnle 0x7f8da3d19631
+old instr: 0x40be99: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1965a: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40be9c: cdqe 
+    new instr:0x7f8da3d1965d: cdqe 
+old instr: 0x40be9e: mov byte ptr [rbp+rax*1-0x560], 0x0
+    new instr:0x7f8da3d1965f: mov byte ptr [rbp+rax*1-0x560], 0x0
+old instr: 0x40bea6: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19667: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bea9: cdqe 
+    new instr:0x7f8da3d1966a: cdqe 
+old instr: 0x40beab: mov edx, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d1966c: mov edx, dword ptr [rbp-0x14]
+old instr: 0x40beae: mov dword ptr [rbp+rax*4-0x460], edx
+    new instr:0x7f8da3d1966f: mov dword ptr [rbp+rax*4-0x460], edx
+old instr: 0x40beb5: add dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d19676: add dword ptr [rbp-0x14], 0x1
+old instr: 0x40beb9: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d1967a: cmp dword ptr [rbp-0x14], 0xff
+old instr: 0x40bec0: jle 0x40be99
+    new instr:0x7f8da3d19681: jle 0x7f8da3d1965a
+old instr: 0x40bec2: mov dword ptr [rbp-0x28], 0x1
+    new instr:0x7f8da3d19683: mov dword ptr [rbp-0x28], 0x1
+old instr: 0x40bec9: mov edx, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d1968a: mov edx, dword ptr [rbp-0x28]
+old instr: 0x40becc: mov eax, edx
+    new instr:0x7f8da3d1968d: mov eax, edx
+old instr: 0x40bece: add eax, eax
+    new instr:0x7f8da3d1968f: add eax, eax
+old instr: 0x40bed0: add eax, edx
+    new instr:0x7f8da3d19691: add eax, edx
+old instr: 0x40bed2: add eax, 0x1
+    new instr:0x7f8da3d19693: add eax, 0x1
+old instr: 0x40bed5: mov dword ptr [rbp-0x28], eax
+    new instr:0x7f8da3d19696: mov dword ptr [rbp-0x28], eax
+old instr: 0x40bed8: cmp dword ptr [rbp-0x28], 0x100
+    new instr:0x7f8da3d19699: cmp dword ptr [rbp-0x28], 0x100
+    new instr:0x7f8da3d196a0: jnle 0x7f8da3d1968a
+old instr: 0x40bec9: mov edx, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d196a2: mov edx, dword ptr [rbp-0x28]
+old instr: 0x40becc: mov eax, edx
+    new instr:0x7f8da3d196a5: mov eax, edx
+old instr: 0x40bece: add eax, eax
+    new instr:0x7f8da3d196a7: add eax, eax
+old instr: 0x40bed0: add eax, edx
+    new instr:0x7f8da3d196a9: add eax, edx
+old instr: 0x40bed2: add eax, 0x1
+    new instr:0x7f8da3d196ab: add eax, 0x1
+old instr: 0x40bed5: mov dword ptr [rbp-0x28], eax
+    new instr:0x7f8da3d196ae: mov dword ptr [rbp-0x28], eax
+old instr: 0x40bed8: cmp dword ptr [rbp-0x28], 0x100
+    new instr:0x7f8da3d196b1: cmp dword ptr [rbp-0x28], 0x100
+old instr: 0x40bedf: jle 0x40bec9
+    new instr:0x7f8da3d196b8: jle 0x7f8da3d196a2
+old instr: 0x40bee1: mov ecx, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d196ba: mov ecx, dword ptr [rbp-0x28]
+old instr: 0x40bee4: mov edx, 0x55555556
+    new instr:0x7f8da3d196bd: mov edx, 0x55555556
+old instr: 0x40bee9: mov eax, ecx
+    new instr:0x7f8da3d196c2: mov eax, ecx
+old instr: 0x40beeb: imul edx
+    new instr:0x7f8da3d196c4: imul edx
+old instr: 0x40beed: mov eax, ecx
+    new instr:0x7f8da3d196c6: mov eax, ecx
+old instr: 0x40beef: sar eax, 0x1f
+    new instr:0x7f8da3d196c8: sar eax, 0x1f
+old instr: 0x40bef2: mov ecx, edx
+    new instr:0x7f8da3d196cb: mov ecx, edx
+old instr: 0x40bef4: sub ecx, eax
+    new instr:0x7f8da3d196cd: sub ecx, eax
+old instr: 0x40bef6: mov eax, ecx
+    new instr:0x7f8da3d196cf: mov eax, ecx
+old instr: 0x40bef8: mov dword ptr [rbp-0x28], eax
+    new instr:0x7f8da3d196d1: mov dword ptr [rbp-0x28], eax
+old instr: 0x40befb: mov eax, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d196d4: mov eax, dword ptr [rbp-0x28]
+old instr: 0x40befe: mov dword ptr [rbp-0x14], eax
+    new instr:0x7f8da3d196d7: mov dword ptr [rbp-0x14], eax
+old instr: 0x40c015: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d196da: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d196e1: jnle 0x7f8da3d195cb
+old instr: 0x40bf06: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d196e7: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bf09: cdqe 
+    new instr:0x7f8da3d196ea: cdqe 
+old instr: 0x40bf0b: mov eax, dword ptr [rbp+rax*4-0x460]
+    new instr:0x7f8da3d196ec: mov eax, dword ptr [rbp+rax*4-0x460]
+old instr: 0x40bf12: mov dword ptr [rbp-0x30], eax
+    new instr:0x7f8da3d196f3: mov dword ptr [rbp-0x30], eax
+old instr: 0x40bf15: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d196f6: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40bf18: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d196f9: mov dword ptr [rbp-0x18], eax
+old instr: 0x40bf53: mov eax, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d196fc: mov eax, dword ptr [rbp-0x28]
+old instr: 0x40bf56: mov edx, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d196ff: mov edx, dword ptr [rbp-0x18]
+old instr: 0x40bf59: mov ecx, edx
+    new instr:0x7f8da3d19702: mov ecx, edx
+old instr: 0x40bf5b: sub ecx, eax
+    new instr:0x7f8da3d19704: sub ecx, eax
+old instr: 0x40bf5d: mov eax, ecx
+    new instr:0x7f8da3d19706: mov eax, ecx
+old instr: 0x40bf5f: cdqe 
+    new instr:0x7f8da3d19708: cdqe 
+old instr: 0x40bf61: mov eax, dword ptr [rbp+rax*4-0x460]
+    new instr:0x7f8da3d1970a: mov eax, dword ptr [rbp+rax*4-0x460]
+old instr: 0x40bf68: add eax, 0x1
+    new instr:0x7f8da3d19711: add eax, 0x1
+old instr: 0x40bf6b: shl eax, 0x8
+    new instr:0x7f8da3d19714: shl eax, 0x8
+old instr: 0x40bf6e: cdqe 
+    new instr:0x7f8da3d19717: cdqe 
+old instr: 0x40bf70: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19719: lea rdx, ptr [rax*4]
+old instr: 0x40bf78: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19721: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bf7f: add rax, rdx
+    new instr:0x7f8da3d19728: add rax, rdx
+old instr: 0x40bf82: mov edx, dword ptr [rax]
+    new instr:0x7f8da3d1972b: mov edx, dword ptr [rax]
+old instr: 0x40bf84: mov eax, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d1972d: mov eax, dword ptr [rbp-0x28]
+old instr: 0x40bf87: mov ecx, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19730: mov ecx, dword ptr [rbp-0x18]
+old instr: 0x40bf8a: mov ebx, ecx
+    new instr:0x7f8da3d19733: mov ebx, ecx
+old instr: 0x40bf8c: sub ebx, eax
+    new instr:0x7f8da3d19735: sub ebx, eax
+old instr: 0x40bf8e: mov eax, ebx
+    new instr:0x7f8da3d19737: mov eax, ebx
+old instr: 0x40bf90: cdqe 
+    new instr:0x7f8da3d19739: cdqe 
+old instr: 0x40bf92: mov eax, dword ptr [rbp+rax*4-0x460]
+    new instr:0x7f8da3d1973b: mov eax, dword ptr [rbp+rax*4-0x460]
+old instr: 0x40bf99: shl eax, 0x8
+    new instr:0x7f8da3d19742: shl eax, 0x8
+old instr: 0x40bf9c: cdqe 
+    new instr:0x7f8da3d19745: cdqe 
+old instr: 0x40bf9e: lea rcx, ptr [rax*4]
+    new instr:0x7f8da3d19747: lea rcx, ptr [rax*4]
+old instr: 0x40bfa6: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d1974f: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bfad: add rax, rcx
+    new instr:0x7f8da3d19756: add rax, rcx
+old instr: 0x40bfb0: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19759: mov eax, dword ptr [rax]
+old instr: 0x40bfb2: mov ecx, edx
+    new instr:0x7f8da3d1975b: mov ecx, edx
+old instr: 0x40bfb4: sub ecx, eax
+    new instr:0x7f8da3d1975d: sub ecx, eax
+old instr: 0x40bfb6: mov eax, dword ptr [rbp-0x30]
+    new instr:0x7f8da3d1975f: mov eax, dword ptr [rbp-0x30]
+old instr: 0x40bfb9: add eax, 0x1
+    new instr:0x7f8da3d19762: add eax, 0x1
+old instr: 0x40bfbc: shl eax, 0x8
+    new instr:0x7f8da3d19765: shl eax, 0x8
+old instr: 0x40bfbf: cdqe 
+    new instr:0x7f8da3d19768: cdqe 
+old instr: 0x40bfc1: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d1976a: lea rdx, ptr [rax*4]
+old instr: 0x40bfc9: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19772: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bfd0: add rax, rdx
+    new instr:0x7f8da3d19779: add rax, rdx
+old instr: 0x40bfd3: mov edx, dword ptr [rax]
+    new instr:0x7f8da3d1977c: mov edx, dword ptr [rax]
+old instr: 0x40bfd5: mov eax, dword ptr [rbp-0x30]
+    new instr:0x7f8da3d1977e: mov eax, dword ptr [rbp-0x30]
+old instr: 0x40bfd8: shl eax, 0x8
+    new instr:0x7f8da3d19781: shl eax, 0x8
+old instr: 0x40bfdb: cdqe 
+    new instr:0x7f8da3d19784: cdqe 
+old instr: 0x40bfdd: lea rsi, ptr [rax*4]
+    new instr:0x7f8da3d19786: lea rsi, ptr [rax*4]
+old instr: 0x40bfe5: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d1978e: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40bfec: add rax, rsi
+    new instr:0x7f8da3d19795: add rax, rsi
+old instr: 0x40bfef: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19798: mov eax, dword ptr [rax]
+old instr: 0x40bff1: mov ebx, edx
+    new instr:0x7f8da3d1979a: mov ebx, edx
+old instr: 0x40bff3: sub ebx, eax
+    new instr:0x7f8da3d1979c: sub ebx, eax
+old instr: 0x40bff5: mov eax, ebx
+    new instr:0x7f8da3d1979e: mov eax, ebx
+old instr: 0x40bff7: cmp ecx, eax
+    new instr:0x7f8da3d197a0: cmp ecx, eax
+old instr: 0x40bff9: jnbe 0x40bf1d
+    new instr:0x7f8da3d197a2: jnbe 0x7f8da3d196c6
+old instr: 0x40c002: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d197a8: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c005: cdqe 
+    new instr:0x7f8da3d197ab: cdqe 
+old instr: 0x40c007: mov edx, dword ptr [rbp-0x30]
+    new instr:0x7f8da3d197ad: mov edx, dword ptr [rbp-0x30]
+old instr: 0x40c00a: mov dword ptr [rbp+rax*4-0x460], edx
+    new instr:0x7f8da3d197b0: mov dword ptr [rbp+rax*4-0x460], edx
+old instr: 0x40c011: add dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d197b7: add dword ptr [rbp-0x14], 0x1
+old instr: 0x40c015: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d197bb: cmp dword ptr [rbp-0x14], 0xff
+old instr: 0x40c01c: jle 0x40bf06
+    new instr:0x7f8da3d197c2: jle 0x7f8da3d196ac
+    new instr:0x7f8da3d197c8: jmp 0x7f8da41257ef
+old instr: 0x40bf1d: mov eax, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d197cd: mov eax, dword ptr [rbp-0x28]
+old instr: 0x40bf20: mov edx, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d197d0: mov edx, dword ptr [rbp-0x18]
+old instr: 0x40bf23: mov ebx, edx
+    new instr:0x7f8da3d197d3: mov ebx, edx
+old instr: 0x40bf25: sub ebx, eax
+    new instr:0x7f8da3d197d5: sub ebx, eax
+old instr: 0x40bf27: mov eax, ebx
+    new instr:0x7f8da3d197d7: mov eax, ebx
+old instr: 0x40bf29: cdqe 
+    new instr:0x7f8da3d197d9: cdqe 
+old instr: 0x40bf2b: mov edx, dword ptr [rbp+rax*4-0x460]
+    new instr:0x7f8da3d197db: mov edx, dword ptr [rbp+rax*4-0x460]
+old instr: 0x40bf32: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d197e2: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40bf35: cdqe 
+    new instr:0x7f8da3d197e5: cdqe 
+old instr: 0x40bf37: mov dword ptr [rbp+rax*4-0x460], edx
+    new instr:0x7f8da3d197e7: mov dword ptr [rbp+rax*4-0x460], edx
+old instr: 0x40bf3e: mov eax, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d197ee: mov eax, dword ptr [rbp-0x28]
+old instr: 0x40bf41: sub dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d197f1: sub dword ptr [rbp-0x18], eax
+old instr: 0x40bf44: mov eax, dword ptr [rbp-0x28]
+    new instr:0x7f8da3d197f4: mov eax, dword ptr [rbp-0x28]
+old instr: 0x40bf47: sub eax, 0x1
+    new instr:0x7f8da3d197f7: sub eax, 0x1
+old instr: 0x40bf4a: cmp eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d197fa: cmp eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d197fd: jl 0x7f8da3d198b1
+old instr: 0x40c001: nop
+    new instr:0x7f8da3d19803: nop
+old instr: 0x40c002: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19804: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c005: cdqe 
+    new instr:0x7f8da3d19807: cdqe 
+old instr: 0x40c007: mov edx, dword ptr [rbp-0x30]
+    new instr:0x7f8da3d19809: mov edx, dword ptr [rbp-0x30]
+old instr: 0x40c00a: mov dword ptr [rbp+rax*4-0x460], edx
+    new instr:0x7f8da3d1980c: mov dword ptr [rbp+rax*4-0x460], edx
+old instr: 0x40c011: add dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d19813: add dword ptr [rbp-0x14], 0x1
+old instr: 0x40c015: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d19817: cmp dword ptr [rbp-0x14], 0xff
+old instr: 0x40c01c: jle 0x40bf06
+    new instr:0x7f8da3d1981e: jle 0x7f8da3d19708
+old instr: 0x40c022: cmp dword ptr [rbp-0x28], 0x1
+    new instr:0x7f8da3d19824: cmp dword ptr [rbp-0x28], 0x1
+old instr: 0x40c026: jnz 0x40bee1
+    new instr:0x7f8da3d19828: jnz 0x7f8da3d196e3
+old instr: 0x40c02c: mov dword ptr [rbp-0x20], 0x0
+    new instr:0x7f8da3d1982e: mov dword ptr [rbp-0x20], 0x0
+old instr: 0x40c033: mov dword ptr [rbp-0x14], 0x0
+    new instr:0x7f8da3d19835: mov dword ptr [rbp-0x14], 0x0
+old instr: 0x40c627: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d1983c: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d19843: jnle 0x7f8da3d19254
+old instr: 0x40c03f: mov eax, dword ptr [rbp-0x14]
+    new instr:0x7f8da3d19849: mov eax, dword ptr [rbp-0x14]
+old instr: 0x40c042: cdqe 
+    new instr:0x7f8da3d1984c: cdqe 
+old instr: 0x40c044: mov eax, dword ptr [rbp+rax*4-0x460]
+    new instr:0x7f8da3d1984e: mov eax, dword ptr [rbp+rax*4-0x460]
+old instr: 0x40c04b: mov dword ptr [rbp-0x34], eax
+    new instr:0x7f8da3d19855: mov dword ptr [rbp-0x34], eax
+old instr: 0x40c04e: mov dword ptr [rbp-0x18], 0x0
+    new instr:0x7f8da3d19858: mov dword ptr [rbp-0x18], 0x0
+old instr: 0x40c1c9: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d1985f: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d19866: jnle 0x7f8da3d196f0
+old instr: 0x40c05a: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d1986c: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c05d: cmp eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d1986f: cmp eax, dword ptr [rbp-0x34]
+old instr: 0x40c060: jz 0x40c1c5
+    new instr:0x7f8da3d19872: jz 0x7f8da3d199d7
+old instr: 0x40c066: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19878: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c069: mov edx, eax
+    new instr:0x7f8da3d1987b: mov edx, eax
+old instr: 0x40c06b: shl edx, 0x8
+    new instr:0x7f8da3d1987d: shl edx, 0x8
+old instr: 0x40c06e: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19880: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c071: add eax, edx
+    new instr:0x7f8da3d19883: add eax, edx
+old instr: 0x40c073: mov dword ptr [rbp-0x38], eax
+    new instr:0x7f8da3d19885: mov dword ptr [rbp-0x38], eax
+old instr: 0x40c076: mov eax, dword ptr [rbp-0x38]
+    new instr:0x7f8da3d19888: mov eax, dword ptr [rbp-0x38]
+old instr: 0x40c079: cdqe 
+    new instr:0x7f8da3d1988b: cdqe 
+old instr: 0x40c07b: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d1988d: lea rdx, ptr [rax*4]
+old instr: 0x40c083: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19895: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c08a: add rax, rdx
+    new instr:0x7f8da3d1989c: add rax, rdx
+old instr: 0x40c08d: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d1989f: mov eax, dword ptr [rax]
+old instr: 0x40c08f: and eax, 0x200000
+    new instr:0x7f8da3d198a1: and eax, 0x200000
+old instr: 0x40c094: test eax, eax
+    new instr:0x7f8da3d198a6: test eax, eax
+old instr: 0x40c096: jnz 0x40c18c
+    new instr:0x7f8da3d198a8: jnz 0x7f8da3d1999e
+old instr: 0x40c09c: mov eax, dword ptr [rbp-0x38]
+    new instr:0x7f8da3d198ae: mov eax, dword ptr [rbp-0x38]
+old instr: 0x40c09f: cdqe 
+    new instr:0x7f8da3d198b1: cdqe 
+old instr: 0x40c0a1: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d198b3: lea rdx, ptr [rax*4]
+old instr: 0x40c0a9: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d198bb: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c0b0: add rax, rdx
+    new instr:0x7f8da3d198c2: add rax, rdx
+old instr: 0x40c0b3: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d198c5: mov eax, dword ptr [rax]
+old instr: 0x40c0b5: and eax, 0xffdfffff
+    new instr:0x7f8da3d198c7: and eax, 0xffdfffff
+old instr: 0x40c0ba: mov dword ptr [rbp-0x3c], eax
+    new instr:0x7f8da3d198cc: mov dword ptr [rbp-0x3c], eax
+old instr: 0x40c0bd: mov eax, dword ptr [rbp-0x38]
+    new instr:0x7f8da3d198cf: mov eax, dword ptr [rbp-0x38]
+old instr: 0x40c0c0: cdqe 
+    new instr:0x7f8da3d198d2: cdqe 
+old instr: 0x40c0c2: add rax, 0x1
+    new instr:0x7f8da3d198d4: add rax, 0x1
+old instr: 0x40c0c6: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d198d8: lea rdx, ptr [rax*4]
+old instr: 0x40c0ce: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d198e0: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c0d5: add rax, rdx
+    new instr:0x7f8da3d198e7: add rax, rdx
+old instr: 0x40c0d8: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d198ea: mov eax, dword ptr [rax]
+old instr: 0x40c0da: and eax, 0xffdfffff
+    new instr:0x7f8da3d198ec: and eax, 0xffdfffff
+old instr: 0x40c0df: sub eax, 0x1
+    new instr:0x7f8da3d198f1: sub eax, 0x1
+old instr: 0x40c0e2: mov dword ptr [rbp-0x40], eax
+    new instr:0x7f8da3d198f4: mov dword ptr [rbp-0x40], eax
+old instr: 0x40c0e5: mov eax, dword ptr [rbp-0x40]
+    new instr:0x7f8da3d198f7: mov eax, dword ptr [rbp-0x40]
+old instr: 0x40c0e8: cmp eax, dword ptr [rbp-0x3c]
+    new instr:0x7f8da3d198fa: cmp eax, dword ptr [rbp-0x3c]
+    new instr:0x7f8da3d198fd: jnle 0x7f8da3d1999e
+old instr: 0x40c18c: mov eax, dword ptr [rbp-0x38]
+    new instr:0x7f8da3d19903: mov eax, dword ptr [rbp-0x38]
+old instr: 0x40c18f: cdqe 
+    new instr:0x7f8da3d19906: cdqe 
+old instr: 0x40c191: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19908: lea rdx, ptr [rax*4]
+old instr: 0x40c199: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19910: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c1a0: add rax, rdx
+    new instr:0x7f8da3d19917: add rax, rdx
+old instr: 0x40c1a3: mov edx, dword ptr [rbp-0x38]
+    new instr:0x7f8da3d1991a: mov edx, dword ptr [rbp-0x38]
+old instr: 0x40c1a6: movsxd rdx, edx
+    new instr:0x7f8da3d1991d: movsxd rdx, edx
+old instr: 0x40c1a9: lea rcx, ptr [rdx*4]
+    new instr:0x7f8da3d19920: lea rcx, ptr [rdx*4]
+old instr: 0x40c1b1: mov rdx, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19928: mov rdx, qword ptr [rbp-0xd80]
+old instr: 0x40c1b8: add rdx, rcx
+    new instr:0x7f8da3d1992f: add rdx, rcx
+old instr: 0x40c1bb: mov edx, dword ptr [rdx]
+    new instr:0x7f8da3d19932: mov edx, dword ptr [rdx]
+old instr: 0x40c1bd: or edx, 0x200000
+    new instr:0x7f8da3d19934: or edx, 0x200000
+old instr: 0x40c1c3: mov dword ptr [rax], edx
+    new instr:0x7f8da3d1993a: mov dword ptr [rax], edx
+old instr: 0x40c1c5: add dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d1993c: add dword ptr [rbp-0x18], 0x1
+old instr: 0x40c1c9: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d19940: cmp dword ptr [rbp-0x18], 0xff
+old instr: 0x40c1d0: jle 0x40c05a
+    new instr:0x7f8da3d19947: jle 0x7f8da3d197d1
+    new instr:0x7f8da3d1994d: jmp 0x7f8da4125b28
+old instr: 0x40c0f1: cmp dword ptr [rbp-0xd88], 0x3
+    new instr:0x7f8da3d19952: cmp dword ptr [rbp-0xd88], 0x3
+    new instr:0x7f8da3d19959: jnle 0x7f8da3d19992
+old instr: 0x40c131: mov r9d, dword ptr [rbp-0x40]
+    new instr:0x7f8da3d1995b: mov r9d, dword ptr [rbp-0x40]
+old instr: 0x40c135: mov r8d, dword ptr [rbp-0x3c]
+    new instr:0x7f8da3d1995f: mov r8d, dword ptr [rbp-0x3c]
+old instr: 0x40c139: mov ecx, dword ptr [rbp-0xd84]
+    new instr:0x7f8da3d19963: mov ecx, dword ptr [rbp-0xd84]
+old instr: 0x40c13f: mov rdx, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d19969: mov rdx, qword ptr [rbp-0xd78]
+old instr: 0x40c146: mov rsi, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19970: mov rsi, qword ptr [rbp-0xd70]
+old instr: 0x40c14d: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d19977: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40c154: mov rdi, qword ptr [rbp+0x10]
+    new instr:0x7f8da3d1997e: mov rdi, qword ptr [rbp+0x10]
+old instr: 0x40c158: mov qword ptr [rsp+0x8], rdi
+    new instr:0x7f8da3d19982: mov qword ptr [rsp+0x8], rdi
+old instr: 0x40c15d: mov dword ptr [rsp], 0x2
+    new instr:0x7f8da3d19987: mov dword ptr [rsp], 0x2
+old instr: 0x40c164: mov rdi, rax
+    new instr:0x7f8da3d1998e: mov rdi, rax
+old instr: 0x40c167: call 0x40afb7
+    new instr:0x7f8da3d19991: call 0x7f8da3d187e1
+old instr: 0x40c16c: mov eax, dword ptr [rbp-0x3c]
+    new instr:0x7f8da3d19996: mov eax, dword ptr [rbp-0x3c]
+old instr: 0x40c16f: mov edx, dword ptr [rbp-0x40]
+    new instr:0x7f8da3d19999: mov edx, dword ptr [rbp-0x40]
+old instr: 0x40c172: mov ebx, edx
+    new instr:0x7f8da3d1999c: mov ebx, edx
+old instr: 0x40c174: sub ebx, eax
+    new instr:0x7f8da3d1999e: sub ebx, eax
+old instr: 0x40c176: mov eax, ebx
+    new instr:0x7f8da3d199a0: mov eax, ebx
+old instr: 0x40c178: add eax, 0x1
+    new instr:0x7f8da3d199a2: add eax, 0x1
+old instr: 0x40c17b: add dword ptr [rbp-0x20], eax
+    new instr:0x7f8da3d199a5: add dword ptr [rbp-0x20], eax
+old instr: 0x40c17e: mov rax, qword ptr [rbp+0x10]
+    new instr:0x7f8da3d199a8: mov rax, qword ptr [rbp+0x10]
+old instr: 0x40c182: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d199ac: mov eax, dword ptr [rax]
+old instr: 0x40c184: test eax, eax
+    new instr:0x7f8da3d199ae: test eax, eax
+    new instr:0x7f8da3d199b0: jmp 0x7f8da4125b41
+old instr: 0x40c1c5: add dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d199b5: add dword ptr [rbp-0x18], 0x1
+old instr: 0x40c1c9: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d199b9: cmp dword ptr [rbp-0x18], 0xff
+old instr: 0x40c1d0: jle 0x40c05a
+    new instr:0x7f8da3d199c0: jle 0x7f8da3d1984a
+old instr: 0x40c1d6: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d199c6: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c1d9: cdqe 
+    new instr:0x7f8da3d199c9: cdqe 
+old instr: 0x40c1db: movzx eax, byte ptr [rbp+rax*1-0x560]
+    new instr:0x7f8da3d199cb: movzx eax, byte ptr [rbp+rax*1-0x560]
+old instr: 0x40c1e3: test al, al
+    new instr:0x7f8da3d199d3: test al, al
+    new instr:0x7f8da3d199d5: jnz 0x7f8da3d199e1
+old instr: 0x40c1f1: mov dword ptr [rbp-0x18], 0x0
+    new instr:0x7f8da3d199d7: mov dword ptr [rbp-0x18], 0x0
+old instr: 0x40c272: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d199de: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d199e5: jnle 0x7f8da3d19966
+old instr: 0x40c1fa: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d199eb: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c1fd: mov edx, eax
+    new instr:0x7f8da3d199ee: mov edx, eax
+old instr: 0x40c1ff: shl edx, 0x8
+    new instr:0x7f8da3d199f0: shl edx, 0x8
+old instr: 0x40c202: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d199f3: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c205: add eax, edx
+    new instr:0x7f8da3d199f6: add eax, edx
+old instr: 0x40c207: cdqe 
+    new instr:0x7f8da3d199f8: cdqe 
+old instr: 0x40c209: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d199fa: lea rdx, ptr [rax*4]
+old instr: 0x40c211: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19a02: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c218: add rax, rdx
+    new instr:0x7f8da3d19a09: add rax, rdx
+old instr: 0x40c21b: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19a0c: mov eax, dword ptr [rax]
+old instr: 0x40c21d: mov edx, eax
+    new instr:0x7f8da3d19a0e: mov edx, eax
+old instr: 0x40c21f: and edx, 0xffdfffff
+    new instr:0x7f8da3d19a10: and edx, 0xffdfffff
+old instr: 0x40c225: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19a16: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c228: cdqe 
+    new instr:0x7f8da3d19a19: cdqe 
+old instr: 0x40c22a: mov dword ptr [rbp+rax*4-0x960], edx
+    new instr:0x7f8da3d19a1b: mov dword ptr [rbp+rax*4-0x960], edx
+old instr: 0x40c231: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19a22: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c234: mov edx, eax
+    new instr:0x7f8da3d19a25: mov edx, eax
+old instr: 0x40c236: shl edx, 0x8
+    new instr:0x7f8da3d19a27: shl edx, 0x8
+old instr: 0x40c239: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19a2a: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c23c: add eax, edx
+    new instr:0x7f8da3d19a2d: add eax, edx
+old instr: 0x40c23e: cdqe 
+    new instr:0x7f8da3d19a2f: cdqe 
+old instr: 0x40c240: add rax, 0x1
+    new instr:0x7f8da3d19a31: add rax, 0x1
+old instr: 0x40c244: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19a35: lea rdx, ptr [rax*4]
+old instr: 0x40c24c: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19a3d: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c253: add rax, rdx
+    new instr:0x7f8da3d19a44: add rax, rdx
+old instr: 0x40c256: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19a47: mov eax, dword ptr [rax]
+old instr: 0x40c258: and eax, 0xffdfffff
+    new instr:0x7f8da3d19a49: and eax, 0xffdfffff
+old instr: 0x40c25d: sub eax, 0x1
+    new instr:0x7f8da3d19a4e: sub eax, 0x1
+old instr: 0x40c260: mov edx, eax
+    new instr:0x7f8da3d19a51: mov edx, eax
+old instr: 0x40c262: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19a53: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c265: cdqe 
+    new instr:0x7f8da3d19a56: cdqe 
+old instr: 0x40c267: mov dword ptr [rbp+rax*4-0xd60], edx
+    new instr:0x7f8da3d19a58: mov dword ptr [rbp+rax*4-0xd60], edx
+old instr: 0x40c26e: add dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d19a5f: add dword ptr [rbp-0x18], 0x1
+old instr: 0x40c272: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d19a63: cmp dword ptr [rbp-0x18], 0xff
+old instr: 0x40c279: jle 0x40c1fa
+    new instr:0x7f8da3d19a6a: jle 0x7f8da3d199eb
+old instr: 0x40c27f: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19a70: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c282: shl eax, 0x8
+    new instr:0x7f8da3d19a73: shl eax, 0x8
+old instr: 0x40c285: cdqe 
+    new instr:0x7f8da3d19a76: cdqe 
+old instr: 0x40c287: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19a78: lea rdx, ptr [rax*4]
+old instr: 0x40c28f: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19a80: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c296: add rax, rdx
+    new instr:0x7f8da3d19a87: add rax, rdx
+old instr: 0x40c299: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19a8a: mov eax, dword ptr [rax]
+old instr: 0x40c29b: and eax, 0xffdfffff
+    new instr:0x7f8da3d19a8c: and eax, 0xffdfffff
+old instr: 0x40c2a0: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d19a91: mov dword ptr [rbp-0x18], eax
+old instr: 0x40c33f: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19a94: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c342: cdqe 
+    new instr:0x7f8da3d19a97: cdqe 
+old instr: 0x40c344: mov eax, dword ptr [rbp+rax*4-0x960]
+    new instr:0x7f8da3d19a99: mov eax, dword ptr [rbp+rax*4-0x960]
+old instr: 0x40c34b: cmp eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19aa0: cmp eax, dword ptr [rbp-0x18]
+old instr: 0x40c34e: jnle 0x40c2a8
+    new instr:0x7f8da3d19aa3: jnle 0x7f8da3d199fd
+old instr: 0x40c354: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19aa9: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c357: add eax, 0x1
+    new instr:0x7f8da3d19aac: add eax, 0x1
+old instr: 0x40c35a: shl eax, 0x8
+    new instr:0x7f8da3d19aaf: shl eax, 0x8
+old instr: 0x40c35d: cdqe 
+    new instr:0x7f8da3d19ab2: cdqe 
+old instr: 0x40c35f: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19ab4: lea rdx, ptr [rax*4]
+old instr: 0x40c367: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19abc: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c36e: add rax, rdx
+    new instr:0x7f8da3d19ac3: add rax, rdx
+old instr: 0x40c371: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19ac6: mov eax, dword ptr [rax]
+old instr: 0x40c373: and eax, 0xffdfffff
+    new instr:0x7f8da3d19ac8: and eax, 0xffdfffff
+old instr: 0x40c378: sub eax, 0x1
+    new instr:0x7f8da3d19acd: sub eax, 0x1
+old instr: 0x40c37b: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d19ad0: mov dword ptr [rbp-0x18], eax
+old instr: 0x40c41a: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19ad3: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c41d: cdqe 
+    new instr:0x7f8da3d19ad6: cdqe 
+old instr: 0x40c41f: mov eax, dword ptr [rbp+rax*4-0xd60]
+    new instr:0x7f8da3d19ad8: mov eax, dword ptr [rbp+rax*4-0xd60]
+old instr: 0x40c426: cmp eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19adf: cmp eax, dword ptr [rbp-0x18]
+old instr: 0x40c429: jl 0x40c383
+    new instr:0x7f8da3d19ae2: jl 0x7f8da3d19a3c
+old instr: 0x40c42f: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19ae8: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c432: cdqe 
+    new instr:0x7f8da3d19aeb: cdqe 
+old instr: 0x40c434: mov eax, dword ptr [rbp+rax*4-0x960]
+    new instr:0x7f8da3d19aed: mov eax, dword ptr [rbp+rax*4-0x960]
+old instr: 0x40c43b: lea edx, ptr [rax-0x1]
+    new instr:0x7f8da3d19af4: lea edx, ptr [rax-0x1]
+old instr: 0x40c43e: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19af7: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c441: cdqe 
+    new instr:0x7f8da3d19afa: cdqe 
+old instr: 0x40c443: mov eax, dword ptr [rbp+rax*4-0xd60]
+    new instr:0x7f8da3d19afc: mov eax, dword ptr [rbp+rax*4-0xd60]
+old instr: 0x40c44a: cmp edx, eax
+    new instr:0x7f8da3d19b03: cmp edx, eax
+    new instr:0x7f8da3d19b05: jnz 0x7f8da3d19b3a
+old instr: 0x40c481: mov dword ptr [rbp-0x18], 0x0
+    new instr:0x7f8da3d19b07: mov dword ptr [rbp-0x18], 0x0
+old instr: 0x40c4db: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d19b0e: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d19b15: jnle 0x7f8da3d19abd
+old instr: 0x40c48a: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19b17: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c48d: mov edx, eax
+    new instr:0x7f8da3d19b1a: mov edx, eax
+old instr: 0x40c48f: shl edx, 0x8
+    new instr:0x7f8da3d19b1c: shl edx, 0x8
+old instr: 0x40c492: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19b1f: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c495: add eax, edx
+    new instr:0x7f8da3d19b22: add eax, edx
+old instr: 0x40c497: cdqe 
+    new instr:0x7f8da3d19b24: cdqe 
+old instr: 0x40c499: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19b26: lea rdx, ptr [rax*4]
+old instr: 0x40c4a1: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19b2e: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c4a8: add rax, rdx
+    new instr:0x7f8da3d19b35: add rax, rdx
+old instr: 0x40c4ab: mov edx, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19b38: mov edx, dword ptr [rbp-0x18]
+old instr: 0x40c4ae: mov ecx, edx
+    new instr:0x7f8da3d19b3b: mov ecx, edx
+old instr: 0x40c4b0: shl ecx, 0x8
+    new instr:0x7f8da3d19b3d: shl ecx, 0x8
+old instr: 0x40c4b3: mov edx, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19b40: mov edx, dword ptr [rbp-0x34]
+old instr: 0x40c4b6: add edx, ecx
+    new instr:0x7f8da3d19b43: add edx, ecx
+old instr: 0x40c4b8: movsxd rdx, edx
+    new instr:0x7f8da3d19b45: movsxd rdx, edx
+old instr: 0x40c4bb: lea rcx, ptr [rdx*4]
+    new instr:0x7f8da3d19b48: lea rcx, ptr [rdx*4]
+old instr: 0x40c4c3: mov rdx, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19b50: mov rdx, qword ptr [rbp-0xd80]
+old instr: 0x40c4ca: add rdx, rcx
+    new instr:0x7f8da3d19b57: add rdx, rcx
+old instr: 0x40c4cd: mov edx, dword ptr [rdx]
+    new instr:0x7f8da3d19b5a: mov edx, dword ptr [rdx]
+old instr: 0x40c4cf: or edx, 0x200000
+    new instr:0x7f8da3d19b5c: or edx, 0x200000
+old instr: 0x40c4d5: mov dword ptr [rax], edx
+    new instr:0x7f8da3d19b62: mov dword ptr [rax], edx
+old instr: 0x40c4d7: add dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d19b64: add dword ptr [rbp-0x18], 0x1
+old instr: 0x40c4db: cmp dword ptr [rbp-0x18], 0xff
+    new instr:0x7f8da3d19b68: cmp dword ptr [rbp-0x18], 0xff
+old instr: 0x40c4e2: jle 0x40c48a
+    new instr:0x7f8da3d19b6f: jle 0x7f8da3d19b17
+old instr: 0x40c4e4: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19b71: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c4e7: cdqe 
+    new instr:0x7f8da3d19b74: cdqe 
+old instr: 0x40c4e9: mov byte ptr [rbp+rax*1-0x560], 0x1
+    new instr:0x7f8da3d19b76: mov byte ptr [rbp+rax*1-0x560], 0x1
+old instr: 0x40c4f1: cmp dword ptr [rbp-0x14], 0xfe
+    new instr:0x7f8da3d19b7e: cmp dword ptr [rbp-0x14], 0xfe
+old instr: 0x40c4f8: jnle 0x40c623
+    new instr:0x7f8da3d19b85: jnle 0x7f8da3d19cb0
+old instr: 0x40c4fe: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19b8b: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c501: shl eax, 0x8
+    new instr:0x7f8da3d19b8e: shl eax, 0x8
+old instr: 0x40c504: cdqe 
+    new instr:0x7f8da3d19b91: cdqe 
+old instr: 0x40c506: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19b93: lea rdx, ptr [rax*4]
+old instr: 0x40c50e: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19b9b: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c515: add rax, rdx
+    new instr:0x7f8da3d19ba2: add rax, rdx
+old instr: 0x40c518: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19ba5: mov eax, dword ptr [rax]
+old instr: 0x40c51a: and eax, 0xffdfffff
+    new instr:0x7f8da3d19ba7: and eax, 0xffdfffff
+old instr: 0x40c51f: mov dword ptr [rbp-0x48], eax
+    new instr:0x7f8da3d19bac: mov dword ptr [rbp-0x48], eax
+old instr: 0x40c522: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19baf: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c525: add eax, 0x1
+    new instr:0x7f8da3d19bb2: add eax, 0x1
+old instr: 0x40c528: shl eax, 0x8
+    new instr:0x7f8da3d19bb5: shl eax, 0x8
+old instr: 0x40c52b: cdqe 
+    new instr:0x7f8da3d19bb8: cdqe 
+old instr: 0x40c52d: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19bba: lea rdx, ptr [rax*4]
+old instr: 0x40c535: mov rax, qword ptr [rbp-0xd80]
+    new instr:0x7f8da3d19bc2: mov rax, qword ptr [rbp-0xd80]
+old instr: 0x40c53c: add rax, rdx
+    new instr:0x7f8da3d19bc9: add rax, rdx
+old instr: 0x40c53f: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19bcc: mov eax, dword ptr [rax]
+old instr: 0x40c541: mov edx, eax
+    new instr:0x7f8da3d19bce: mov edx, eax
+old instr: 0x40c543: and edx, 0xffdfffff
+    new instr:0x7f8da3d19bd0: and edx, 0xffdfffff
+old instr: 0x40c549: mov eax, dword ptr [rbp-0x48]
+    new instr:0x7f8da3d19bd6: mov eax, dword ptr [rbp-0x48]
+old instr: 0x40c54c: mov ecx, edx
+    new instr:0x7f8da3d19bd9: mov ecx, edx
+old instr: 0x40c54e: sub ecx, eax
+    new instr:0x7f8da3d19bdb: sub ecx, eax
+old instr: 0x40c550: mov eax, ecx
+    new instr:0x7f8da3d19bdd: mov eax, ecx
+old instr: 0x40c552: mov dword ptr [rbp-0x4c], eax
+    new instr:0x7f8da3d19bdf: mov dword ptr [rbp-0x4c], eax
+old instr: 0x40c555: mov dword ptr [rbp-0x2c], 0x0
+    new instr:0x7f8da3d19be2: mov dword ptr [rbp-0x2c], 0x0
+old instr: 0x40c562: mov eax, dword ptr [rbp-0x2c]
+    new instr:0x7f8da3d19be9: mov eax, dword ptr [rbp-0x2c]
+old instr: 0x40c565: mov edx, dword ptr [rbp-0x4c]
+    new instr:0x7f8da3d19bec: mov edx, dword ptr [rbp-0x4c]
+old instr: 0x40c568: mov ebx, edx
+    new instr:0x7f8da3d19bef: mov ebx, edx
+old instr: 0x40c56a: mov ecx, eax
+    new instr:0x7f8da3d19bf1: mov ecx, eax
+old instr: 0x40c56c: sar ebx, cl
+    new instr:0x7f8da3d19bf3: sar ebx, cl
+old instr: 0x40c56e: mov eax, ebx
+    new instr:0x7f8da3d19bf5: mov eax, ebx
+old instr: 0x40c570: cmp eax, 0xfffe
+    new instr:0x7f8da3d19bf7: cmp eax, 0xfffe
+old instr: 0x40c575: jnle 0x40c55e
+    new instr:0x7f8da3d19bfc: jnle 0x7f8da3d19be5
+old instr: 0x40c577: mov eax, dword ptr [rbp-0x4c]
+    new instr:0x7f8da3d19bfe: mov eax, dword ptr [rbp-0x4c]
+old instr: 0x40c57a: sub eax, 0x1
+    new instr:0x7f8da3d19c01: sub eax, 0x1
+old instr: 0x40c57d: mov dword ptr [rbp-0x18], eax
+    new instr:0x7f8da3d19c04: mov dword ptr [rbp-0x18], eax
+old instr: 0x40c5fb: cmp dword ptr [rbp-0x18], 0x0
+    new instr:0x7f8da3d19c07: cmp dword ptr [rbp-0x18], 0x0
+old instr: 0x40c5ff: jns 0x40c582
+    new instr:0x7f8da3d19c0b: jns 0x7f8da3d19b8e
+old instr: 0x40c601: mov eax, dword ptr [rbp-0x4c]
+    new instr:0x7f8da3d19c0d: mov eax, dword ptr [rbp-0x4c]
+old instr: 0x40c604: lea edx, ptr [rax-0x1]
+    new instr:0x7f8da3d19c10: lea edx, ptr [rax-0x1]
+old instr: 0x40c607: mov eax, dword ptr [rbp-0x2c]
+    new instr:0x7f8da3d19c13: mov eax, dword ptr [rbp-0x2c]
+old instr: 0x40c60a: mov ebx, edx
+    new instr:0x7f8da3d19c16: mov ebx, edx
+old instr: 0x40c60c: mov ecx, eax
+    new instr:0x7f8da3d19c18: mov ecx, eax
+old instr: 0x40c60e: sar ebx, cl
+    new instr:0x7f8da3d19c1a: sar ebx, cl
+old instr: 0x40c610: mov eax, ebx
+    new instr:0x7f8da3d19c1c: mov eax, ebx
+old instr: 0x40c612: cmp eax, 0xffff
+    new instr:0x7f8da3d19c1e: cmp eax, 0xffff
+    new instr:0x7f8da3d19c23: jnle 0x7f8da3d19c2f
+old instr: 0x40c623: add dword ptr [rbp-0x14], 0x1
+    new instr:0x7f8da3d19c25: add dword ptr [rbp-0x14], 0x1
+old instr: 0x40c627: cmp dword ptr [rbp-0x14], 0xff
+    new instr:0x7f8da3d19c29: cmp dword ptr [rbp-0x14], 0xff
+old instr: 0x40c62e: jle 0x40c03f
+    new instr:0x7f8da3d19c30: jle 0x7f8da3d19641
+    new instr:0x7f8da3d19c36: jmp 0x7f8da412626f
+old instr: 0x40c582: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19c3b: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c585: mov edx, dword ptr [rbp-0x48]
+    new instr:0x7f8da3d19c3e: mov edx, dword ptr [rbp-0x48]
+old instr: 0x40c588: add eax, edx
+    new instr:0x7f8da3d19c41: add eax, edx
+old instr: 0x40c58a: cdqe 
+    new instr:0x7f8da3d19c43: cdqe 
+old instr: 0x40c58c: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19c45: lea rdx, ptr [rax*4]
+old instr: 0x40c594: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d19c4d: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40c59b: add rax, rdx
+    new instr:0x7f8da3d19c54: add rax, rdx
+old instr: 0x40c59e: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19c57: mov eax, dword ptr [rax]
+old instr: 0x40c5a0: mov dword ptr [rbp-0x50], eax
+    new instr:0x7f8da3d19c59: mov dword ptr [rbp-0x50], eax
+old instr: 0x40c5a3: mov eax, dword ptr [rbp-0x2c]
+    new instr:0x7f8da3d19c5c: mov eax, dword ptr [rbp-0x2c]
+old instr: 0x40c5a6: mov edx, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19c5f: mov edx, dword ptr [rbp-0x18]
+old instr: 0x40c5a9: mov ebx, edx
+    new instr:0x7f8da3d19c62: mov ebx, edx
+old instr: 0x40c5ab: mov ecx, eax
+    new instr:0x7f8da3d19c64: mov ecx, eax
+old instr: 0x40c5ad: sar ebx, cl
+    new instr:0x7f8da3d19c66: sar ebx, cl
+old instr: 0x40c5af: mov eax, ebx
+    new instr:0x7f8da3d19c68: mov eax, ebx
+old instr: 0x40c5b1: mov word ptr [rbp-0x52], ax
+    new instr:0x7f8da3d19c6a: mov word ptr [rbp-0x52], ax
+old instr: 0x40c5b5: mov eax, dword ptr [rbp-0x50]
+    new instr:0x7f8da3d19c6e: mov eax, dword ptr [rbp-0x50]
+old instr: 0x40c5b8: cdqe 
+    new instr:0x7f8da3d19c71: cdqe 
+old instr: 0x40c5ba: lea rdx, ptr [rax+rax*1]
+    new instr:0x7f8da3d19c73: lea rdx, ptr [rax+rax*1]
+old instr: 0x40c5be: mov rax, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d19c77: mov rax, qword ptr [rbp-0xd78]
+old instr: 0x40c5c5: add rdx, rax
+    new instr:0x7f8da3d19c7e: add rdx, rax
+old instr: 0x40c5c8: movzx eax, word ptr [rbp-0x52]
+    new instr:0x7f8da3d19c81: movzx eax, word ptr [rbp-0x52]
+old instr: 0x40c5cc: mov word ptr [rdx], ax
+    new instr:0x7f8da3d19c85: mov word ptr [rdx], ax
+old instr: 0x40c5cf: cmp dword ptr [rbp-0x50], 0x21
+    new instr:0x7f8da3d19c88: cmp dword ptr [rbp-0x50], 0x21
+    new instr:0x7f8da3d19c8c: jle 0x7f8da3d19cb0
+old instr: 0x40c5f7: sub dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d19c8e: sub dword ptr [rbp-0x18], 0x1
+old instr: 0x40c5fb: cmp dword ptr [rbp-0x18], 0x0
+    new instr:0x7f8da3d19c92: cmp dword ptr [rbp-0x18], 0x0
+old instr: 0x40c5ff: jns 0x40c582
+    new instr:0x7f8da3d19c96: jns 0x7f8da3d19c19
+    new instr:0x7f8da3d19c98: jmp 0x7f8da412629e
+old instr: 0x40c383: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19c9d: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c386: cdqe 
+    new instr:0x7f8da3d19ca0: cdqe 
+old instr: 0x40c388: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19ca2: lea rdx, ptr [rax*4]
+old instr: 0x40c390: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d19caa: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40c397: add rax, rdx
+    new instr:0x7f8da3d19cb1: add rax, rdx
+old instr: 0x40c39a: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19cb4: mov eax, dword ptr [rax]
+old instr: 0x40c39c: sub eax, 0x1
+    new instr:0x7f8da3d19cb6: sub eax, 0x1
+old instr: 0x40c39f: mov dword ptr [rbp-0x1c], eax
+    new instr:0x7f8da3d19cb9: mov dword ptr [rbp-0x1c], eax
+old instr: 0x40c3a2: cmp dword ptr [rbp-0x1c], 0x0
+    new instr:0x7f8da3d19cbc: cmp dword ptr [rbp-0x1c], 0x0
+    new instr:0x7f8da3d19cc0: js 0x7f8da3d19ccb
+old instr: 0x40c3b1: mov eax, dword ptr [rbp-0x1c]
+    new instr:0x7f8da3d19cc2: mov eax, dword ptr [rbp-0x1c]
+old instr: 0x40c3b4: movsxd rdx, eax
+    new instr:0x7f8da3d19cc5: movsxd rdx, eax
+old instr: 0x40c3b7: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19cc8: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40c3be: add rax, rdx
+    new instr:0x7f8da3d19ccf: add rax, rdx
+old instr: 0x40c3c1: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d19cd2: movzx eax, byte ptr [rax]
+old instr: 0x40c3c4: mov byte ptr [rbp-0x41], al
+    new instr:0x7f8da3d19cd5: mov byte ptr [rbp-0x41], al
+old instr: 0x40c3c7: movzx eax, byte ptr [rbp-0x41]
+    new instr:0x7f8da3d19cd8: movzx eax, byte ptr [rbp-0x41]
+old instr: 0x40c3cb: cdqe 
+    new instr:0x7f8da3d19cdc: cdqe 
+old instr: 0x40c3cd: movzx eax, byte ptr [rbp+rax*1-0x560]
+    new instr:0x7f8da3d19cde: movzx eax, byte ptr [rbp+rax*1-0x560]
+old instr: 0x40c3d5: test al, al
+    new instr:0x7f8da3d19ce6: test al, al
+    new instr:0x7f8da3d19ce8: jz 0x7f8da3d19d27
+old instr: 0x40c416: sub dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d19cea: sub dword ptr [rbp-0x18], 0x1
+old instr: 0x40c41a: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19cee: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c41d: cdqe 
+    new instr:0x7f8da3d19cf1: cdqe 
+old instr: 0x40c41f: mov eax, dword ptr [rbp+rax*4-0xd60]
+    new instr:0x7f8da3d19cf3: mov eax, dword ptr [rbp+rax*4-0xd60]
+old instr: 0x40c426: cmp eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19cfa: cmp eax, dword ptr [rbp-0x18]
+old instr: 0x40c429: jl 0x40c383
+    new instr:0x7f8da3d19cfd: jl 0x7f8da3d19c57
+    new instr:0x7f8da3d19d03: jmp 0x7f8da4126137
+old instr: 0x40c3d9: movzx eax, byte ptr [rbp-0x41]
+    new instr:0x7f8da3d19d08: movzx eax, byte ptr [rbp-0x41]
+old instr: 0x40c3dd: lea rdx, ptr [rbp-0xd60]
+    new instr:0x7f8da3d19d0c: lea rdx, ptr [rbp-0xd60]
+old instr: 0x40c3e4: movsxd rcx, eax
+    new instr:0x7f8da3d19d13: movsxd rcx, eax
+old instr: 0x40c3e7: shl rcx, 0x2
+    new instr:0x7f8da3d19d16: shl rcx, 0x2
+old instr: 0x40c3eb: add rcx, rdx
+    new instr:0x7f8da3d19d1a: add rcx, rdx
+old instr: 0x40c3ee: cdqe 
+    new instr:0x7f8da3d19d1d: cdqe 
+old instr: 0x40c3f0: mov eax, dword ptr [rbp+rax*4-0xd60]
+    new instr:0x7f8da3d19d1f: mov eax, dword ptr [rbp+rax*4-0xd60]
+old instr: 0x40c3f7: movsxd rdx, eax
+    new instr:0x7f8da3d19d26: movsxd rdx, eax
+old instr: 0x40c3fa: lea rsi, ptr [rdx*4]
+    new instr:0x7f8da3d19d29: lea rsi, ptr [rdx*4]
+old instr: 0x40c402: mov rdx, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d19d31: mov rdx, qword ptr [rbp-0xd68]
+old instr: 0x40c409: add rsi, rdx
+    new instr:0x7f8da3d19d38: add rsi, rdx
+old instr: 0x40c40c: mov edx, dword ptr [rbp-0x1c]
+    new instr:0x7f8da3d19d3b: mov edx, dword ptr [rbp-0x1c]
+old instr: 0x40c40f: mov dword ptr [rsi], edx
+    new instr:0x7f8da3d19d3e: mov dword ptr [rsi], edx
+old instr: 0x40c411: sub eax, 0x1
+    new instr:0x7f8da3d19d40: sub eax, 0x1
+old instr: 0x40c414: mov dword ptr [rcx], eax
+    new instr:0x7f8da3d19d43: mov dword ptr [rcx], eax
+old instr: 0x40c416: sub dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d19d45: sub dword ptr [rbp-0x18], 0x1
+old instr: 0x40c41a: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19d49: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c41d: cdqe 
+    new instr:0x7f8da3d19d4c: cdqe 
+old instr: 0x40c41f: mov eax, dword ptr [rbp+rax*4-0xd60]
+    new instr:0x7f8da3d19d4e: mov eax, dword ptr [rbp+rax*4-0xd60]
+old instr: 0x40c426: cmp eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19d55: cmp eax, dword ptr [rbp-0x18]
+old instr: 0x40c429: jl 0x40c383
+    new instr:0x7f8da3d19d58: jl 0x7f8da3d19cb2
+    new instr:0x7f8da3d19d5e: jmp 0x7f8da4126192
+old instr: 0x40c2a8: mov eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19d63: mov eax, dword ptr [rbp-0x18]
+old instr: 0x40c2ab: cdqe 
+    new instr:0x7f8da3d19d66: cdqe 
+old instr: 0x40c2ad: lea rdx, ptr [rax*4]
+    new instr:0x7f8da3d19d68: lea rdx, ptr [rax*4]
+old instr: 0x40c2b5: mov rax, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d19d70: mov rax, qword ptr [rbp-0xd68]
+old instr: 0x40c2bc: add rax, rdx
+    new instr:0x7f8da3d19d77: add rax, rdx
+old instr: 0x40c2bf: mov eax, dword ptr [rax]
+    new instr:0x7f8da3d19d7a: mov eax, dword ptr [rax]
+old instr: 0x40c2c1: sub eax, 0x1
+    new instr:0x7f8da3d19d7c: sub eax, 0x1
+old instr: 0x40c2c4: mov dword ptr [rbp-0x1c], eax
+    new instr:0x7f8da3d19d7f: mov dword ptr [rbp-0x1c], eax
+old instr: 0x40c2c7: cmp dword ptr [rbp-0x1c], 0x0
+    new instr:0x7f8da3d19d82: cmp dword ptr [rbp-0x1c], 0x0
+    new instr:0x7f8da3d19d86: js 0x7f8da3d19d91
+old instr: 0x40c2d6: mov eax, dword ptr [rbp-0x1c]
+    new instr:0x7f8da3d19d88: mov eax, dword ptr [rbp-0x1c]
+old instr: 0x40c2d9: movsxd rdx, eax
+    new instr:0x7f8da3d19d8b: movsxd rdx, eax
+old instr: 0x40c2dc: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19d8e: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40c2e3: add rax, rdx
+    new instr:0x7f8da3d19d95: add rax, rdx
+old instr: 0x40c2e6: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d19d98: movzx eax, byte ptr [rax]
+old instr: 0x40c2e9: mov byte ptr [rbp-0x41], al
+    new instr:0x7f8da3d19d9b: mov byte ptr [rbp-0x41], al
+old instr: 0x40c2ec: movzx eax, byte ptr [rbp-0x41]
+    new instr:0x7f8da3d19d9e: movzx eax, byte ptr [rbp-0x41]
+old instr: 0x40c2f0: cdqe 
+    new instr:0x7f8da3d19da2: cdqe 
+old instr: 0x40c2f2: movzx eax, byte ptr [rbp+rax*1-0x560]
+    new instr:0x7f8da3d19da4: movzx eax, byte ptr [rbp+rax*1-0x560]
+old instr: 0x40c2fa: test al, al
+    new instr:0x7f8da3d19dac: test al, al
+old instr: 0x40c2fc: jnz 0x40c33b
+    new instr:0x7f8da3d19dae: jnz 0x7f8da3d19ded
+old instr: 0x40c2fe: movzx eax, byte ptr [rbp-0x41]
+    new instr:0x7f8da3d19db0: movzx eax, byte ptr [rbp-0x41]
+old instr: 0x40c302: lea rdx, ptr [rbp-0x960]
+    new instr:0x7f8da3d19db4: lea rdx, ptr [rbp-0x960]
+old instr: 0x40c309: movsxd rcx, eax
+    new instr:0x7f8da3d19dbb: movsxd rcx, eax
+old instr: 0x40c30c: shl rcx, 0x2
+    new instr:0x7f8da3d19dbe: shl rcx, 0x2
+old instr: 0x40c310: add rcx, rdx
+    new instr:0x7f8da3d19dc2: add rcx, rdx
+old instr: 0x40c313: cdqe 
+    new instr:0x7f8da3d19dc5: cdqe 
+old instr: 0x40c315: mov eax, dword ptr [rbp+rax*4-0x960]
+    new instr:0x7f8da3d19dc7: mov eax, dword ptr [rbp+rax*4-0x960]
+old instr: 0x40c31c: movsxd rdx, eax
+    new instr:0x7f8da3d19dce: movsxd rdx, eax
+old instr: 0x40c31f: lea rsi, ptr [rdx*4]
+    new instr:0x7f8da3d19dd1: lea rsi, ptr [rdx*4]
+old instr: 0x40c327: mov rdx, qword ptr [rbp-0xd68]
+    new instr:0x7f8da3d19dd9: mov rdx, qword ptr [rbp-0xd68]
+old instr: 0x40c32e: add rsi, rdx
+    new instr:0x7f8da3d19de0: add rsi, rdx
+old instr: 0x40c331: mov edx, dword ptr [rbp-0x1c]
+    new instr:0x7f8da3d19de3: mov edx, dword ptr [rbp-0x1c]
+old instr: 0x40c334: mov dword ptr [rsi], edx
+    new instr:0x7f8da3d19de6: mov dword ptr [rsi], edx
+old instr: 0x40c336: add eax, 0x1
+    new instr:0x7f8da3d19de8: add eax, 0x1
+old instr: 0x40c339: mov dword ptr [rcx], eax
+    new instr:0x7f8da3d19deb: mov dword ptr [rcx], eax
+old instr: 0x40c33b: add dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d19ded: add dword ptr [rbp-0x18], 0x1
+old instr: 0x40c33f: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19df1: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c342: cdqe 
+    new instr:0x7f8da3d19df4: cdqe 
+old instr: 0x40c344: mov eax, dword ptr [rbp+rax*4-0x960]
+    new instr:0x7f8da3d19df6: mov eax, dword ptr [rbp+rax*4-0x960]
+old instr: 0x40c34b: cmp eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19dfd: cmp eax, dword ptr [rbp-0x18]
+old instr: 0x40c34e: jnle 0x40c2a8
+    new instr:0x7f8da3d19e00: jnle 0x7f8da3d19d5a
+    new instr:0x7f8da3d19e06: jmp 0x7f8da412615f
+old instr: 0x40c33b: add dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d19e0b: add dword ptr [rbp-0x18], 0x1
+old instr: 0x40c33f: mov eax, dword ptr [rbp-0x34]
+    new instr:0x7f8da3d19e0f: mov eax, dword ptr [rbp-0x34]
+old instr: 0x40c342: cdqe 
+    new instr:0x7f8da3d19e12: cdqe 
+old instr: 0x40c344: mov eax, dword ptr [rbp+rax*4-0x960]
+    new instr:0x7f8da3d19e14: mov eax, dword ptr [rbp+rax*4-0x960]
+old instr: 0x40c34b: cmp eax, dword ptr [rbp-0x18]
+    new instr:0x7f8da3d19e1b: cmp eax, dword ptr [rbp-0x18]
+old instr: 0x40c34e: jnle 0x40c2a8
+    new instr:0x7f8da3d19e1e: jnle 0x7f8da3d19d78
+    new instr:0x7f8da3d19e24: jmp 0x7f8da412617d
+old instr: 0x40c5d5: mov eax, dword ptr [rbp-0xd84]
+    new instr:0x7f8da3d19e29: mov eax, dword ptr [rbp-0xd84]
+old instr: 0x40c5db: mov edx, dword ptr [rbp-0x50]
+    new instr:0x7f8da3d19e2f: mov edx, dword ptr [rbp-0x50]
+old instr: 0x40c5de: add eax, edx
+    new instr:0x7f8da3d19e32: add eax, edx
+old instr: 0x40c5e0: cdqe 
+    new instr:0x7f8da3d19e34: cdqe 
+old instr: 0x40c5e2: lea rdx, ptr [rax+rax*1]
+    new instr:0x7f8da3d19e36: lea rdx, ptr [rax+rax*1]
+old instr: 0x40c5e6: mov rax, qword ptr [rbp-0xd78]
+    new instr:0x7f8da3d19e3a: mov rax, qword ptr [rbp-0xd78]
+old instr: 0x40c5ed: add rdx, rax
+    new instr:0x7f8da3d19e41: add rdx, rax
+old instr: 0x40c5f0: movzx eax, word ptr [rbp-0x52]
+    new instr:0x7f8da3d19e44: movzx eax, word ptr [rbp-0x52]
+old instr: 0x40c5f4: mov word ptr [rdx], ax
+    new instr:0x7f8da3d19e48: mov word ptr [rdx], ax
+old instr: 0x40c5f7: sub dword ptr [rbp-0x18], 0x1
+    new instr:0x7f8da3d19e4b: sub dword ptr [rbp-0x18], 0x1
+old instr: 0x40c5fb: cmp dword ptr [rbp-0x18], 0x0
+    new instr:0x7f8da3d19e4f: cmp dword ptr [rbp-0x18], 0x0
+old instr: 0x40c5ff: jns 0x40c582
+    new instr:0x7f8da3d19e53: jns 0x7f8da3d19dd6
+    new instr:0x7f8da3d19e55: jmp 0x7f8da412645b
+old instr: 0x40c634: cmp dword ptr [rbp-0xd88], 0x3
+    new instr:0x7f8da3d19e5a: cmp dword ptr [rbp-0xd88], 0x3
+    new instr:0x7f8da3d19e61: jnle 0x7f8da3d19e95
+old instr: 0x40c66f: add rsp, 0xd98
+    new instr:0x7f8da3d19e63: add rsp, 0xd98
+old instr: 0x40c676: pop rbx
+    new instr:0x7f8da3d19e6a: pop rbx
+old instr: 0x40c677: pop rbp
+    new instr:0x7f8da3d19e6b: pop rbp
+old instr: 0x40c678: ret 
+    new instr:0x7f8da3d19e6c: ret 
+old instr: 0x40c55e: add dword ptr [rbp-0x2c], 0x1
+    new instr:0x7f8da3d19e6d: add dword ptr [rbp-0x2c], 0x1
+old instr: 0x40c562: mov eax, dword ptr [rbp-0x2c]
+    new instr:0x7f8da3d19e71: mov eax, dword ptr [rbp-0x2c]
+old instr: 0x40c565: mov edx, dword ptr [rbp-0x4c]
+    new instr:0x7f8da3d19e74: mov edx, dword ptr [rbp-0x4c]
+old instr: 0x40c568: mov ebx, edx
+    new instr:0x7f8da3d19e77: mov ebx, edx
+old instr: 0x40c56a: mov ecx, eax
+    new instr:0x7f8da3d19e79: mov ecx, eax
+old instr: 0x40c56c: sar ebx, cl
+    new instr:0x7f8da3d19e7b: sar ebx, cl
+old instr: 0x40c56e: mov eax, ebx
+    new instr:0x7f8da3d19e7d: mov eax, ebx
+old instr: 0x40c570: cmp eax, 0xfffe
+    new instr:0x7f8da3d19e7f: cmp eax, 0xfffe
+    new instr:0x7f8da3d19e84: jmp 0x7f8da4126400
+old instr: 0x40c2cd: mov eax, dword ptr [rbp-0xd84]
+    new instr:0x7f8da3d19e89: mov eax, dword ptr [rbp-0xd84]
+old instr: 0x40c2d3: add dword ptr [rbp-0x1c], eax
+    new instr:0x7f8da3d19e8f: add dword ptr [rbp-0x1c], eax
+old instr: 0x40c2d6: mov eax, dword ptr [rbp-0x1c]
+    new instr:0x7f8da3d19e92: mov eax, dword ptr [rbp-0x1c]
+old instr: 0x40c2d9: movsxd rdx, eax
+    new instr:0x7f8da3d19e95: movsxd rdx, eax
+old instr: 0x40c2dc: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19e98: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40c2e3: add rax, rdx
+    new instr:0x7f8da3d19e9f: add rax, rdx
+old instr: 0x40c2e6: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d19ea2: movzx eax, byte ptr [rax]
+old instr: 0x40c2e9: mov byte ptr [rbp-0x41], al
+    new instr:0x7f8da3d19ea5: mov byte ptr [rbp-0x41], al
+old instr: 0x40c2ec: movzx eax, byte ptr [rbp-0x41]
+    new instr:0x7f8da3d19ea8: movzx eax, byte ptr [rbp-0x41]
+old instr: 0x40c2f0: cdqe 
+    new instr:0x7f8da3d19eac: cdqe 
+old instr: 0x40c2f2: movzx eax, byte ptr [rbp+rax*1-0x560]
+    new instr:0x7f8da3d19eae: movzx eax, byte ptr [rbp+rax*1-0x560]
+old instr: 0x40c2fa: test al, al
+    new instr:0x7f8da3d19eb6: test al, al
+old instr: 0x40c2fc: jnz 0x40c33b
+    new instr:0x7f8da3d19eb8: jnz 0x7f8da3d19ef7
+    new instr:0x7f8da3d19eba: jmp 0x7f8da41261bd
+old instr: 0x40c3a8: mov eax, dword ptr [rbp-0xd84]
+    new instr:0x7f8da3d19ebf: mov eax, dword ptr [rbp-0xd84]
+old instr: 0x40c3ae: add dword ptr [rbp-0x1c], eax
+    new instr:0x7f8da3d19ec5: add dword ptr [rbp-0x1c], eax
+old instr: 0x40c3b1: mov eax, dword ptr [rbp-0x1c]
+    new instr:0x7f8da3d19ec8: mov eax, dword ptr [rbp-0x1c]
+old instr: 0x40c3b4: movsxd rdx, eax
+    new instr:0x7f8da3d19ecb: movsxd rdx, eax
+old instr: 0x40c3b7: mov rax, qword ptr [rbp-0xd70]
+    new instr:0x7f8da3d19ece: mov rax, qword ptr [rbp-0xd70]
+old instr: 0x40c3be: add rax, rdx
+    new instr:0x7f8da3d19ed5: add rax, rdx
+old instr: 0x40c3c1: movzx eax, byte ptr [rax]
+    new instr:0x7f8da3d19ed8: movzx eax, byte ptr [rax]
+old instr: 0x40c3c4: mov byte ptr [rbp-0x41], al
+    new instr:0x7f8da3d19edb: mov byte ptr [rbp-0x41], al
+old instr: 0x40c3c7: movzx eax, byte ptr [rbp-0x41]
+    new instr:0x7f8da3d19ede: movzx eax, byte ptr [rbp-0x41]
+old instr: 0x40c3cb: cdqe 
+    new instr:0x7f8da3d19ee2: cdqe 
+old instr: 0x40c3cd: movzx eax, byte ptr [rbp+rax*1-0x560]
+    new instr:0x7f8da3d19ee4: movzx eax, byte ptr [rbp+rax*1-0x560]
+old instr: 0x40c3d5: test al, al
+    new instr:0x7f8da3d19eec: test al, al
+old instr: 0x40c3d7: jnz 0x40c416
+    new instr:0x7f8da3d19eee: jnz 0x7f8da3d19f2d
+    new instr:0x7f8da3d19ef0: jmp 0x7f8da41262ce
+rtn name: mainSort : 0
+after identifying candidate routines
+after calculate direct br targets
+starting a pass of fixing instructions displacements: 
+11:  orig_ins_addr: 40b863 new_ins_addr: 7f8da3d1903d orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d1903d: jnle 0x7f8da3d197c8
+15:  orig_ins_addr: 40b8b1 new_ins_addr: 7f8da3d1904e orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d1904e: js 0x7f8da3d197c8
+24:  orig_ins_addr: 40b8b1 new_ins_addr: 7f8da3d19079 orig_targ_addr: 40b88c new_targ_addr: 7f8da3d19054    new instr:0x7f8da3d19079: jns 0x7f8da3d19054
+35:  orig_ins_addr: 40ba64 new_ins_addr: 7f8da3d190a2 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d190a2: jle 0x7f8da3d197c8
+148:  orig_ins_addr: 40ba64 new_ins_addr: 7f8da3d19232 orig_targ_addr: 40b8d7 new_targ_addr: 7f8da3d190a8    new instr:0x7f8da3d19232: jnle 0x7f8da3d190a8
+151:  orig_ins_addr: 40bad0 new_ins_addr: 7f8da3d1923c orig_targ_addr: 40bad2 new_targ_addr: 7f8da3d19298    new instr:0x7f8da3d1923c: js 0x7f8da3d19298
+180:  orig_ins_addr: 40bad0 new_ins_addr: 7f8da3d192a6 orig_targ_addr: 40ba6c new_targ_addr: 7f8da3d19242    new instr:0x7f8da3d192a6: jns 0x7f8da3d19242
+184:  orig_ins_addr: 40bb30 new_ins_addr: 7f8da3d192b7 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d192b7: jnle 0x7f8da3d197c8
+207:  orig_ins_addr: 40bb30 new_ins_addr: 7f8da3d19312 orig_targ_addr: 40badb new_targ_addr: 7f8da3d192bd    new instr:0x7f8da3d19312: jle 0x7f8da3d192bd
+209:  orig_ins_addr: 40bb39 new_ins_addr: 7f8da3d1931f orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d1931f: jnle 0x7f8da3d197c8
+213:  orig_ins_addr: 40bbc0 new_ins_addr: 7f8da3d19333 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d19333: jnle 0x7f8da3d197c8
+236:  orig_ins_addr: 40bbc0 new_ins_addr: 7f8da3d19397 orig_targ_addr: 40bb62 new_targ_addr: 7f8da3d19339    new instr:0x7f8da3d19397: jle 0x7f8da3d19339
+247:  orig_ins_addr: 40bdf9 new_ins_addr: 7f8da3d193c1 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d193c1: jle 0x7f8da3d197c8
+384:  orig_ins_addr: 40bdf9 new_ins_addr: 7f8da3d195d6 orig_targ_addr: 40bbe7 new_targ_addr: 7f8da3d193c7    new instr:0x7f8da3d195d6: jnle 0x7f8da3d193c7
+387:  orig_ins_addr: 40be8a new_ins_addr: 7f8da3d195e0 orig_targ_addr: 40be90 new_targ_addr: 7f8da3d1964a    new instr:0x7f8da3d195e0: js 0x7f8da3d1964a
+422:  orig_ins_addr: 40be8a new_ins_addr: 7f8da3d1966c orig_targ_addr: 40be04 new_targ_addr: 7f8da3d195e6    new instr:0x7f8da3d1966c: jns 0x7f8da3d195e6
+426:  orig_ins_addr: 40bec0 new_ins_addr: 7f8da3d19680 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d19680: jnle 0x7f8da3d197c8
+436:  orig_ins_addr: 40bec0 new_ins_addr: 7f8da3d196ad orig_targ_addr: 40be99 new_targ_addr: 7f8da3d19686    new instr:0x7f8da3d196ad: jle 0x7f8da3d19686
+445:  orig_ins_addr: 40bedf new_ins_addr: 7f8da3d196d0 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d196d0: jnle 0x7f8da3d197c8
+453:  orig_ins_addr: 40bedf new_ins_addr: 7f8da3d196ec orig_targ_addr: 40bec9 new_targ_addr: 7f8da3d196ba    new instr:0x7f8da3d196ec: jle 0x7f8da3d196ba
+468:  orig_ins_addr: 40c01c new_ins_addr: 7f8da3d19719 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d197c8    new instr:0x7f8da3d19719: jnle 0x7f8da3d197c8
+524:  orig_ins_addr: 40bff9 new_ins_addr: 7f8da3d197da orig_targ_addr: 40bf1d new_targ_addr: 7f8da3d197cd    new instr:0x7f8da3d197da: jnbe 0x7f8da3d197cd
+532:  orig_ins_addr: 40c01c new_ins_addr: 7f8da3d197fa orig_targ_addr: 40bf06 new_targ_addr: 7f8da3d1971f    new instr:0x7f8da3d197fa: jle 0x7f8da3d1971f
+533:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19800 orig_targ_addr: 40c022 new_targ_addr: 7f8da3d19824    new instr:0x7f8da3d19800: jmp 0x7f8da3d19824
+549:  orig_ins_addr: 40bf4d new_ins_addr: 7f8da3d19835 orig_targ_addr: 40bf53 new_targ_addr: 7f8da3d19734    new instr:0x7f8da3d19835: jl 0x7f8da3d19734
+557:  orig_ins_addr: 40c01c new_ins_addr: 7f8da3d19856 orig_targ_addr: 40bf06 new_targ_addr: 7f8da3d1971f    new instr:0x7f8da3d19856: jle 0x7f8da3d1971f
+559:  orig_ins_addr: 40c026 new_ins_addr: 7f8da3d19860 orig_targ_addr: 40bee1 new_targ_addr: 7f8da3d196f2    new instr:0x7f8da3d19860: jnz 0x7f8da3d196f2
+564:  orig_ins_addr: 40c62e new_ins_addr: 7f8da3d1987b orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d1987b: jnle 0x7f8da3d19800
+572:  orig_ins_addr: 40c1d0 new_ins_addr: 7f8da3d1989e orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d1989e: jnle 0x7f8da3d19800
+575:  orig_ins_addr: 40c060 new_ins_addr: 7f8da3d198aa orig_targ_addr: 40c1c5 new_targ_addr: 7f8da3d1993c    new instr:0x7f8da3d198aa: jz 0x7f8da3d1993c
+590:  orig_ins_addr: 40c096 new_ins_addr: 7f8da3d198e0 orig_targ_addr: 40c18c new_targ_addr: 7f8da3d19903    new instr:0x7f8da3d198e0: jnz 0x7f8da3d19903
+611:  orig_ins_addr: 40c0eb new_ins_addr: 7f8da3d19935 orig_targ_addr: 40c0f1 new_targ_addr: 7f8da3d19952    new instr:0x7f8da3d19935: jnle 0x7f8da3d19952
+627:  orig_ins_addr: 40c1d0 new_ins_addr: 7f8da3d1997f orig_targ_addr: 40c05a new_targ_addr: 7f8da3d198a4    new instr:0x7f8da3d1997f: jle 0x7f8da3d198a4
+628:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19985 orig_targ_addr: 40c1d6 new_targ_addr: 7f8da3d199c6    new instr:0x7f8da3d19985: jmp 0x7f8da3d199c6
+630:  orig_ins_addr: 40c0f8 new_ins_addr: 7f8da3d19991 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19991: jnle 0x7f8da3d19800
+641:  orig_ins_addr: 40c167 new_ins_addr: 7f8da3d199cd orig_targ_addr: 40afb7 new_targ_addr: 40afb7    new instr:0x7f8da3d199cd: call qword ptr [rip-0x2b4c973]
+653:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d199ed orig_targ_addr: 40c18c new_targ_addr: 7f8da3d1993b    new instr:0x7f8da3d199ed: jmp 0x7f8da3d1993b
+656:  orig_ins_addr: 40c1d0 new_ins_addr: 7f8da3d199fd orig_targ_addr: 40c05a new_targ_addr: 7f8da3d198a4    new instr:0x7f8da3d199fd: jle 0x7f8da3d198a4
+661:  orig_ins_addr: 40c1e5 new_ins_addr: 7f8da3d19a12 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19a12: jnz 0x7f8da3d19800
+665:  orig_ins_addr: 40c279 new_ins_addr: 7f8da3d19a26 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19a26: jnle 0x7f8da3d19800
+700:  orig_ins_addr: 40c279 new_ins_addr: 7f8da3d19aab orig_targ_addr: 40c1fa new_targ_addr: 7f8da3d19a2c    new instr:0x7f8da3d19aab: jle 0x7f8da3d19a2c
+715:  orig_ins_addr: 40c34e new_ins_addr: 7f8da3d19ae4 orig_targ_addr: 40c2a8 new_targ_addr: 7f8da3d19d63    new instr:0x7f8da3d19ae4: jnle 0x7f8da3d19d63
+732:  orig_ins_addr: 40c429 new_ins_addr: 7f8da3d19b23 orig_targ_addr: 40c383 new_targ_addr: 7f8da3d19c9d    new instr:0x7f8da3d19b23: jl 0x7f8da3d19c9d
+741:  orig_ins_addr: 40c44c new_ins_addr: 7f8da3d19b46 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19b46: jnz 0x7f8da3d19800
+745:  orig_ins_addr: 40c4e2 new_ins_addr: 7f8da3d19b5a orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19b5a: jnle 0x7f8da3d19800
+769:  orig_ins_addr: 40c4e2 new_ins_addr: 7f8da3d19bb8 orig_targ_addr: 40c48a new_targ_addr: 7f8da3d19b60    new instr:0x7f8da3d19bb8: jle 0x7f8da3d19b60
+774:  orig_ins_addr: 40c4f8 new_ins_addr: 7f8da3d19bd2 orig_targ_addr: 40c623 new_targ_addr: 7f8da3d19c25    new instr:0x7f8da3d19bd2: jnle 0x7f8da3d19c25
+808:  orig_ins_addr: 40c575 new_ins_addr: 7f8da3d19c49 orig_targ_addr: 40c55e new_targ_addr: 7f8da3d19e6d    new instr:0x7f8da3d19c49: jnle 0x7f8da3d19e6d
+814:  orig_ins_addr: 40c5ff new_ins_addr: 7f8da3d19c5c orig_targ_addr: 40c582 new_targ_addr: 7f8da3d19c3b    new instr:0x7f8da3d19c5c: jns 0x7f8da3d19c3b
+823:  orig_ins_addr: 40c617 new_ins_addr: 7f8da3d19c78 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19c78: jnle 0x7f8da3d19800
+826:  orig_ins_addr: 40c62e new_ins_addr: 7f8da3d19c89 orig_targ_addr: 40c03f new_targ_addr: 7f8da3d19881    new instr:0x7f8da3d19c89: jle 0x7f8da3d19881
+827:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19c8f orig_targ_addr: 40c634 new_targ_addr: 7f8da3d19e5a    new instr:0x7f8da3d19c8f: jmp 0x7f8da3d19e5a
+852:  orig_ins_addr: 40c5d3 new_ins_addr: 7f8da3d19ce5 orig_targ_addr: 40c5d5 new_targ_addr: 7f8da3d19e29    new instr:0x7f8da3d19ce5: jle 0x7f8da3d19e29
+855:  orig_ins_addr: 40c5ff new_ins_addr: 7f8da3d19cf3 orig_targ_addr: 40c582 new_targ_addr: 7f8da3d19c94    new instr:0x7f8da3d19cf3: jns 0x7f8da3d19c94
+856:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19cf9 orig_targ_addr: 40c601 new_targ_addr: 7f8da3d19c62    new instr:0x7f8da3d19cf9: jmp 0x7f8da3d19c62
+866:  orig_ins_addr: 40c3a6 new_ins_addr: 7f8da3d19d21 orig_targ_addr: 40c3a8 new_targ_addr: 7f8da3d19ebf    new instr:0x7f8da3d19d21: js 0x7f8da3d19ebf
+877:  orig_ins_addr: 40c3d7 new_ins_addr: 7f8da3d19d4d orig_targ_addr: 40c3d9 new_targ_addr: 7f8da3d19d08    new instr:0x7f8da3d19d4d: jz 0x7f8da3d19d08
+883:  orig_ins_addr: 40c429 new_ins_addr: 7f8da3d19d66 orig_targ_addr: 40c383 new_targ_addr: 7f8da3d19cfe    new instr:0x7f8da3d19d66: jl 0x7f8da3d19cfe
+884:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19d6c orig_targ_addr: 40c42f new_targ_addr: 7f8da3d19b29    new instr:0x7f8da3d19d6c: jmp 0x7f8da3d19b29
+905:  orig_ins_addr: 40c429 new_ins_addr: 7f8da3d19dc1 orig_targ_addr: 40c383 new_targ_addr: 7f8da3d19cfe    new instr:0x7f8da3d19dc1: jl 0x7f8da3d19cfe
+906:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19dc7 orig_targ_addr: 40c42f new_targ_addr: 7f8da3d19b29    new instr:0x7f8da3d19dc7: jmp 0x7f8da3d19b29
+916:  orig_ins_addr: 40c2cb new_ins_addr: 7f8da3d19def orig_targ_addr: 40c2cd new_targ_addr: 7f8da3d19e89    new instr:0x7f8da3d19def: js 0x7f8da3d19e89
+927:  orig_ins_addr: 40c2fc new_ins_addr: 7f8da3d19e1b orig_targ_addr: 40c33b new_targ_addr: 7f8da3d19ded    new instr:0x7f8da3d19e1b: jnz 0x7f8da3d19ded
+948:  orig_ins_addr: 40c34e new_ins_addr: 7f8da3d19e71 orig_targ_addr: 40c2a8 new_targ_addr: 7f8da3d19dcc    new instr:0x7f8da3d19e71: jnle 0x7f8da3d19dcc
+949:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19e77 orig_targ_addr: 40c354 new_targ_addr: 7f8da3d19aea    new instr:0x7f8da3d19e77: jmp 0x7f8da3d19aea
+955:  orig_ins_addr: 40c34e new_ins_addr: 7f8da3d19e8f orig_targ_addr: 40c2a8 new_targ_addr: 7f8da3d19dcc    new instr:0x7f8da3d19e8f: jnle 0x7f8da3d19dcc
+956:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19e95 orig_targ_addr: 40c354 new_targ_addr: 7f8da3d19aea    new instr:0x7f8da3d19e95: jmp 0x7f8da3d19aea
+968:  orig_ins_addr: 40c5ff new_ins_addr: 7f8da3d19ec4 orig_targ_addr: 40c582 new_targ_addr: 7f8da3d19c94    new instr:0x7f8da3d19ec4: jns 0x7f8da3d19c94
+969:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19eca orig_targ_addr: 40c601 new_targ_addr: 7f8da3d19c62    new instr:0x7f8da3d19eca: jmp 0x7f8da3d19c62
+971:  orig_ins_addr: 40c63b new_ins_addr: 7f8da3d19ed6 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19ed6: jnle 0x7f8da3d19800
+985:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19efd orig_targ_addr: 40c577 new_targ_addr: 7f8da3d19c4f    new instr:0x7f8da3d19efd: jmp 0x7f8da3d19c4f
+998:  orig_ins_addr: 40c2fc new_ins_addr: 7f8da3d19f31 orig_targ_addr: 40c33b new_targ_addr: 7f8da3d19e5e    new instr:0x7f8da3d19f31: jnz 0x7f8da3d19e5e
+999:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19f37 orig_targ_addr: 40c2fe new_targ_addr: 7f8da3d19e21    new instr:0x7f8da3d19f37: jmp 0x7f8da3d19e21
+1012:  orig_ins_addr: 40c3d7 new_ins_addr: 7f8da3d19f6b orig_targ_addr: 40c416 new_targ_addr: 7f8da3d19d53    new instr:0x7f8da3d19f6b: jnz 0x7f8da3d19d53
+1013:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19f71 orig_targ_addr: 40c3d9 new_targ_addr: 7f8da3d19d71    new instr:0x7f8da3d19f71: jmp 0x7f8da3d19d71
+starting a pass of fixing instructions displacements: 
+11:  orig_ins_addr: 40b863 new_ins_addr: 7f8da3d1903d orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d1903d: jnle 0x7f8da3d19800
+15:  orig_ins_addr: 40b8b1 new_ins_addr: 7f8da3d1904e orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d1904e: js 0x7f8da3d19800
+24:  orig_ins_addr: 40b8b1 new_ins_addr: 7f8da3d19079 orig_targ_addr: 40b88c new_targ_addr: 7f8da3d19054    new instr:0x7f8da3d19079: jns 0x7f8da3d19054
+35:  orig_ins_addr: 40ba64 new_ins_addr: 7f8da3d190a2 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d190a2: jle 0x7f8da3d19800
+148:  orig_ins_addr: 40ba64 new_ins_addr: 7f8da3d19232 orig_targ_addr: 40b8d7 new_targ_addr: 7f8da3d190a8    new instr:0x7f8da3d19232: jnle 0x7f8da3d190a8
+151:  orig_ins_addr: 40bad0 new_ins_addr: 7f8da3d1923c orig_targ_addr: 40bad2 new_targ_addr: 7f8da3d192ac    new instr:0x7f8da3d1923c: js 0x7f8da3d192ac
+180:  orig_ins_addr: 40bad0 new_ins_addr: 7f8da3d192a6 orig_targ_addr: 40ba6c new_targ_addr: 7f8da3d19242    new instr:0x7f8da3d192a6: jns 0x7f8da3d19242
+184:  orig_ins_addr: 40bb30 new_ins_addr: 7f8da3d192b7 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d192b7: jnle 0x7f8da3d19800
+207:  orig_ins_addr: 40bb30 new_ins_addr: 7f8da3d19312 orig_targ_addr: 40badb new_targ_addr: 7f8da3d192bd    new instr:0x7f8da3d19312: jle 0x7f8da3d192bd
+209:  orig_ins_addr: 40bb39 new_ins_addr: 7f8da3d1931f orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d1931f: jnle 0x7f8da3d19800
+213:  orig_ins_addr: 40bbc0 new_ins_addr: 7f8da3d19333 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19333: jnle 0x7f8da3d19800
+236:  orig_ins_addr: 40bbc0 new_ins_addr: 7f8da3d19397 orig_targ_addr: 40bb62 new_targ_addr: 7f8da3d19339    new instr:0x7f8da3d19397: jle 0x7f8da3d19339
+247:  orig_ins_addr: 40bdf9 new_ins_addr: 7f8da3d193c1 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d193c1: jle 0x7f8da3d19800
+384:  orig_ins_addr: 40bdf9 new_ins_addr: 7f8da3d195d6 orig_targ_addr: 40bbe7 new_targ_addr: 7f8da3d193c7    new instr:0x7f8da3d195d6: jnle 0x7f8da3d193c7
+387:  orig_ins_addr: 40be8a new_ins_addr: 7f8da3d195e0 orig_targ_addr: 40be90 new_targ_addr: 7f8da3d19672    new instr:0x7f8da3d195e0: js 0x7f8da3d19672
+422:  orig_ins_addr: 40be8a new_ins_addr: 7f8da3d1966c orig_targ_addr: 40be04 new_targ_addr: 7f8da3d195e6    new instr:0x7f8da3d1966c: jns 0x7f8da3d195e6
+426:  orig_ins_addr: 40bec0 new_ins_addr: 7f8da3d19680 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19680: jnle 0x7f8da3d19800
+436:  orig_ins_addr: 40bec0 new_ins_addr: 7f8da3d196ad orig_targ_addr: 40be99 new_targ_addr: 7f8da3d19686    new instr:0x7f8da3d196ad: jle 0x7f8da3d19686
+445:  orig_ins_addr: 40bedf new_ins_addr: 7f8da3d196d0 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d196d0: jnle 0x7f8da3d19800
+453:  orig_ins_addr: 40bedf new_ins_addr: 7f8da3d196ec orig_targ_addr: 40bec9 new_targ_addr: 7f8da3d196ba    new instr:0x7f8da3d196ec: jle 0x7f8da3d196ba
+468:  orig_ins_addr: 40c01c new_ins_addr: 7f8da3d19719 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19719: jnle 0x7f8da3d19800
+524:  orig_ins_addr: 40bff9 new_ins_addr: 7f8da3d197da orig_targ_addr: 40bf1d new_targ_addr: 7f8da3d19805    new instr:0x7f8da3d197da: jnbe 0x7f8da3d19805
+532:  orig_ins_addr: 40c01c new_ins_addr: 7f8da3d197fa orig_targ_addr: 40bf06 new_targ_addr: 7f8da3d1971f    new instr:0x7f8da3d197fa: jle 0x7f8da3d1971f
+533:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19800 orig_targ_addr: 40c022 new_targ_addr: 7f8da3d1985c    new instr:0x7f8da3d19800: jmp 0x7f8da3d1985c
+549:  orig_ins_addr: 40bf4d new_ins_addr: 7f8da3d19835 orig_targ_addr: 40bf53 new_targ_addr: 7f8da3d19734    new instr:0x7f8da3d19835: jl 0x7f8da3d19734
+557:  orig_ins_addr: 40c01c new_ins_addr: 7f8da3d19856 orig_targ_addr: 40bf06 new_targ_addr: 7f8da3d1971f    new instr:0x7f8da3d19856: jle 0x7f8da3d1971f
+559:  orig_ins_addr: 40c026 new_ins_addr: 7f8da3d19860 orig_targ_addr: 40bee1 new_targ_addr: 7f8da3d196f2    new instr:0x7f8da3d19860: jnz 0x7f8da3d196f2
+564:  orig_ins_addr: 40c62e new_ins_addr: 7f8da3d1987b orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d1987b: jnle 0x7f8da3d19800
+572:  orig_ins_addr: 40c1d0 new_ins_addr: 7f8da3d1989e orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d1989e: jnle 0x7f8da3d19800
+575:  orig_ins_addr: 40c060 new_ins_addr: 7f8da3d198aa orig_targ_addr: 40c1c5 new_targ_addr: 7f8da3d19974    new instr:0x7f8da3d198aa: jz 0x7f8da3d19974
+590:  orig_ins_addr: 40c096 new_ins_addr: 7f8da3d198e0 orig_targ_addr: 40c18c new_targ_addr: 7f8da3d1993b    new instr:0x7f8da3d198e0: jnz 0x7f8da3d1993b
+611:  orig_ins_addr: 40c0eb new_ins_addr: 7f8da3d19935 orig_targ_addr: 40c0f1 new_targ_addr: 7f8da3d1998a    new instr:0x7f8da3d19935: jnle 0x7f8da3d1998a
+627:  orig_ins_addr: 40c1d0 new_ins_addr: 7f8da3d1997f orig_targ_addr: 40c05a new_targ_addr: 7f8da3d198a4    new instr:0x7f8da3d1997f: jle 0x7f8da3d198a4
+628:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19985 orig_targ_addr: 40c1d6 new_targ_addr: 7f8da3d19a03    new instr:0x7f8da3d19985: jmp 0x7f8da3d19a03
+630:  orig_ins_addr: 40c0f8 new_ins_addr: 7f8da3d19991 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19991: jnle 0x7f8da3d19800
+641:  orig_ins_addr: 40c167 new_ins_addr: 7f8da3d199cd orig_targ_addr: 40afb7 new_targ_addr: 40afb7    new instr:0x7f8da3d199cd: call qword ptr [rip-0x2b4c973]
+653:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d199ed orig_targ_addr: 40c18c new_targ_addr: 7f8da3d1993b    new instr:0x7f8da3d199ed: jmp 0x7f8da3d1993b
+656:  orig_ins_addr: 40c1d0 new_ins_addr: 7f8da3d199fd orig_targ_addr: 40c05a new_targ_addr: 7f8da3d198a4    new instr:0x7f8da3d199fd: jle 0x7f8da3d198a4
+661:  orig_ins_addr: 40c1e5 new_ins_addr: 7f8da3d19a12 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19a12: jnz 0x7f8da3d19800
+665:  orig_ins_addr: 40c279 new_ins_addr: 7f8da3d19a26 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19a26: jnle 0x7f8da3d19800
+700:  orig_ins_addr: 40c279 new_ins_addr: 7f8da3d19aab orig_targ_addr: 40c1fa new_targ_addr: 7f8da3d19a2c    new instr:0x7f8da3d19aab: jle 0x7f8da3d19a2c
+715:  orig_ins_addr: 40c34e new_ins_addr: 7f8da3d19ae4 orig_targ_addr: 40c2a8 new_targ_addr: 7f8da3d19dcc    new instr:0x7f8da3d19ae4: jnle 0x7f8da3d19dcc
+732:  orig_ins_addr: 40c429 new_ins_addr: 7f8da3d19b23 orig_targ_addr: 40c383 new_targ_addr: 7f8da3d19cfe    new instr:0x7f8da3d19b23: jl 0x7f8da3d19cfe
+741:  orig_ins_addr: 40c44c new_ins_addr: 7f8da3d19b46 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19b46: jnz 0x7f8da3d19800
+745:  orig_ins_addr: 40c4e2 new_ins_addr: 7f8da3d19b5a orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19b5a: jnle 0x7f8da3d19800
+769:  orig_ins_addr: 40c4e2 new_ins_addr: 7f8da3d19bb8 orig_targ_addr: 40c48a new_targ_addr: 7f8da3d19b60    new instr:0x7f8da3d19bb8: jle 0x7f8da3d19b60
+774:  orig_ins_addr: 40c4f8 new_ins_addr: 7f8da3d19bd2 orig_targ_addr: 40c623 new_targ_addr: 7f8da3d19c7e    new instr:0x7f8da3d19bd2: jnle 0x7f8da3d19c7e
+808:  orig_ins_addr: 40c575 new_ins_addr: 7f8da3d19c49 orig_targ_addr: 40c55e new_targ_addr: 7f8da3d19ee6    new instr:0x7f8da3d19c49: jnle 0x7f8da3d19ee6
+814:  orig_ins_addr: 40c5ff new_ins_addr: 7f8da3d19c5c orig_targ_addr: 40c582 new_targ_addr: 7f8da3d19c94    new instr:0x7f8da3d19c5c: jns 0x7f8da3d19c94
+823:  orig_ins_addr: 40c617 new_ins_addr: 7f8da3d19c78 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19c78: jnle 0x7f8da3d19800
+826:  orig_ins_addr: 40c62e new_ins_addr: 7f8da3d19c89 orig_targ_addr: 40c03f new_targ_addr: 7f8da3d19881    new instr:0x7f8da3d19c89: jle 0x7f8da3d19881
+827:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19c8f orig_targ_addr: 40c634 new_targ_addr: 7f8da3d19ecf    new instr:0x7f8da3d19c8f: jmp 0x7f8da3d19ecf
+852:  orig_ins_addr: 40c5d3 new_ins_addr: 7f8da3d19ce5 orig_targ_addr: 40c5d5 new_targ_addr: 7f8da3d19e9a    new instr:0x7f8da3d19ce5: jle 0x7f8da3d19e9a
+855:  orig_ins_addr: 40c5ff new_ins_addr: 7f8da3d19cf3 orig_targ_addr: 40c582 new_targ_addr: 7f8da3d19c94    new instr:0x7f8da3d19cf3: jns 0x7f8da3d19c94
+856:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19cf9 orig_targ_addr: 40c601 new_targ_addr: 7f8da3d19c62    new instr:0x7f8da3d19cf9: jmp 0x7f8da3d19c62
+866:  orig_ins_addr: 40c3a6 new_ins_addr: 7f8da3d19d21 orig_targ_addr: 40c3a8 new_targ_addr: 7f8da3d19f3c    new instr:0x7f8da3d19d21: js 0x7f8da3d19f3c
+877:  orig_ins_addr: 40c3d7 new_ins_addr: 7f8da3d19d4d orig_targ_addr: 40c3d9 new_targ_addr: 7f8da3d19d71    new instr:0x7f8da3d19d4d: jz 0x7f8da3d19d71
+883:  orig_ins_addr: 40c429 new_ins_addr: 7f8da3d19d66 orig_targ_addr: 40c383 new_targ_addr: 7f8da3d19cfe    new instr:0x7f8da3d19d66: jl 0x7f8da3d19cfe
+884:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19d6c orig_targ_addr: 40c42f new_targ_addr: 7f8da3d19b29    new instr:0x7f8da3d19d6c: jmp 0x7f8da3d19b29
+905:  orig_ins_addr: 40c429 new_ins_addr: 7f8da3d19dc1 orig_targ_addr: 40c383 new_targ_addr: 7f8da3d19cfe    new instr:0x7f8da3d19dc1: jl 0x7f8da3d19cfe
+906:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19dc7 orig_targ_addr: 40c42f new_targ_addr: 7f8da3d19b29    new instr:0x7f8da3d19dc7: jmp 0x7f8da3d19b29
+916:  orig_ins_addr: 40c2cb new_ins_addr: 7f8da3d19def orig_targ_addr: 40c2cd new_targ_addr: 7f8da3d19f02    new instr:0x7f8da3d19def: js 0x7f8da3d19f02
+927:  orig_ins_addr: 40c2fc new_ins_addr: 7f8da3d19e1b orig_targ_addr: 40c33b new_targ_addr: 7f8da3d19e5e    new instr:0x7f8da3d19e1b: jnz 0x7f8da3d19e5e
+948:  orig_ins_addr: 40c34e new_ins_addr: 7f8da3d19e71 orig_targ_addr: 40c2a8 new_targ_addr: 7f8da3d19dcc    new instr:0x7f8da3d19e71: jnle 0x7f8da3d19dcc
+949:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19e77 orig_targ_addr: 40c354 new_targ_addr: 7f8da3d19aea    new instr:0x7f8da3d19e77: jmp 0x7f8da3d19aea
+955:  orig_ins_addr: 40c34e new_ins_addr: 7f8da3d19e8f orig_targ_addr: 40c2a8 new_targ_addr: 7f8da3d19dcc    new instr:0x7f8da3d19e8f: jnle 0x7f8da3d19dcc
+956:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19e95 orig_targ_addr: 40c354 new_targ_addr: 7f8da3d19aea    new instr:0x7f8da3d19e95: jmp 0x7f8da3d19aea
+968:  orig_ins_addr: 40c5ff new_ins_addr: 7f8da3d19ec4 orig_targ_addr: 40c582 new_targ_addr: 7f8da3d19c94    new instr:0x7f8da3d19ec4: jns 0x7f8da3d19c94
+969:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19eca orig_targ_addr: 40c601 new_targ_addr: 7f8da3d19c62    new instr:0x7f8da3d19eca: jmp 0x7f8da3d19c62
+971:  orig_ins_addr: 40c63b new_ins_addr: 7f8da3d19ed6 orig_targ_addr: ffffffffffffffff new_targ_addr: 7f8da3d19800    new instr:0x7f8da3d19ed6: jnle 0x7f8da3d19800
+985:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19efd orig_targ_addr: 40c577 new_targ_addr: 7f8da3d19c4f    new instr:0x7f8da3d19efd: jmp 0x7f8da3d19c4f
+998:  orig_ins_addr: 40c2fc new_ins_addr: 7f8da3d19f31 orig_targ_addr: 40c33b new_targ_addr: 7f8da3d19e5e    new instr:0x7f8da3d19f31: jnz 0x7f8da3d19e5e
+999:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19f37 orig_targ_addr: 40c2fe new_targ_addr: 7f8da3d19e21    new instr:0x7f8da3d19f37: jmp 0x7f8da3d19e21
+1012:  orig_ins_addr: 40c3d7 new_ins_addr: 7f8da3d19f6b orig_targ_addr: 40c416 new_targ_addr: 7f8da3d19d53    new instr:0x7f8da3d19f6b: jnz 0x7f8da3d19d53
+1013:  orig_ins_addr: ffffffffffffffff new_ins_addr: 7f8da3d19f71 orig_targ_addr: 40c3d9 new_targ_addr: 7f8da3d19d71    new instr:0x7f8da3d19f71: jmp 0x7f8da3d19d71
+after fix instructions displacements
+after write all new instructions to memory tc
+committing rtN: mainSort from: 0x40b826 to: 0x7f8da3d19000
+RTN_ReplaceProbed succeeded.  orig routine addr: 0x40b826 replacement routine addr: 0x7f8da3d19000
+0x40b826: jmp qword ptr [rip+0x117d4]
+after commit translated routines
+
+bzip2: Control-C or similar caught, quitting.
+bzip2: Deleting output file input-long.txt.bz2, if it exists.
