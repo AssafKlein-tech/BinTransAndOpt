@@ -1,0 +1,31 @@
+<<<<<<< HEAD
+=======
+after memory allocation
+old instr: 0x401360: mov eax, 0x61d2a7
+    new instr:0x7fbb0908f000: mov eax, 0x61d2a7
+old instr: 0x401365: push rbp
+    new instr:0x7fbb0908f005: push rbp
+old instr: 0x401366: sub rax, 0x61d2a0
+    new instr:0x7fbb0908f006: sub rax, 0x61d2a0
+old instr: 0x40136c: cmp rax, 0xe
+    new instr:0x7fbb0908f00c: cmp rax, 0xe
+old instr: 0x401370: mov rbp, rsp
+    new instr:0x7fbb0908f010: mov rbp, rsp
+old instr: 0x401373: jnbe 0x401377
+    new instr:0x7fbb0908f013: jnbe 0x7fbb0908f017
+old instr: 0x401375: pop rbp
+    new instr:0x7fbb0908f015: pop rbp
+old instr: 0x401376: ret 
+    new instr:0x7fbb0908f016: ret 
+    new instr:0x7fbb0908f017: jmp 0x7fbb09490393
+rtn name: deregister_tm_clones : 0
+after identifying candidate routines
+after calculate direct br targets
+starting a pass of fixing instructions displacements: 
+fixing jump to orig addr 401373
+to target address 401377
+ERROR: Invalid direct jump from translated code to original code in rotuine: deregister_tm_clones  2  7fbb0908f015
+401373
+7fbb0908f013
+5:  orig_ins_addr: 401373 new_ins_addr: 7fbb0908f013 orig_targ_addr: 401377 new_targ_addr: 401377    new instr:0x7fbb0908f013: jnbe 0x7fbb0908f017
+>>>>>>> 57b0cb105a76a1bdcc29c8719675980ad6bcd2bc
