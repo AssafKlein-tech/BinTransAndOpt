@@ -447,7 +447,6 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         {
             if( redirection_map[top.bbl_addr] != 0)
             {
-                cout << "entered new redirection " << top.bbl_addr << endl;
                 BBL_info BBL_inst = {-1,curr_rtn_address,top.bbl_addr,top.bbl_addr,0,redirection_map[top.bbl_addr],XED_ICLASS_LAST,0,0,false,false,false};
                 BBL_map[top.bbl_addr] = BBL_inst;
                 rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
@@ -469,7 +468,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
             if(BBL_map[top.bbl_addr].is_cond)
             {
                 redirection_map[redirection] = BBL_map[top.bbl_addr].branch_target_address;
-                target.bbl_addr = ADDRINT(redirection);
+                BBL_map[top.bbl_addr].branch_target_address= ADDRINT(redirection);
                 heap_element fake_target =  {ADDRINT(redirection), BBL_map[top.bbl_addr].branch_times_taken};
                 heap.push(fake_target);
                 redirection++;
@@ -483,7 +482,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
             if(BBL_map[top.bbl_addr].is_cond)
             {
                 redirection_map[redirection] = BBL_map[top.bbl_addr].fallthrough_address;
-                fallthrough.bbl_addr = ADDRINT(redirection);
+                BBL_map[top.bbl_addr].fallthrough_address= ADDRINT(redirection);
                 heap_element fake_target =  {ADDRINT(redirection), BBL_map[top.bbl_addr].branch_times_not_taken};
                 heap.push(fake_target);
                 redirection++;
@@ -538,7 +537,7 @@ VOID Fini(INT32 code, VOID *v)
     {
         std::vector<int> sorted_vec = itr2->second;
         std::sort(sorted_vec.begin(), sorted_vec.end(), []( int a, int b ){return a > b;});
-        if(sorted_vec.size() == 1)
+        if(sorted_vec.size() == 1 )
              single_call_site[itr2->first] = true;
         else
         {
@@ -556,7 +555,7 @@ VOID Fini(INT32 code, VOID *v)
     {
         if ( counter == NUM_INLINED_FUNC)
             break;
-        if(((too_hot_to_handle[inv_entry.target_addr]  && inv_entry.num_invokes > 400 )|| single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
+        if((inv_entry.num_invokes > 400 ) &&(too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
         {
             final_candidates.push_back(inv_entry);
             counter++;
@@ -588,7 +587,7 @@ VOID Fini(INT32 code, VOID *v)
     std::vector<RTN_reorder_info> rtn_vec;
     for(std::map<ADDRINT,RTN_reorder_info>::iterator itr3 = RTN_map.begin(); itr3!= RTN_map.end();itr3++)
     {
-        if(std::find(non_valid_rtn.begin(), non_valid_rtn.end(), itr3->first) == non_valid_rtn.end() && itr3->second.num_inst > 0)
+        if(std::find(non_valid_rtn.begin(), non_valid_rtn.end(), itr3->first) == non_valid_rtn.end() && itr3->second.num_inst > 100)
             rtn_vec.push_back(itr3->second);
     }
     std::sort(rtn_vec.begin(), rtn_vec.end(), 

@@ -686,8 +686,6 @@ int fix_rip_displacement(int instr_map_entry)
 /************************************/
 int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 {
-	cout << "fixing jump to orig addr " <<  std::hex << instr_map[instr_map_entry].orig_ins_addr << endl;
-	cout << "to target address " << instr_map[instr_map_entry].orig_targ_addr << endl;
 
 	xed_decoded_inst_t xedd;
 	xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
@@ -703,7 +701,7 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 	if (category_enum != XED_CATEGORY_CALL && category_enum != XED_CATEGORY_UNCOND_BR) {
 
 		cerr << "ERROR: Invalid direct jump from translated code to original code in rotuine: " 
-			  << RTN_Name(RTN_FindByAddress(instr_map[instr_map_entry].orig_ins_addr)) << "  " << instr_map[instr_map_entry].size  << "  " << std::hex << instr_map[instr_map_entry+1].new_ins_addr << endl;
+			  << RTN_Name(RTN_FindByAddress(instr_map[instr_map_entry].orig_ins_addr)) << "  " << instr_map[instr_map_entry].size  << "  " << std::hex << instr_map[instr_map_entry].new_ins_addr << endl;
 		cout <<  std::hex  << instr_map[instr_map_entry].orig_ins_addr << endl; 
 		cout <<  std::hex << instr_map[instr_map_entry].new_ins_addr << endl;
 		dump_instr_map_entry(instr_map_entry);
@@ -1175,6 +1173,10 @@ void insert_dummy(INS ins)
 
 void revert_jump(INS ins, ADDRINT addr)
 {
+	if (KnobVerbose) {
+		cerr << "old instr: ";
+		cerr << "0x" << hex << INS_Address(ins) << ": " << INS_Disassemble(ins) <<  endl;			   			
+	}
 	xed_decoded_inst_t *xedd = INS_XedDec(ins);
     xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
 
@@ -1360,6 +1362,67 @@ USIZE inline_rtn(ADDRINT addr, Candidate& cand)
 	return inlined_size + sub_size + add_size - CALL_SIZE;
 }
 
+void fix_target_address(INS last_ins, ADDRINT target_addr)
+{
+	xed_decoded_inst_t *xedd = INS_XedDec(last_ins);
+    xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
+
+	if (category_enum != XED_CATEGORY_COND_BR)
+	{
+		insert_instruction(last_ins);
+		return;
+	}
+	if (KnobVerbose) {
+		cerr << "old instr: ";
+		cerr << "0x" << hex << INS_Address(last_ins) << ": " << INS_Disassemble(last_ins) <<  endl;			   			
+	}
+	//check target address
+
+	//if the target address is different fix the target to the given target address.
+	ADDRINT addr = INS_Address(last_ins);
+
+	// Converts the decoder request to a valid encoder request:
+	xed_encoder_request_init_from_decode (xedd);
+
+    unsigned int new_size = 0;
+	
+	xed_error_enum_t xed_error = xed_encode (xedd, reinterpret_cast<UINT8*>(instr_map[num_of_instr_map_entries].encoded_ins), max_inst_len , &new_size);
+	if (xed_error != XED_ERROR_NONE) {
+		cerr << "ENCODE ERROR: " << xed_error_enum_t2str(xed_error) << endl;		
+		return;
+	}	
+
+
+	instr_map[num_of_instr_map_entries].orig_ins_addr = addr;
+	instr_map[num_of_instr_map_entries].new_ins_addr = (ADDRINT)&tc[tc_cursor];  // set an initial estimated addr in tc
+	instr_map[num_of_instr_map_entries].orig_targ_addr = target_addr; 
+	instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
+	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
+	instr_map[num_of_instr_map_entries].size = new_size;	
+	instr_map[num_of_instr_map_entries].category_enum = category_enum;
+	instr_map[num_of_instr_map_entries].inline_start_addr = -1;
+	num_of_instr_map_entries++;
+
+	// update expected size of tc:
+	tc_cursor += new_size;    	     
+
+	if (num_of_instr_map_entries >= max_ins_count) {
+		cerr << "out of memory for map_instr" << endl;
+		return;
+	}
+	
+	// debug print new encoded instr:
+	if (KnobVerbose) {
+		cerr << "    new instr:";
+		dump_instr_from_mem((ADDRINT *)instr_map[num_of_instr_map_entries-1].encoded_ins, instr_map[num_of_instr_map_entries-1].new_ins_addr);
+	}
+
+	if ( new_size <= 0){
+		cerr << "ERROR: failed during instructon translation." << endl;
+		translated_rtn[translated_rtn_num].instr_map_entry = -1;
+		exit(1);
+	}
+}
 
 
 
@@ -1496,7 +1559,8 @@ int find_candidate_rtns_for_translation(IMG img)
 				// if that is the last bbl
 				if( i == (bbl_vec.size() -1))
 				{
-					insert_instruction(last_ins);
+					//fix new arget address
+					fix_target_address(last_ins,bbl_entry.target_addr);
 					//if there is fallthrough address - add a jump to the fallthrough
 					if(INS_HasFallThrough(last_ins))
 					{
@@ -1522,7 +1586,8 @@ int find_candidate_rtns_for_translation(IMG img)
 				}
 				else //no need to revert the jump
 				{
-					insert_instruction(last_ins);
+					//fix target address
+					fix_target_address(last_ins,bbl_entry.target_addr);
 					//cout << "inserted instruction" << endl;
 
 					// if the reorder moved the next block so jump there
