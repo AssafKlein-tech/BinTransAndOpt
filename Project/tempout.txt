@@ -1,28 +1,40 @@
 after memory allocation
 old instr: 0x401360: mov eax, 0x61d2a7
-    new instr:0x7fbb0908f000: mov eax, 0x61d2a7
+    new instr:0x7f2af9fc0000: mov eax, 0x61d2a7
 old instr: 0x401365: push rbp
-    new instr:0x7fbb0908f005: push rbp
+    new instr:0x7f2af9fc0005: push rbp
 old instr: 0x401366: sub rax, 0x61d2a0
-    new instr:0x7fbb0908f006: sub rax, 0x61d2a0
+    new instr:0x7f2af9fc0006: sub rax, 0x61d2a0
 old instr: 0x40136c: cmp rax, 0xe
-    new instr:0x7fbb0908f00c: cmp rax, 0xe
+    new instr:0x7f2af9fc000c: cmp rax, 0xe
 old instr: 0x401370: mov rbp, rsp
-    new instr:0x7fbb0908f010: mov rbp, rsp
-old instr: 0x401373: jnbe 0x401377
-    new instr:0x7fbb0908f013: jnbe 0x7fbb0908f017
+    new instr:0x7f2af9fc0010: mov rbp, rsp
+whatGOT HEeeeeeeee
+im lostHERERERERERERERRRRER     COND_BR    new instr:0x7f2af9fc0013: jbe 0x7f2af9fc0017
 old instr: 0x401375: pop rbp
-    new instr:0x7fbb0908f015: pop rbp
+    new instr:0x7f2af9fc0015: pop rbp
 old instr: 0x401376: ret 
-    new instr:0x7fbb0908f016: ret 
-    new instr:0x7fbb0908f017: jmp 0x7fbb09490393
+    new instr:0x7f2af9fc0016: ret 
+lets debug from here
+ and the target given is 401377
+from pc:bd
+    new instr:0x7f2af9fc0017: jmp 0x7f2afa3c1393
 rtn name: deregister_tm_clones : 0
 after identifying candidate routines
 after calculate direct br targets
 starting a pass of fixing instructions displacements: 
 fixing jump to orig addr 401373
-to target address 401377
-ERROR: Invalid direct jump from translated code to original code in rotuine: deregister_tm_clones  2  7fbb0908f015
-401373
-7fbb0908f013
-5:  orig_ins_addr: 401373 new_ins_addr: 7fbb0908f013 orig_targ_addr: 401377 new_targ_addr: 401377    new instr:0x7fbb0908f013: jnbe 0x7fbb0908f017
+to target address 7f2af7469160
+1 401377
+2 401377
+new disp is :ffff80d506441362
+thats because orig target  is  7f2af7469160new addr is 7f2af9fc0013 and length is : 2
+shittt
+iclass is JBE
+ENCODE ERROR: GENERAL_ERROR fgdshb
+entry number 5: 
+ orig_ins_addr: 401373
+ new_ins_addr: 7f2af9fc0013
+ orig_targ_addr: 401377
+ encoded ins: v
+ new_targ_addr: 401377    new instr:0x7f2af9fc0013: jbe 0x7f2af9fc0017
