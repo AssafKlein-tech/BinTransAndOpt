@@ -72,20 +72,20 @@ std::vector<ADDRINT> non_valid_rtn;
 class BBL_info{
 public:
 
-    BBL bbl;
     string rtn_name;
     ADDRINT rtn_address;
     ADDRINT BBL_head_address;
     ADDRINT last_address;
     ADDRINT fallthrough_address;
     ADDRINT branch_target_address;
-    xed_iclass_enum_t type_of_branch;
     UINT32 branch_times_not_taken;
     UINT32 branch_times_taken;
     bool is_call; //ret or uncond jmp
-    int is_cond;
+    bool is_cond;
     bool visited;
     bool visited_through_inline;
+    bool is_ret;
+    ADDRINT return_address;
     bool operator==(const BBL_info& other) const {
         return BBL_head_address == other.BBL_head_address;
     }
@@ -360,7 +360,6 @@ VOID profBranches(TRACE trc, VOID *v)
                 //    cout << "no bugs found" << endl;
                 //}
                 xed_decoded_inst_t *xedd = INS_XedDec(last_ins);
-                xed_iclass_enum_t type_info = xed_decoded_inst_get_iclass(xedd);
                 ADDRINT rtn_addr =RTN_Address(RTN_FindByAddress(head));
                 string rtn_name = RTN_FindNameByAddress(head);
                 ADDRINT last_addr = INS_Address(last_ins);
@@ -376,10 +375,12 @@ VOID profBranches(TRACE trc, VOID *v)
                 else{
                     target_addr = -1;
                 }
+
                 bool is_call = INS_IsCall(last_ins);
                 xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
                 bool is_cond = (category_enum == XED_CATEGORY_COND_BR);
-                BBL_info BBL_inst = {bbl,rtn_name,rtn_addr,head,last_addr,fallthrough,target_addr,type_info,0,0,is_call,is_cond,false,false};
+                bool is_ret = INS_IsRet(last_ins);
+                BBL_info BBL_inst = {rtn_name,rtn_addr,head,last_addr,fallthrough,target_addr,0,0,is_call,is_cond,false,false, is_ret, ADDRINT(0)};
                 BBL_map[head] = BBL_inst;
             }
             INS_InsertCall(last_ins, IPOINT_BEFORE, (AFUNPTR)BranchCount, IARG_BRANCH_TAKEN, IARG_PTR, &BBL_map[head], IARG_END);
@@ -484,7 +485,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         {
             if( redirection_map[top.bbl_addr] != 0)
             {
-                BBL_info BBL_inst = {-1,BBL_map[top.bbl_addr].rtn_name,curr_rtn_address,top.bbl_addr,top.bbl_addr,0,redirection_map[top.bbl_addr],XED_ICLASS_LAST,0,0,false,false,false,false};
+                BBL_info BBL_inst = {BBL_map[top.bbl_addr].rtn_name,curr_rtn_address,top.bbl_addr,top.bbl_addr,ADDRINT(0),redirection_map[top.bbl_addr],0,0,false,false,false,false,false, ADDRINT(0)};
                 BBL_map[top.bbl_addr] = BBL_inst;
                 rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
                 redirection_map[top.bbl_addr] = 0;
@@ -497,6 +498,15 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         bool insert_fallthrough = true;
 
         
+        //check if we need to change target address to inlined ret address
+        if (BBL_map[top.bbl_addr].is_ret)
+        {
+            if(BBL_map[top.bbl_addr].rtn_address != curr_rtn_address)
+            {
+                BBL_map[top.bbl_addr].branch_target_address = BBL_map[BBL_map[top.bbl_addr].rtn_address].return_address;
+            }
+        }
+
         //insert children
         heap_element target = {BBL_map[top.bbl_addr].branch_target_address, BBL_map[top.bbl_addr].branch_times_taken};
         if(BBL_map[top.bbl_addr].branch_times_taken == 0 || BBL_map[top.bbl_addr].is_call)
@@ -526,6 +536,8 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
             }
         }
 
+    
+
         if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
            fallthrough.in_degree = top.in_degree;
@@ -535,9 +547,13 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
 
                 heap.push(target);
                 used_routines.push_back(BBL_map[target.bbl_addr].rtn_address);
-                BBL_map[target.bbl_addr].visited_through_inline =true;
+                BBL_map[target.bbl_addr].visited_through_inline = true;
+                BBL_map[target.bbl_addr].return_address = BBL_map[top.bbl_addr].fallthrough_address;
+                BBL_map[top.bbl_addr].fallthrough_address = ADDRINT(-1);
+                insert_fallthrough = false;
            }
         }
+        
         
         if ((BBL_map[target.bbl_addr].rtn_address == curr_rtn_address || BBL_map[BBL_map[target.bbl_addr].rtn_address].visited_through_inline) && (insert_target  || BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1)))
         {
@@ -687,7 +703,14 @@ VOID Fini(INT32 code, VOID *v)
             else
                 resultsRTNBBLOrder << ",0x"  << bbl_entry.BBL_head_address << ",";
             //cout << " bbl head: " << bbl_entry.BBL_head_address << endl;
-            resultsRTNBBLOrder << "0x"  << bbl_entry.branch_target_address << ",";
+            if (itr_rtn->first == bbl_entry.rtn_address && bbl_entry.is_ret)
+            {
+                resultsRTNBBLOrder << "0x"  << ADDRINT(-1) << ",";
+            }
+            else
+            {
+                resultsRTNBBLOrder << "0x"  << bbl_entry.branch_target_address << ",";
+            }
             resultsRTNBBLOrder << "0x"  << bbl_entry.fallthrough_address << ",";
             resultsRTNBBLOrder << "0x"  << bbl_entry.last_address;
         }

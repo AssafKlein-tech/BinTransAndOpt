@@ -1076,7 +1076,11 @@ std::vector<ADDRINT> get_top_rtn(IMG img)
 			if(count == 3)
 			{
 				iss2 >> std::hex >> new_invoker.target_addr;
-			}    
+			} 
+			if(count == 4)
+			{
+				iss2 >> std::hex >> new_invoker.retrun_addr;
+			}      
             count++;
         }
 
@@ -1468,7 +1472,8 @@ int find_candidate_rtns_for_translation(IMG img)
 		for (size_t i = 0; i < bbl_vec.size(); i ++)
 		{
 			BBLdata bbl_entry = bbl_vec[i];
-			INS ins = RTN_InsHead(rtn);
+			RTN curr_rtn = RTN_FindByAddress(bbl_entry.bbl_addr);
+			INS ins = RTN_InsHead(curr_rtn);
 			ADDRINT top_addr = INS_Address(ins);
 			if (bbl_entry.bbl_addr < top_addr)
 			{
@@ -1476,8 +1481,8 @@ int find_candidate_rtns_for_translation(IMG img)
 				continue;
 			}
 			//set the start instruction to the bbl start address
-			INS start_ins = RTN_InsHead(rtn);
-			for (INS ins = RTN_InsHead(rtn); INS_Valid(ins); ins = INS_Next(ins))
+			INS start_ins = RTN_InsHead(curr_rtn);
+			for (INS ins = RTN_InsHead(curr_rtn); INS_Valid(ins); ins = INS_Next(ins))
 			{
 				ADDRINT addr = INS_Address(ins);
 				if (addr != bbl_entry.bbl_addr)
@@ -1490,6 +1495,7 @@ int find_candidate_rtns_for_translation(IMG img)
 			// insert all the body of the bbl until last instruction
 			for (INS ins = start_ins; (INS_Valid(ins) && INS_Address(ins) <= bbl_entry.last_addr) || bbl_entry.last_addr == 0 ; ins = INS_Next(ins))
 			{
+				//for each entry check if the retrun from inline and if it is add the add rsp
 				if (bbl_entry.last_addr != 0 && INS_Address(ins) == bbl_entry.last_addr){
 					last_ins = ins;
 				}
@@ -1517,10 +1523,11 @@ int find_candidate_rtns_for_translation(IMG img)
 				{
 					if (cand.call_point == last_ins_addr)
 					{
-						RTN_Close(rtn);
-						rtn_size += inline_rtn(last_ins_addr, cand);
-						// get back to the next instruction in the rtn
-						RTN_Open(rtn);
+						//RTN_Close(rtn);
+						//rtn_size += inline_rtn(last_ins_addr, cand);
+						//// get back to the next instruction in the rtn
+						//RTN_Open(rtn);
+						sub_rsp(last_ins_addr);
 						inlined = true;
 						break;
 					}
@@ -1550,6 +1557,12 @@ int find_candidate_rtns_for_translation(IMG img)
 						exit(1);
 					}
 				}	
+			}
+			//if ret (target outside of rtn and it is not a call)
+			else if( RTN_Address(curr_rtn) != rtn_addr && RTN_Address(RTN_FindByAddress(bbl_entry.target_addr)) != rtn_addr)
+			{
+				//if target is next bbl insert nothing
+				//else insert jump
 			}
 			else 
 			{
