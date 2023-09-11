@@ -257,7 +257,6 @@ VOID countInvokers(INS ins, VOID *v)
             ADDRINT rtn_addr = RTN_Address(rtn);
             //INS next = INS_Next(ins);
             ADDRINT fallthrough_addr = INS_NextAddress(ins);
-            cout<< fallthrough_addr;
             if(invokers_map.find(address) == invokers_map.end())
             {
                 ADDRINT target_address = INS_DirectControlFlowTargetAddress(ins);
@@ -402,23 +401,33 @@ class heap_element
 void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
 {
     std::map<ADDRINT, std::vector<size_t>> overlap;
-    //create a map of bbls with the same 
+
+    //create a map of the indices of the bbls with the same last address
     for(size_t i = 0; i< rtn_bbls.size(); i++)
     {
         overlap[rtn_bbls[i].last_address].push_back(i); 
     }
+
+    //iterates over last address
     for(std::map<ADDRINT,std::vector<size_t>>::iterator itr = overlap.begin(); itr!= overlap.end();itr++)
     {
         if (itr->second.size() == 1)
             continue;
+
+        //index vector
         std::vector<size_t> bbl_overlap = itr->second;
         //sort vector by the start address
         std::sort(bbl_overlap.begin(), bbl_overlap.end(), 
               [&](const size_t bbl1, const size_t bbl2) { return rtn_bbls[bbl1].BBL_head_address < rtn_bbls[bbl2].BBL_head_address; });
         
+        size_t last_indx =  bbl_overlap.size() -1;
         //make the start_ins point to the first address in the outer bbl
         for ( size_t j = 0; j < bbl_overlap.size() -1 ; j++) 
         {  
+            BBL_map[rtn_bbls[bbl_overlap[last_indx]].BBL_head_address].branch_times_taken += BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_taken;
+            BBL_map[rtn_bbls[bbl_overlap[last_indx]].BBL_head_address].branch_times_not_taken += BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_not_taken;
+
+
             // update  last address
             BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].last_address = 0;
             BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].fallthrough_address = BBL_map[rtn_bbls[bbl_overlap[j+1]].BBL_head_address].BBL_head_address;
@@ -426,6 +435,7 @@ void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
             BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_taken = -1;
             //target address = -1 
             BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_target_address = -1;
+
         }
     }
 }
@@ -460,7 +470,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
     
     std::priority_queue<heap_element> heap;
     if(rtn_bbls.empty()) return;
-    //eliminate_overlapping_bbls(rtn_bbls);
+    eliminate_overlapping_bbls(rtn_bbls);
     heap_element first = {rtn_bbls.begin()->BBL_head_address, 0};
     
 
@@ -503,7 +513,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         }
         
         heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
-        if(BBL_map[top.bbl_addr].branch_times_not_taken == 0  && !BBL_map[top.bbl_addr].is_call)
+        if(BBL_map[top.bbl_addr].branch_times_not_taken == 0  && BBL_map[top.bbl_addr].last_address != 0  && !BBL_map[top.bbl_addr].is_call)
         {
             insert_fallthrough = false;
             if(BBL_map[top.bbl_addr].is_cond)
