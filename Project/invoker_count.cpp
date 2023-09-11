@@ -73,6 +73,7 @@ class BBL_info{
 public:
 
     BBL bbl;
+    string rtn_name;
     ADDRINT rtn_address;
     ADDRINT BBL_head_address;
     ADDRINT last_address;
@@ -84,6 +85,7 @@ public:
     bool is_call; //ret or uncond jmp
     int is_cond;
     bool visited;
+    bool visited_through_inline;
     bool operator==(const BBL_info& other) const {
         return BBL_head_address == other.BBL_head_address;
     }
@@ -105,6 +107,14 @@ std::map<ADDRINT,std::vector<BBL_info>> rtn_bbls_order;
 
 std::map<ADDRINT, RTN_reorder_info> RTN_map;
 
+
+
+std::map<ADDRINT,std::vector<int>> called_map;
+std::map<ADDRINT,bool> too_hot_to_handle;
+std::map<ADDRINT,bool> single_call_site;
+std::vector<Invoker> inv_vec;
+std::vector<Invoker> final_candidates;
+std::vector<string> final_cand_rtn_name;
 
 const char* StripPath(const char* path)
 {
@@ -353,6 +363,7 @@ VOID profBranches(TRACE trc, VOID *v)
                 xed_decoded_inst_t *xedd = INS_XedDec(last_ins);
                 xed_iclass_enum_t type_info = xed_decoded_inst_get_iclass(xedd);
                 ADDRINT rtn_addr =RTN_Address(RTN_FindByAddress(head));
+                string rtn_name = RTN_FindNameByAddress(head);
                 ADDRINT last_addr = INS_Address(last_ins);
                 ADDRINT fallthrough ;
                 if(INS_HasFallThrough(last_ins) || INS_IsCall(last_ins))
@@ -369,7 +380,7 @@ VOID profBranches(TRACE trc, VOID *v)
                 bool is_call = INS_IsCall(last_ins);
                 xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
                 bool is_cond = (category_enum == XED_CATEGORY_COND_BR);
-                BBL_info BBL_inst = {bbl,rtn_addr,head,last_addr,fallthrough,target_addr,type_info,0,0,is_call,is_cond,false};
+                BBL_info BBL_inst = {bbl,rtn_name,rtn_addr,head,last_addr,fallthrough,target_addr,type_info,0,0,is_call,is_cond,false,false};
                 BBL_map[head] = BBL_inst;
             }
             INS_InsertCall(last_ins, IPOINT_BEFORE, (AFUNPTR)BranchCount, IARG_BRANCH_TAKEN, IARG_PTR, &BBL_map[head], IARG_END);
@@ -425,13 +436,24 @@ std::map<int, ADDRINT> redirection_map;
 
 VOID ReorderBBLs(ADDRINT curr_rtn_address)
 {
-    
+    std::vector<ADDRINT> used_routines;
+
     std::vector<BBL_info> rtn_bbls;
     for(std::map<ADDRINT,BBL_info>::iterator itr = BBL_map.begin(); itr!= BBL_map.end();itr++)
     {
         if (itr->second.rtn_address  == curr_rtn_address)
         {
             rtn_bbls.push_back(itr->second);
+        }
+    }
+    if(rtn_bbls.begin()->visited_through_inline)
+    {
+        for(std::vector<BBL_info>::iterator itr2 = rtn_bbls.begin(); itr2!= rtn_bbls.end();itr2++)
+        {
+            if (itr2->visited  == true)
+            {
+                itr2->visited = false;
+            }
         }
     }
 
@@ -452,7 +474,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         {
             if( redirection_map[top.bbl_addr] != 0)
             {
-                BBL_info BBL_inst = {-1,curr_rtn_address,top.bbl_addr,top.bbl_addr,0,redirection_map[top.bbl_addr],XED_ICLASS_LAST,0,0,false,false,false};
+                BBL_info BBL_inst = {-1,BBL_map[top.bbl_addr].rtn_name,curr_rtn_address,top.bbl_addr,top.bbl_addr,0,redirection_map[top.bbl_addr],XED_ICLASS_LAST,0,0,false,false,false,false};
                 BBL_map[top.bbl_addr] = BBL_inst;
                 rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
                 redirection_map[top.bbl_addr] = 0;
@@ -497,14 +519,21 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
            fallthrough.in_degree = top.in_degree;
-           if(std::find())
+           if(BBL_map[top.bbl_addr].is_call && std::find(final_cand_rtn_name.begin(),final_cand_rtn_name.end(),BBL_map[target.bbl_addr].rtn_name) != final_cand_rtn_name.end())
+           {
+            //need to add the inlined bbls to the order
+
+                heap.push(target);
+                used_routines.push_back(BBL_map[target.bbl_addr].rtn_address);
+                BBL_map[target.bbl_addr].visited_through_inline =true;
+           }
         }
         
-        if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address && (insert_target  || BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1)))
+        if ((BBL_map[target.bbl_addr].rtn_address == curr_rtn_address || BBL_map[BBL_map[target.bbl_addr].rtn_address].visited_through_inline) && (insert_target  || BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1)))
         {
             heap.push(target);
         }
-        if(BBL_map[fallthrough.bbl_addr].rtn_address == curr_rtn_address && insert_fallthrough)
+        if((BBL_map[fallthrough.bbl_addr].rtn_address == curr_rtn_address || BBL_map[BBL_map[fallthrough.bbl_addr].rtn_address].visited_through_inline) && insert_fallthrough)
         {
             heap.push(fallthrough);
         }  
@@ -524,10 +553,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
 
 VOID Fini(INT32 code, VOID *v)
 { 
-    std::map<ADDRINT,std::vector<int>> called_map;
-    std::map<ADDRINT,bool> too_hot_to_handle;
-    std::map<ADDRINT,bool> single_call_site;
-    std::vector<Invoker> inv_vec;
+    
     //sort invoker map by the time of invokes on each entry and crate called_map
     for(std::map<ADDRINT,Invoker>::iterator itr = invokers_map.begin(); itr!= invokers_map.end();itr++)
     {
@@ -556,8 +582,7 @@ VOID Fini(INT32 code, VOID *v)
     int NUM_INLINED_FUNC = 10;
     int counter = 0;
 
-    std::vector<Invoker> final_candidates;
-    std::vector<string> final_cand_rtn_name;
+    
     for (Invoker inv_entry: inv_vec)
     {
         if ( counter == NUM_INLINED_FUNC)
@@ -620,8 +645,9 @@ VOID Fini(INT32 code, VOID *v)
         results << "0x"  << inv_entry.invoker_address << ",";
         results <<  std::dec << inv_entry.num_invokes << ",";
         results << "0x" << std::hex << inv_entry.target_addr << ",";
-        results << inv_entry.rtn_name << ",";
-        results <<  "0x" << std::hex << inv_entry.fallthrough_address << endl;
+        results <<  "0x" << std::hex << inv_entry.fallthrough_address << ",";
+        results << inv_entry.rtn_name << endl;
+        
 
     }
     results << endl ;
