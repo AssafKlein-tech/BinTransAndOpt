@@ -692,7 +692,7 @@ int fix_rip_displacement(int instr_map_entry)
 int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 {
 	cout << "fixing jump to orig addr " <<  std::hex << instr_map[instr_map_entry].orig_ins_addr << endl;
-	cout << "to target address " << (ADDRINT)&instr_map[instr_map_entry].orig_targ_addr << endl;
+	cout << "to target address " << instr_map[instr_map_entry].orig_targ_addr << endl;
 
 	xed_decoded_inst_t xedd;
 	xed_decoded_inst_zero_set_mode(&xedd,&dstate); 
@@ -708,7 +708,8 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 	xed_iclass_enum_t xed_iclass =  xed_decoded_inst_get_iclass(&xedd);
 	xed_category_enum_t category_enum = xed_decoded_inst_get_category(&xedd);
 	
-	if (category_enum != XED_CATEGORY_CALL && category_enum != XED_CATEGORY_UNCOND_BR && category_enum != XED_CATEGORY_COND_BR) {
+	if (category_enum != XED_CATEGORY_CALL && category_enum != XED_CATEGORY_UNCOND_BR && category_enum != XED_CATEGORY_COND_BR)
+	 {
 
 		cerr << "ERROR: Invalid direct jump from translated code to original code in rotuine: " 
 			  << RTN_Name(RTN_FindByAddress(instr_map[instr_map_entry].orig_ins_addr)) << endl
@@ -734,14 +735,15 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 
 	xed_encoder_instruction_t  enc_instr;
 
-	ADDRINT new_disp = (ADDRINT)&instr_map[instr_map_entry].orig_targ_addr - 
-		               instr_map[instr_map_entry].new_ins_addr - 
-					   xed_decoded_inst_get_length (&xedd);
+	ADDRINT new_disp = instr_map[instr_map_entry].orig_targ_addr - 
+		               instr_map[instr_map_entry].new_ins_addr;
+					   //+ xed_decoded_inst_get_length (&xedd);
 
-	cout << "new disp is :" << std:: hex << new_disp << endl;
-	cout << "thats because orig target  is  " << (ADDRINT)&instr_map[instr_map_entry].orig_targ_addr << "new addr is " 
+	cout << "NEW disp is :" << std:: hex << new_disp << endl;
+	cout << "thats because orig target  is  " << instr_map[instr_map_entry].orig_targ_addr << " new addr is " 
 	<< instr_map[instr_map_entry].new_ins_addr <<  " and length is : " << xed_decoded_inst_get_length (&xedd)<<endl;
- 
+	cout << instr_map[instr_map_entry].new_ins_addr + new_disp << " <-------" << endl;
+
 	if (category_enum == XED_CATEGORY_CALL)
 			xed_inst1(&enc_instr, dstate, 
 			XED_ICLASS_CALL_NEAR, 64,
@@ -769,9 +771,12 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 		cerr << "conversion to encode request failed from here" << endl;
 		return -1;
 	}
+
+	
+	cout<< reinterpret_cast<UINT8*>(instr_map[instr_map_entry].encoded_ins) << endl;
 	
     //CONTINUE FROM HEREEEEEE!!!!!!!!!!!!!!!!
-	xed_error_enum_t xed_error = xed_encode(&enc_req, reinterpret_cast<UINT8*>(instr_map[instr_map_entry].encoded_ins), ilen, &olen);
+	xed_error_enum_t xed_error = xed_encode(&enc_req, reinterpret_cast<xed_uint8_t*>(instr_map[instr_map_entry].encoded_ins), ilen, &olen);
 	if (xed_error != XED_ERROR_NONE) {
 		cerr << "ENCODE ERROR: " << xed_error_enum_t2str(xed_error) << " fgdshb" << endl;
 	    dump_instr_map_entry(instr_map_entry); 
@@ -1201,7 +1206,7 @@ void revert_jump(INS ins, ADDRINT addr)
 {
 	xed_decoded_inst_t *xedd = INS_XedDec(ins);
     xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
-	cerr<< "GOT HEeeeeeeee" << endl;
+	cerr<< "GOT HEeeeeeeee" << endl << "addr is: " << addr << endl;
 	if (category_enum == XED_CATEGORY_UNCOND_BR) 
 	{
 		//remove jump
@@ -1541,10 +1546,10 @@ int find_candidate_rtns_for_translation(IMG img)
 				BBLdata next_bbl = bbl_vec[i+1];
 
 				// if the target is the next block revert the branch (earase it if it is an unconditional branch)
-				if(fallthrough_addr == next_bbl.bbl_addr)
+				if(target_addr == next_bbl.bbl_addr)
 				{
 					cout<< "what";
-					revert_jump(last_ins, target_addr);
+					revert_jump(last_ins, fallthrough_addr);
 				// if the block ends with a jump to the next block. earase it
 				}
 				else //no need to revert the jump

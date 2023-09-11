@@ -1,40 +1,38 @@
 after memory allocation
 old instr: 0x401360: mov eax, 0x61d2a7
-    new instr:0x7f2af9fc0000: mov eax, 0x61d2a7
+    new instr:0x7f91fca38000: mov eax, 0x61d2a7
 old instr: 0x401365: push rbp
-    new instr:0x7f2af9fc0005: push rbp
+    new instr:0x7f91fca38005: push rbp
 old instr: 0x401366: sub rax, 0x61d2a0
-    new instr:0x7f2af9fc0006: sub rax, 0x61d2a0
+    new instr:0x7f91fca38006: sub rax, 0x61d2a0
 old instr: 0x40136c: cmp rax, 0xe
-    new instr:0x7f2af9fc000c: cmp rax, 0xe
+    new instr:0x7f91fca3800c: cmp rax, 0xe
 old instr: 0x401370: mov rbp, rsp
-    new instr:0x7f2af9fc0010: mov rbp, rsp
-whatGOT HEeeeeeeee
-im lostHERERERERERERERRRRER     COND_BR    new instr:0x7f2af9fc0013: jbe 0x7f2af9fc0017
+    new instr:0x7f91fca38010: mov rbp, rsp
+old instr: 0x401373: jnbe 0x401377
+    new instr:0x7f91fca38013: jnbe 0x7f91fca38017
 old instr: 0x401375: pop rbp
-    new instr:0x7f2af9fc0015: pop rbp
+    new instr:0x7f91fca38015: pop rbp
 old instr: 0x401376: ret 
-    new instr:0x7f2af9fc0016: ret 
-lets debug from here
- and the target given is 401377
-from pc:bd
-    new instr:0x7f2af9fc0017: jmp 0x7f2afa3c1393
+    new instr:0x7f91fca38016: ret 
 rtn name: deregister_tm_clones : 0
 after identifying candidate routines
 after calculate direct br targets
 starting a pass of fixing instructions displacements: 
 fixing jump to orig addr 401373
-to target address 7f2af7469160
+to target address 401377
 1 401377
 2 401377
-new disp is :ffff80d506441362
-thats because orig target  is  7f2af7469160new addr is 7f2af9fc0013 and length is : 2
+NEW disp is :ffff806e039c9364
+thats because orig target  is  401377 new addr is 7f91fca38013 and length is : 2
+401377 <-------
 shittt
-iclass is JBE
+iclass is JNBE
+w
 ENCODE ERROR: GENERAL_ERROR fgdshb
 entry number 5: 
  orig_ins_addr: 401373
- new_ins_addr: 7f2af9fc0013
+ new_ins_addr: 7f91fca38013
  orig_targ_addr: 401377
- encoded ins: v
- new_targ_addr: 401377    new instr:0x7f2af9fc0013: jbe 0x7f2af9fc0017
+ encoded ins: w
+ new_targ_addr: 401377    new instr:0x7f91fca38013: jnbe 0x7f91fca38017
