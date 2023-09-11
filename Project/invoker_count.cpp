@@ -64,6 +64,7 @@ struct Invoker{
     UINT32 num_invokes;
     ADDRINT target_addr;
     string rtn_name;
+    ADDRINT fallthrough_address;
 };
 
 std::vector<ADDRINT> non_valid_rtn;
@@ -244,11 +245,14 @@ VOID countInvokers(INS ins, VOID *v)
             ADDRINT address = INS_Address(ins);
             RTN rtn = RTN_FindByAddress(address);
             ADDRINT rtn_addr = RTN_Address(rtn);
+            //INS next = INS_Next(ins);
+            ADDRINT fallthrough_addr = INS_NextAddress(ins);
+            cout<< fallthrough_addr;
             if(invokers_map.find(address) == invokers_map.end())
             {
                 ADDRINT target_address = INS_DirectControlFlowTargetAddress(ins);
                 string rtn_name = RTN_FindNameByAddress(target_address);
-                Invoker curr_invoker_data = {rtn_addr,address,0,target_address,rtn_name};
+                Invoker curr_invoker_data = {rtn_addr,address,0,target_address,rtn_name,fallthrough_addr};
                 invokers_map[address] = curr_invoker_data;
             }
             INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) inc_call,IARG_PTR, &invokers_map[address], IARG_END);
@@ -421,6 +425,7 @@ std::map<int, ADDRINT> redirection_map;
 
 VOID ReorderBBLs(ADDRINT curr_rtn_address)
 {
+    
     std::vector<BBL_info> rtn_bbls;
     for(std::map<ADDRINT,BBL_info>::iterator itr = BBL_map.begin(); itr!= BBL_map.end();itr++)
     {
@@ -492,6 +497,7 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
            fallthrough.in_degree = top.in_degree;
+           if(std::find())
         }
         
         if (BBL_map[target.bbl_addr].rtn_address == curr_rtn_address && (insert_target  || BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1)))
@@ -551,13 +557,18 @@ VOID Fini(INT32 code, VOID *v)
     int counter = 0;
 
     std::vector<Invoker> final_candidates;
+    std::vector<string> final_cand_rtn_name;
     for (Invoker inv_entry: inv_vec)
     {
         if ( counter == NUM_INLINED_FUNC)
             break;
-        if((inv_entry.num_invokes > 400 ) &&(too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])  && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
+        if((inv_entry.num_invokes > 400 ) &&(too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])
+          && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") 
+          && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end()
+          && std::find(final_cand_rtn_name.begin(),final_cand_rtn_name.end(), inv_entry.rtn_name) == final_cand_rtn_name.end())
         {
             final_candidates.push_back(inv_entry);
+            final_cand_rtn_name.push_back(inv_entry.rtn_name);
             counter++;
         }
     }
@@ -609,7 +620,8 @@ VOID Fini(INT32 code, VOID *v)
         results << "0x"  << inv_entry.invoker_address << ",";
         results <<  std::dec << inv_entry.num_invokes << ",";
         results << "0x" << std::hex << inv_entry.target_addr << ",";
-        results << inv_entry.rtn_name << endl;
+        results << inv_entry.rtn_name << ",";
+        results <<  "0x" << std::hex << inv_entry.fallthrough_address << endl;
 
     }
     results << endl ;
