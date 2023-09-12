@@ -61,10 +61,10 @@ extern "C" {
 struct Invoker{
     ADDRINT invoker_rtn_address;
     ADDRINT invoker_address;
-    UINT32 num_invokes;
     ADDRINT target_addr;
-    string rtn_name;
     ADDRINT fallthrough_address;
+    UINT32 num_invokes;
+    string rtn_name;
 };
 
 std::vector<ADDRINT> non_valid_rtn;
@@ -104,6 +104,7 @@ std::map<ADDRINT,Invoker> invokers_map;
 std::map<ADDRINT,BBL_info> BBL_map;
 
 std::map<ADDRINT,std::vector<BBL_info>> rtn_bbls_order;
+std::map<ADDRINT,std::vector<BBL_info>> rtn_bbls;
 
 std::map<ADDRINT, RTN_reorder_info> RTN_map;
 
@@ -129,88 +130,6 @@ const char* StripPath(const char* path)
 /* Print Help Message                                                    */
 /* ===================================================================== */
 
-string GetEnumAsString(xed_iclass_enum_t type)
-{
-    string enum_str;
-
-    switch(type)
-    {
-        case XED_ICLASS_JB:
-				enum_str = "XED_ICLASS_JB";		
-				break;
-
-			case XED_ICLASS_JBE:
-				enum_str = "XED_ICLASS_JBE";
-				break;
-
-			case XED_ICLASS_JL:
-				enum_str = "XED_ICLASS_JL";
-				break;
-		
-			case XED_ICLASS_JLE:
-				enum_str = "XED_ICLASS_JLE";
-				break;
-
-			case XED_ICLASS_JNB: 
-			    enum_str = "XED_ICLASS_JNB";
-				break;
-
-			case XED_ICLASS_JNBE: 
-				enum_str = "XED_ICLASS_JNBE";
-				break;
-
-			case XED_ICLASS_JNL:
-			    enum_str = "XED_ICLASS_JNL";
-				break;
-
-			case XED_ICLASS_JNLE:
-				enum_str = "XED_ICLASS_JNLE";
-				break;
-
-			case XED_ICLASS_JNO:
-				enum_str = "XED_ICLASS_JNO";
-				break;
-
-			case XED_ICLASS_JNP: 
-				enum_str = "XED_ICLASS_JNP";
-				break;
-
-			case XED_ICLASS_JNS: 
-				enum_str = "XED_ICLASS_JNS";
-				break;
-
-			case XED_ICLASS_JNZ:
-				enum_str = "XED_ICLASS_JNZ";
-				break;
-
-			case XED_ICLASS_JO:
-				enum_str = "XED_ICLASS_JO";
-				break;
-
-			case XED_ICLASS_JP: 
-			    enum_str = "XED_ICLASS_JP";
-				break;
-
-			case XED_ICLASS_JS: 
-				enum_str = "XED_ICLASS_JS";
-				break;
-
-			case XED_ICLASS_JZ:
-				enum_str = "XED_ICLASS_JZ";
-                break;
-
-            case XED_ICLASS_JMP:
-                enum_str = "XED_ICLASS_JMP";
-                break;
-
-            default:
-                enum_str = "NONE";
-                break;
-
-				
-    }
-    return enum_str;
-}
 
 /* ===================================================================== */
 /* ===================================================================== */
@@ -261,7 +180,7 @@ VOID countInvokers(INS ins, VOID *v)
             {
                 ADDRINT target_address = INS_DirectControlFlowTargetAddress(ins);
                 string rtn_name = RTN_FindNameByAddress(target_address);
-                Invoker curr_invoker_data = {rtn_addr,address,0,target_address,rtn_name,fallthrough_addr};
+                Invoker curr_invoker_data = {rtn_addr,address,target_address,fallthrough_addr,0,rtn_name};
                 invokers_map[address] = curr_invoker_data;
             }
             INS_InsertCall(ins, IPOINT_BEFORE, (AFUNPTR) inc_call,IARG_PTR, &invokers_map[address], IARG_END);
@@ -398,15 +317,26 @@ class heap_element
         return in_degree <= other.in_degree;
     }
 };
+
+
  
-void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
+void  eliminate_overlapping_bbls(ADDRINT rtn_addr) //std::vector<BBL_info> rtn_bbls)
 {
+    for(std::map<ADDRINT,BBL_info>::iterator itr = BBL_map.begin(); itr!= BBL_map.end();itr++)
+    {
+        if (itr->second.rtn_address  == rtn_addr)
+        {
+            rtn_bbls[rtn_addr].push_back(itr->second);
+        }
+    }
+
+    std::vector<BBL_info> local_rtn_bbls = rtn_bbls[rtn_addr];
     std::map<ADDRINT, std::vector<size_t>> overlap;
 
     //create a map of the indices of the bbls with the same last address
-    for(size_t i = 0; i< rtn_bbls.size(); i++)
+    for(size_t i = 0; i< local_rtn_bbls.size(); i++)
     {
-        overlap[rtn_bbls[i].last_address].push_back(i); 
+        overlap[local_rtn_bbls[i].last_address].push_back(i); 
     }
 
     //iterates over last address
@@ -419,23 +349,24 @@ void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
         std::vector<size_t> bbl_overlap = itr->second;
         //sort vector by the start address
         std::sort(bbl_overlap.begin(), bbl_overlap.end(), 
-              [&](const size_t bbl1, const size_t bbl2) { return rtn_bbls[bbl1].BBL_head_address < rtn_bbls[bbl2].BBL_head_address; });
+              [&](const size_t bbl1, const size_t bbl2) { return local_rtn_bbls[bbl1].BBL_head_address < local_rtn_bbls[bbl2].BBL_head_address; });
         
         size_t last_indx =  bbl_overlap.size() -1;
         //make the start_ins point to the first address in the outer bbl
         for ( size_t j = 0; j < bbl_overlap.size() -1 ; j++) 
         {  
-            BBL_map[rtn_bbls[bbl_overlap[last_indx]].BBL_head_address].branch_times_taken += BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_taken;
-            BBL_map[rtn_bbls[bbl_overlap[last_indx]].BBL_head_address].branch_times_not_taken += BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_not_taken;
+            BBL_map[local_rtn_bbls[bbl_overlap[last_indx]].BBL_head_address].branch_times_taken += BBL_map[local_rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_taken;
+            BBL_map[local_rtn_bbls[bbl_overlap[last_indx]].BBL_head_address].branch_times_not_taken += BBL_map[local_rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_not_taken;
 
 
             // update  last address
-            BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].last_address = 0;
-            BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].fallthrough_address = BBL_map[rtn_bbls[bbl_overlap[j+1]].BBL_head_address].BBL_head_address;
+            BBL_map[local_rtn_bbls[bbl_overlap[j]].BBL_head_address].last_address = 0;
+            BBL_map[local_rtn_bbls[bbl_overlap[j]].BBL_head_address].is_ret = false;
+            BBL_map[local_rtn_bbls[bbl_overlap[j]].BBL_head_address].fallthrough_address = BBL_map[local_rtn_bbls[bbl_overlap[j+1]].BBL_head_address].BBL_head_address;
             //branch taken = -1
-            BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_taken = -1;
+            BBL_map[local_rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_times_taken = -1;
             //target address = -1 
-            BBL_map[rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_target_address = -1;
+            BBL_map[local_rtn_bbls[bbl_overlap[j]].BBL_head_address].branch_target_address = -1;
 
         }
     }
@@ -444,35 +375,24 @@ void  eliminate_overlapping_bbls(std::vector<BBL_info> rtn_bbls)
 int redirection = 1;
 
 std::map<int, ADDRINT> redirection_map;
+std::vector<ADDRINT> entry_points;
 
 VOID ReorderBBLs(ADDRINT curr_rtn_address)
 {
-    std::vector<ADDRINT> used_routines;
 
-    std::vector<BBL_info> rtn_bbls;
-    for(std::map<ADDRINT,BBL_info>::iterator itr = BBL_map.begin(); itr!= BBL_map.end();itr++)
+    std::vector<BBL_info> local_rtn_bbls = rtn_bbls[curr_rtn_address];
+    if(local_rtn_bbls.begin()->visited_through_inline)
     {
-        if (itr->second.rtn_address  == curr_rtn_address)
+        for(std::vector<BBL_info>::iterator itr2 = local_rtn_bbls.begin(); itr2!= local_rtn_bbls.end();itr2++)
         {
-            rtn_bbls.push_back(itr->second);
-        }
-    }
-    if(rtn_bbls.begin()->visited_through_inline)
-    {
-        for(std::vector<BBL_info>::iterator itr2 = rtn_bbls.begin(); itr2!= rtn_bbls.end();itr2++)
-        {
-            if (itr2->visited  == true)
-            {
-                itr2->visited = false;
-            }
+            itr2->visited = false;
         }
     }
 
     
     std::priority_queue<heap_element> heap;
-    if(rtn_bbls.empty()) return;
-    eliminate_overlapping_bbls(rtn_bbls);
-    heap_element first = {rtn_bbls.begin()->BBL_head_address, 0};
+    if(local_rtn_bbls.empty()) return;
+    heap_element first = {local_rtn_bbls.begin()->BBL_head_address, 0};
     
 
     heap.push(first);
@@ -541,12 +461,11 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         if (BBL_map[top.bbl_addr].is_call || BBL_map[top.bbl_addr].branch_target_address == ADDRINT(-1))
         {
            fallthrough.in_degree = top.in_degree;
-           if(BBL_map[top.bbl_addr].is_call && std::find(final_cand_rtn_name.begin(),final_cand_rtn_name.end(),BBL_map[target.bbl_addr].rtn_name) != final_cand_rtn_name.end())
+           if(BBL_map[top.bbl_addr].is_call && std::find(entry_points.begin(),entry_points.end(),BBL_map[top.bbl_addr].last_address) != entry_points.end())
            {
             //need to add the inlined bbls to the order
 
                 heap.push(target);
-                used_routines.push_back(BBL_map[target.bbl_addr].rtn_address);
                 BBL_map[target.bbl_addr].visited_through_inline = true;
                 BBL_map[target.bbl_addr].return_address = BBL_map[top.bbl_addr].fallthrough_address;
                 BBL_map[top.bbl_addr].fallthrough_address = ADDRINT(-1);
@@ -615,35 +534,43 @@ VOID Fini(INT32 code, VOID *v)
             break;
         if((inv_entry.num_invokes > 400 ) &&(too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])
           && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") 
-          && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end()
-          && std::find(final_cand_rtn_name.begin(),final_cand_rtn_name.end(), inv_entry.rtn_name) == final_cand_rtn_name.end())
+          && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
         {
             final_candidates.push_back(inv_entry);
-            final_cand_rtn_name.push_back(inv_entry.rtn_name);
             counter++;
         }
     }
 
 
     //add inline candidate invokation number to original count
-    for (Invoker inv_entry: final_candidates)
+    for (size_t i = 0; i < final_candidates.size(); i++ ) //Invoker inv_entry: final_candidates)
     {
-        if(single_call_site[inv_entry.target_addr])
+        bool removed = false;
+        Invoker inv_entry = final_candidates[i];
+        for(size_t j = 0; j < i; j++)
         {
-            if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
+            if (inv_entry.target_addr == final_candidates[j].invoker_rtn_address)
             {
-                RTN_map.erase(inv_entry.target_addr);
-                continue;
+                final_candidates.erase(final_candidates.begin() + i);
+                removed = true;
+                break;
             }
         }
+        if(removed)
+        {
+            i--;
+            continue;
+        }
+        entry_points.push_back(inv_entry.invoker_address);
         if(RTN_map.find(inv_entry.invoker_rtn_address) != RTN_map.end())
         {
             RTN_map[inv_entry.invoker_rtn_address].num_inst += RTN_map[inv_entry.target_addr].num_inst;
-            if (RTN_map.find(inv_entry.target_addr) != RTN_map.end())
-                RTN_map[inv_entry.target_addr].num_inst *=  0.1;
         }
+        cout << inv_entry.target_addr << endl;
+        RTN_map.erase(inv_entry.target_addr);
        
     }
+
 
     // reorder RTN's for translation
     std::vector<RTN_reorder_info> rtn_vec;
@@ -669,21 +596,17 @@ VOID Fini(INT32 code, VOID *v)
     {
         results << "0x" << std::hex << inv_entry.invoker_rtn_address << ",";
         results << "0x"  << inv_entry.invoker_address << ",";
-        results <<  std::dec << inv_entry.num_invokes << ",";
-        results << "0x" << std::hex << inv_entry.target_addr << ",";
-        results <<  "0x" << std::hex << inv_entry.fallthrough_address << ",";
-        results << inv_entry.rtn_name << endl;
-        
-
+        results << "0x" << std::hex << inv_entry.target_addr << endl;
+        eliminate_overlapping_bbls(inv_entry.target_addr);
     }
     results << endl ;
 
     results.close();
 
-    
 
     for(std::vector<RTN_reorder_info>::iterator iterator = rtn_vec.begin(); iterator != rtn_vec.end(); iterator++)
     {
+        eliminate_overlapping_bbls(iterator->rtn_addr);
         ReorderBBLs(iterator->rtn_addr);
     }
 
