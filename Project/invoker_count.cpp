@@ -566,9 +566,7 @@ VOID Fini(INT32 code, VOID *v)
         {
             RTN_map[inv_entry.invoker_rtn_address].num_inst += RTN_map[inv_entry.target_addr].num_inst;
         }
-        cout << inv_entry.target_addr << endl;
-        RTN_map.erase(inv_entry.target_addr);
-       
+        RTN_map.erase(inv_entry.target_addr); 
     }
 
 

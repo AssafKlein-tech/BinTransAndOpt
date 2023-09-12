@@ -110,10 +110,8 @@ typedef struct {
 	ADDRINT orig_targ_addr;
 	bool hasNewTargAddr;
 	char encoded_ins[XED_MAX_INSTRUCTION_BYTES];
-	xed_category_enum_t category_enum;
 	unsigned int size;
 	int targ_map_entry;
-	ADDRINT rtn_addr;
 } instr_map_t;
 
 
@@ -297,7 +295,7 @@ void dump_tc()
 /* Basic insertions 											 */
 /* ============================================================= */
 
-int add_new_instr_entry(xed_decoded_inst_t *xedd, ADDRINT pc, ADDRINT target, unsigned int size, ADDRINT rtn_addr)
+int add_new_instr_entry(xed_decoded_inst_t *xedd, ADDRINT pc, ADDRINT target, unsigned int size)
 {
 	//if (xed_decoded_inst_get_length (xedd) != size) {
 	//	cerr << "Invalid instruction decoding" << endl;
@@ -334,8 +332,6 @@ int add_new_instr_entry(xed_decoded_inst_t *xedd, ADDRINT pc, ADDRINT target, un
     instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
 	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
 	instr_map[num_of_instr_map_entries].size = new_size;	
-    instr_map[num_of_instr_map_entries].category_enum = xed_decoded_inst_get_category(xedd);
-	instr_map[num_of_instr_map_entries].rtn_addr = rtn_addr;
 	num_of_instr_map_entries++;
 
 	// update expected size of tc:
@@ -356,7 +352,7 @@ int add_new_instr_entry(xed_decoded_inst_t *xedd, ADDRINT pc, ADDRINT target, un
 	return new_size;
 }
 
-void insert_instruction(INS ins, ADDRINT rtn_frame)
+void insert_instruction(INS ins)
 {
 	//debug print of orig instruction:
 	if (KnobVerbose) {
@@ -378,7 +374,7 @@ void insert_instruction(INS ins, ADDRINT rtn_frame)
 		exit(1);
 	}
 
-	int rc = add_new_instr_entry(&xedd, INS_Address(ins), ADDRINT(0), INS_Size(ins), rtn_frame); //RTN_Address(RTN_FindByAddress(addr)));
+	int rc = add_new_instr_entry(&xedd, INS_Address(ins), ADDRINT(0), INS_Size(ins)); //RTN_Address(RTN_FindByAddress(addr)));
 	if (rc < 0) {
 		cerr << "ERROR: failed during instructon translation." << endl;
 		translated_rtn[translated_rtn_num].instr_map_entry = -1;
@@ -391,7 +387,7 @@ void insert_instruction(INS ins, ADDRINT rtn_frame)
 /* ============================================================= */
 
 
-int sub_rsp(ADDRINT pc, ADDRINT rtn_frame)
+int sub_rsp(ADDRINT pc)
 {
 	xed_encoder_instruction_t inst;
 	xed_encoder_request_t enc_req;
@@ -422,8 +418,6 @@ int sub_rsp(ADDRINT pc, ADDRINT rtn_frame)
     instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
 	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
 	instr_map[num_of_instr_map_entries].size = new_size;	
-    instr_map[num_of_instr_map_entries].category_enum = xed_decoded_inst_get_category(&xedd);
-	instr_map[num_of_instr_map_entries].rtn_addr = rtn_frame;
 	num_of_instr_map_entries++;
 
 	// update expected size of tc:
@@ -444,7 +438,7 @@ int sub_rsp(ADDRINT pc, ADDRINT rtn_frame)
 }
 
 
-int add_rsp(ADDRINT pc, ADDRINT rtn_frame)
+int add_rsp(ADDRINT pc)
 {
 	xed_encoder_instruction_t inst;
 	xed_encoder_request_t enc_req;
@@ -475,8 +469,6 @@ int add_rsp(ADDRINT pc, ADDRINT rtn_frame)
     instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
 	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
 	instr_map[num_of_instr_map_entries].size = new_size;	
-    instr_map[num_of_instr_map_entries].category_enum = xed_decoded_inst_get_category(&xedd);
-	instr_map[num_of_instr_map_entries].rtn_addr = rtn_frame;	
 	num_of_instr_map_entries++;
 
 	// update expected size of tc:
@@ -497,7 +489,7 @@ int add_rsp(ADDRINT pc, ADDRINT rtn_frame)
 }
 
 
-int insert_jump(UINT target, ADDRINT pc, ADDRINT rtn_frame)
+int insert_jump(UINT target, ADDRINT pc)
 {
 	xed_encoder_instruction_t inst;
 	xed_encoder_request_t enc_req;
@@ -527,8 +519,6 @@ int insert_jump(UINT target, ADDRINT pc, ADDRINT rtn_frame)
     instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
 	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
 	instr_map[num_of_instr_map_entries].size = new_size;	
-    instr_map[num_of_instr_map_entries].category_enum = xed_decoded_inst_get_category(&xedd);
-	instr_map[num_of_instr_map_entries].rtn_addr = rtn_frame;
 	num_of_instr_map_entries++;
 
 	// update expected size of tc:
@@ -554,32 +544,32 @@ int insert_jump(UINT target, ADDRINT pc, ADDRINT rtn_frame)
 /*************************************************/
 int chain_all_direct_br_and_call_target_entries()
 {
-	// int end;
-	//for (int k=0; k < translated_rtn_num; k++)
-	//{
-	//	if(k == translated_rtn_num)
-	//		end = num_of_instr_map_entries;
-	//	else
-	//		end = translated_rtn[k+1].instr_map_entry
-	//	for (int i= translated_rtn[k].instr_map_entry; i < end; i++)
-	for (int i=0; i < num_of_instr_map_entries; i++) {			    
+	int end;
+	for (int k=0; k < translated_rtn_num; k++)
+	{
+		if(k == translated_rtn_num-1)
+			end = num_of_instr_map_entries;
+		else
+			end = translated_rtn[k+1].instr_map_entry;
+		for (int i= translated_rtn[k].instr_map_entry; i < end; i++)
+		{		    
 
-		if (instr_map[i].orig_targ_addr == 0)
-			continue;
+			if (instr_map[i].orig_targ_addr == 0)
+				continue;
 
-		if (instr_map[i].hasNewTargAddr)
-			continue;
+			if (instr_map[i].hasNewTargAddr)
+				continue;
 
-		//for (int j = translated_rtn[k].instr_map_entry; j < end; j++){}
-        for (int j = 0; j < num_of_instr_map_entries; j++) {
+			for (int j = translated_rtn[k].instr_map_entry; j < end; j++){
+				
+        	    if (j == i)
+				   continue;
 
-            if (j == i)
-			   continue;
-	
-            if (instr_map[i].rtn_addr == instr_map[j].rtn_addr  && instr_map[j].orig_ins_addr == instr_map[i].orig_targ_addr) {
-                instr_map[i].hasNewTargAddr = true; 
-	            instr_map[i].targ_map_entry = j;
-                break;
+        	    if ( instr_map[j].orig_ins_addr == instr_map[i].orig_targ_addr) {
+        	        instr_map[i].hasNewTargAddr = true; 
+	    	        instr_map[i].targ_map_entry = j;
+        	        break;
+				}
 			}
 		}
 	}
@@ -1097,7 +1087,7 @@ void get_bbl_order(IMG img)
 }
 
 
-void insert_dummy(INS ins, ADDRINT rtn_frame)
+void insert_dummy(INS ins)
 {
 	//need to add dummy entry for jumps to that address
 	instr_map[num_of_instr_map_entries].orig_ins_addr = INS_Address(ins);
@@ -1106,11 +1096,10 @@ void insert_dummy(INS ins, ADDRINT rtn_frame)
 	instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
 	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
 	instr_map[num_of_instr_map_entries].size = 0;	
-	instr_map[num_of_instr_map_entries].rtn_addr = rtn_frame;
 	num_of_instr_map_entries++;
 }
 
-void revert_jump(INS ins, ADDRINT addr, ADDRINT rtn_frame)
+void revert_jump(INS ins, ADDRINT addr)
 {
 	if (KnobVerbose) {
 		cerr << "old instr: ";
@@ -1122,7 +1111,7 @@ void revert_jump(INS ins, ADDRINT addr, ADDRINT rtn_frame)
 	if (category_enum == XED_CATEGORY_UNCOND_BR) 
 	{
 		//remove jump
-		insert_dummy(ins, rtn_frame);
+		insert_dummy(ins);
 		return;
 	}
 	if(category_enum == XED_CATEGORY_COND_BR)
@@ -1130,7 +1119,7 @@ void revert_jump(INS ins, ADDRINT addr, ADDRINT rtn_frame)
 		xed_iclass_enum_t iclass_enum = xed_decoded_inst_get_iclass(xedd);
 
   		if (iclass_enum == XED_ICLASS_JRCXZ)
-			insert_instruction(ins, rtn_frame);    // do not revert JRCXZ
+			insert_instruction(ins);    // do not revert JRCXZ
 
 		xed_iclass_enum_t 	retverted_iclass;
 
@@ -1228,8 +1217,6 @@ void revert_jump(INS ins, ADDRINT addr, ADDRINT rtn_frame)
 		instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
 		instr_map[num_of_instr_map_entries].targ_map_entry = -1;
 		instr_map[num_of_instr_map_entries].size = new_size;	
-		instr_map[num_of_instr_map_entries].category_enum = xed_decoded_inst_get_category(&xedd);
-		instr_map[num_of_instr_map_entries].rtn_addr = rtn_frame;
 		num_of_instr_map_entries++;
 
 		// update expected size of tc:
@@ -1262,14 +1249,14 @@ int RET_SIZE = 1;
 int CALL_SIZE = 5;
 
 
-void fix_target_address(INS last_ins, ADDRINT target_addr, ADDRINT rtn_frame)
+void fix_target_address(INS last_ins, ADDRINT target_addr)
 {
 	xed_decoded_inst_t *xedd = INS_XedDec(last_ins);
     xed_category_enum_t category_enum = xed_decoded_inst_get_category(xedd);
 
 	if (category_enum != XED_CATEGORY_COND_BR)
 	{
-		insert_instruction(last_ins, rtn_frame);
+		insert_instruction(last_ins);
 		return;
 	}
 	if (KnobVerbose) {
@@ -1299,8 +1286,6 @@ void fix_target_address(INS last_ins, ADDRINT target_addr, ADDRINT rtn_frame)
 	instr_map[num_of_instr_map_entries].hasNewTargAddr = false;
 	instr_map[num_of_instr_map_entries].targ_map_entry = -1;
 	instr_map[num_of_instr_map_entries].size = new_size;	
-	instr_map[num_of_instr_map_entries].category_enum = category_enum;
-	instr_map[num_of_instr_map_entries].rtn_addr = rtn_frame;
 	num_of_instr_map_entries++;
 
 	// update expected size of tc:
@@ -1367,7 +1352,7 @@ int find_candidate_rtns_for_translation(IMG img)
 			BBLdata bbl_entry = bbl_vec[i];
 			if (bbl_entry.bbl_addr < ADDRINT(10000))
 			{
-				insert_jump(bbl_entry.target_addr, bbl_entry.bbl_addr ,rtn_addr);
+				insert_jump(bbl_entry.target_addr, bbl_entry.bbl_addr);
 				continue;
 			}
 			RTN curr_rtn = RTN_FindByAddress(bbl_entry.bbl_addr);
@@ -1404,7 +1389,7 @@ int find_candidate_rtns_for_translation(IMG img)
 				}
 				else if(!INS_IsDirectControlFlow(ins))
 				{
-					insert_instruction(ins, rtn_addr);
+					insert_instruction(ins);
 				}
 				else{
 					cerr << "Branch instruction in the middle of a bbl " << std::hex << INS_Address(ins) << " in bbl: " << bbl_entry.bbl_addr << std::dec << endl;
@@ -1422,7 +1407,7 @@ int find_candidate_rtns_for_translation(IMG img)
 				{
 					if (cand.call_point == last_ins_addr)
 					{
-						sub_rsp(last_ins_addr, rtn_addr);
+						sub_rsp(last_ins_addr);
 						fix_rsp[cand.called_function] = 0;
 						inlined = true;
 						break;
@@ -1433,12 +1418,12 @@ int find_candidate_rtns_for_translation(IMG img)
 					RTN_Close( curr_rtn);
 					continue;
 				}
-				insert_instruction(last_ins, rtn_addr);
+				insert_instruction(last_ins);
 				//if this is the last bbl or the next is not the fallthrough add a jump to it
 				ADDRINT fallthrough_addr = bbl_entry.fallthrough_addr;
 				if( i == (bbl_vec.size() -1) || fallthrough_addr != bbl_vec[i+1].bbl_addr)
 				{
-					rc = insert_jump(bbl_entry.fallthrough_addr, -1, rtn_addr);
+					rc = insert_jump(bbl_entry.fallthrough_addr, -1);
 					if ( rc <= 0){
 						cerr << "ERROR: failed during instructon translation." << endl;
 						translated_rtn[translated_rtn_num].instr_map_entry = -1;
@@ -1453,18 +1438,18 @@ int find_candidate_rtns_for_translation(IMG img)
 				//if this is the first return insert add rsp and redirect to the return address
 				if(fix_rsp[curr_rtn_address] == 0)
 				{
-					add_rsp(bbl_entry.last_addr,rtn_addr);
+					add_rsp(bbl_entry.last_addr);
 					fix_rsp[curr_rtn_address] = bbl_entry.last_addr;
 
 					ADDRINT target_addr = bbl_entry.target_addr;
 					
 					//if last entry or the next is not the target - insert a jump
 					if(i == (bbl_vec.size() -1)  || target_addr != bbl_vec[i+1].bbl_addr )
-						insert_jump(target_addr,-1,rtn_addr);
+						insert_jump(target_addr,-1);
 				}
 				else // redirect to the add rsp instruction
 				{
-					insert_jump(fix_rsp[curr_rtn_address],bbl_entry.last_addr,rtn_addr);
+					insert_jump(fix_rsp[curr_rtn_address],bbl_entry.last_addr);
 				}
 			}
 			else 
@@ -1473,11 +1458,11 @@ int find_candidate_rtns_for_translation(IMG img)
 				if( i == (bbl_vec.size() -1))
 				{
 					//fix new arget address
-					fix_target_address(last_ins,bbl_entry.target_addr, rtn_addr);
+					fix_target_address(last_ins,bbl_entry.target_addr);
 					//if there is fallthrough address - add a jump to the fallthrough
 					if(INS_HasFallThrough(last_ins))
 					{
-						rc = insert_jump(bbl_entry.fallthrough_addr, -1, rtn_addr);
+						rc = insert_jump(bbl_entry.fallthrough_addr, -1);
 						if ( rc <= 0){
 							cerr << "ERROR: failed during instructon translation." << endl;
 							translated_rtn[translated_rtn_num].instr_map_entry = -1;
@@ -1495,19 +1480,19 @@ int find_candidate_rtns_for_translation(IMG img)
 				// if the target is the next block revert the branch (earase it if it is an unconditional branch)
 				if(target_addr == next_bbl.bbl_addr)
 				{
-					revert_jump(last_ins, fallthrough_addr, rtn_addr);
+					revert_jump(last_ins, fallthrough_addr);
 				// if the block ends with a jump to the next block. earase it
 				}
 				else //no need to revert the jump
 				{
 					//fix target address
-					fix_target_address(last_ins,bbl_entry.target_addr, rtn_addr);
+					fix_target_address(last_ins,bbl_entry.target_addr);
 					//cout << "inserted instruction" << endl;
 
 					// if the reorder moved the next block so jump there
 					if (fallthrough_addr != ADDRINT(-1) && fallthrough_addr !=  next_bbl.bbl_addr)
 					{
-						rc = insert_jump(bbl_entry.fallthrough_addr, -1, rtn_addr);
+						rc = insert_jump(bbl_entry.fallthrough_addr, -1);
 						if ( rc <= 0){
 							cerr << "ERROR: failed during instructon translation." << endl;
 							translated_rtn[translated_rtn_num].instr_map_entry = -1;

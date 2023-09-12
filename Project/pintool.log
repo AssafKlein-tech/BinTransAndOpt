@@ -1,3 +1,3 @@
 Pin: pin-3.25-98650-8f6168173
 Copyright 2002-2022 Intel Corporation.
-NFE:  [tid:11327] unknown option "-no_tc_dump"
+NFE:  [tid:14894] unknown option "-not_tc_commit"
