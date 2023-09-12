@@ -524,7 +524,7 @@ VOID Fini(INT32 code, VOID *v)
         }     
     }
 
-    int NUM_INLINED_FUNC = 10;
+    int NUM_INLINED_FUNC = 20;
     int counter = 0;
 
     
@@ -545,6 +545,7 @@ VOID Fini(INT32 code, VOID *v)
     //add inline candidate invokation number to original count
     for (size_t i = 0; i < final_candidates.size(); i++ ) //Invoker inv_entry: final_candidates)
     {
+        //removing inlined functiones from inlining to avoid recursive inlining
         bool removed = false;
         Invoker inv_entry = final_candidates[i];
         for(size_t j = 0; j < i; j++)
@@ -562,11 +563,21 @@ VOID Fini(INT32 code, VOID *v)
             continue;
         }
         entry_points.push_back(inv_entry.invoker_address);
+        if(single_call_site[inv_entry.target_addr])
+        {
+            if(RTN_map.find(inv_entry.target_addr) != RTN_map.end())
+            {
+                RTN_map.erase(inv_entry.target_addr);
+                eliminate_overlapping_bbls(inv_entry.target_addr);
+                continue;
+            }
+        }
         if(RTN_map.find(inv_entry.invoker_rtn_address) != RTN_map.end())
         {
             RTN_map[inv_entry.invoker_rtn_address].num_inst += RTN_map[inv_entry.target_addr].num_inst;
+            if (RTN_map.find(inv_entry.target_addr) != RTN_map.end())
+                RTN_map[inv_entry.target_addr].num_inst *=  0.1;
         }
-        RTN_map.erase(inv_entry.target_addr); 
     }
 
 
@@ -574,8 +585,12 @@ VOID Fini(INT32 code, VOID *v)
     std::vector<RTN_reorder_info> rtn_vec;
     for(std::map<ADDRINT,RTN_reorder_info>::iterator itr3 = RTN_map.begin(); itr3!= RTN_map.end();itr3++)
     {
-        if(std::find(non_valid_rtn.begin(), non_valid_rtn.end(), itr3->first) == non_valid_rtn.end() && itr3->second.num_inst > 100)
-            rtn_vec.push_back(itr3->second);
+        if(std::find(non_valid_rtn.begin(), non_valid_rtn.end(), itr3->first) == non_valid_rtn.end())
+        {
+            eliminate_overlapping_bbls(itr3->second.rtn_addr);
+            if(itr3->second.num_inst > 10)
+                rtn_vec.push_back(itr3->second);
+        }
     }
     std::sort(rtn_vec.begin(), rtn_vec.end(), 
               [](const RTN_reorder_info rtn1, const RTN_reorder_info rtn2) { return rtn1.num_inst > rtn2.num_inst; });
@@ -595,7 +610,6 @@ VOID Fini(INT32 code, VOID *v)
         results << "0x" << std::hex << inv_entry.invoker_rtn_address << ",";
         results << "0x"  << inv_entry.invoker_address << ",";
         results << "0x" << std::hex << inv_entry.target_addr << endl;
-        eliminate_overlapping_bbls(inv_entry.target_addr);
     }
     results << endl ;
 
@@ -604,7 +618,6 @@ VOID Fini(INT32 code, VOID *v)
 
     for(std::vector<RTN_reorder_info>::iterator iterator = rtn_vec.begin(); iterator != rtn_vec.end(); iterator++)
     {
-        eliminate_overlapping_bbls(iterator->rtn_addr);
         ReorderBBLs(iterator->rtn_addr);
     }
 

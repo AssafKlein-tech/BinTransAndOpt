@@ -561,7 +561,7 @@ int chain_all_direct_br_and_call_target_entries()
 				continue;
 
 			for (int j = translated_rtn[k].instr_map_entry; j < end; j++){
-				
+
         	    if (j == i)
 				   continue;
 
@@ -1350,7 +1350,7 @@ int find_candidate_rtns_for_translation(IMG img)
 		for (size_t i = 0; i < bbl_vec.size(); i ++)
 		{
 			BBLdata bbl_entry = bbl_vec[i];
-			if (bbl_entry.bbl_addr < ADDRINT(10000))
+			if (bbl_entry.bbl_addr < ADDRINT(1000000))
 			{
 				insert_jump(bbl_entry.target_addr, bbl_entry.bbl_addr);
 				continue;
