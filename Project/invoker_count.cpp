@@ -393,14 +393,17 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
     std::priority_queue<heap_element> heap;
     if(local_rtn_bbls.empty()) return;
     heap_element first = {local_rtn_bbls.begin()->BBL_head_address, 0};
-    
-
+    bool child = false;
+    heap_element top;
     heap.push(first);
     while (!heap.empty())
     {
         //take out
-        heap_element top = heap.top();
-        heap.pop();
+        if(!child)
+        {
+            top = heap.top();
+            heap.pop();
+        }
         if(top.bbl_addr < ADDRINT(redirection))
         {
             if( redirection_map[top.bbl_addr] != 0)
@@ -409,10 +412,16 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
                 BBL_map[top.bbl_addr] = BBL_inst;
                 rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
                 redirection_map[top.bbl_addr] = 0;
+                child = false;
                 continue;
             }
         }
-        if(BBL_map[top.bbl_addr].visited) continue;
+        if(BBL_map[top.bbl_addr].visited)
+        {
+            child= false;
+            continue;
+        }
+            
 
         bool insert_target = true;
         bool insert_fallthrough = true;
@@ -473,7 +482,11 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
            }
         }
         
-        
+        BBL_map[top.bbl_addr].visited = true;
+        child = true;
+        //insert to final vector
+        rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
+
         if ((BBL_map[target.bbl_addr].rtn_address == curr_rtn_address || BBL_map[BBL_map[target.bbl_addr].rtn_address].visited_through_inline) && (insert_target  || BBL_map[top.bbl_addr].branch_target_address != ADDRINT(-1)))
         {
             heap.push(target);
@@ -483,9 +496,14 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
             heap.push(fallthrough);
         }  
         //make visited
-        BBL_map[top.bbl_addr].visited = true;
-        //insert to final vector
-        rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);     
+        
+        if(BBL_map[top.bbl_addr].branch_times_not_taken > BBL_map[top.bbl_addr].branch_times_taken && !BBL_map[fallthrough.bbl_addr].visited && insert_fallthrough)
+            top = fallthrough;
+        else if (BBL_map[top.bbl_addr].branch_times_taken != 0 && insert_target)
+            top = target;
+        else
+            child = false;
+        
     }
 }
 
