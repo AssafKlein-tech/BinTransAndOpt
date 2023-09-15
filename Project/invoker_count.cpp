@@ -541,7 +541,7 @@ VOID Fini(INT32 code, VOID *v)
         }     
     }
 
-    int NUM_INLINED_FUNC = 20;
+    int NUM_INLINED_FUNC = 10;
     int counter = 0;
 
     
@@ -549,7 +549,7 @@ VOID Fini(INT32 code, VOID *v)
     {
         if ( counter == NUM_INLINED_FUNC)
             break;
-        if((inv_entry.num_invokes > 400 ) &&(too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])
+        if((inv_entry.num_invokes > 500 ) &&(too_hot_to_handle[inv_entry.target_addr] || single_call_site[inv_entry.target_addr])
           && (inv_entry.rtn_name.length() < 3 || inv_entry.rtn_name.substr(inv_entry.rtn_name.length() - 3) != "plt") 
           && inv_entry.target_addr != inv_entry.invoker_rtn_address && std::find(non_valid_rtn.begin(), non_valid_rtn.end(), inv_entry.target_addr) == non_valid_rtn.end())
         {
@@ -605,7 +605,7 @@ VOID Fini(INT32 code, VOID *v)
         if(std::find(non_valid_rtn.begin(), non_valid_rtn.end(), itr3->first) == non_valid_rtn.end())
         {
             eliminate_overlapping_bbls(itr3->second.rtn_addr);
-            if(itr3->second.num_inst > 10)
+            if(itr3->second.num_inst > 800)
                 rtn_vec.push_back(itr3->second);
         }
     }
