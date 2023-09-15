@@ -653,7 +653,8 @@ int fix_rip_displacement(int instr_map_entry)
 	return new_size;
 }
 
-
+int redirection = 1;
+int fix_direct_br_call_displacement(int instr_map_entry);
 /************************************/
 /* fix_direct_br_call_to_orig_addr */
 /************************************/
@@ -670,6 +671,15 @@ int fix_direct_br_call_to_orig_addr(int instr_map_entry)
 	}
 	
 	xed_category_enum_t category_enum = xed_decoded_inst_get_category(&xedd);
+
+	if( category_enum == XED_CATEGORY_COND_BR)
+	{
+		insert_jump((ADDRINT)&instr_map[instr_map_entry].orig_targ_addr, ADDRINT(redirection));
+		instr_map[instr_map_entry].orig_targ_addr = ADDRINT(redirection);
+		instr_map[instr_map_entry].targ_map_entry = num_of_instr_map_entries - 1;
+		redirection++;
+		return fix_direct_br_call_displacement(instr_map_entry);
+	}
 	
 	if (category_enum != XED_CATEGORY_CALL && category_enum != XED_CATEGORY_UNCOND_BR) {
 

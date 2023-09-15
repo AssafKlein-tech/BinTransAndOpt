@@ -372,7 +372,6 @@ void  eliminate_overlapping_bbls(ADDRINT rtn_addr) //std::vector<BBL_info> rtn_b
     }
 }
 
-int redirection = 1;
 
 std::map<int, ADDRINT> redirection_map;
 std::vector<ADDRINT> entry_points;
@@ -404,18 +403,18 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
             top = heap.top();
             heap.pop();
         }
-        if(top.bbl_addr < ADDRINT(redirection))
-        {
-            if( redirection_map[top.bbl_addr] != 0)
-            {
-                BBL_info BBL_inst = {BBL_map[top.bbl_addr].rtn_name,curr_rtn_address,top.bbl_addr,top.bbl_addr,ADDRINT(0),redirection_map[top.bbl_addr],0,0,false,false,false,false,false, ADDRINT(0)};
-                BBL_map[top.bbl_addr] = BBL_inst;
-                rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
-                redirection_map[top.bbl_addr] = 0;
-                child = false;
-                continue;
-            }
-        }
+        //if(top.bbl_addr < ADDRINT(redirection))
+        //{
+        //    if( redirection_map[top.bbl_addr] != 0)
+        //    {
+        //        BBL_info BBL_inst = {BBL_map[top.bbl_addr].rtn_name,curr_rtn_address,top.bbl_addr,top.bbl_addr,ADDRINT(0),redirection_map[top.bbl_addr],0,0,false,false,false,false,false, ADDRINT(0)};
+        //        BBL_map[top.bbl_addr] = BBL_inst;
+        //        rtn_bbls_order[curr_rtn_address].push_back(BBL_map[top.bbl_addr]);
+        //        redirection_map[top.bbl_addr] = 0;
+        //        child = false;
+        //        continue;
+        //    }
+        //}
         if(BBL_map[top.bbl_addr].visited)
         {
             child= false;
@@ -441,28 +440,28 @@ VOID ReorderBBLs(ADDRINT curr_rtn_address)
         if(BBL_map[top.bbl_addr].branch_times_taken == 0 || BBL_map[top.bbl_addr].is_call)
         {
             insert_target = false;
-            if(BBL_map[top.bbl_addr].is_cond)
-            {
-                redirection_map[redirection] = BBL_map[top.bbl_addr].branch_target_address;
-                BBL_map[top.bbl_addr].branch_target_address= ADDRINT(redirection);
-                heap_element fake_target =  {ADDRINT(redirection), BBL_map[top.bbl_addr].branch_times_taken};
-                heap.push(fake_target);
-                redirection++;
-            }
+            //if(BBL_map[top.bbl_addr].is_cond)
+            //{
+            //    redirection_map[redirection] = BBL_map[top.bbl_addr].branch_target_address;
+            //    BBL_map[top.bbl_addr].branch_target_address= ADDRINT(redirection);
+            //    heap_element fake_target =  {ADDRINT(redirection), BBL_map[top.bbl_addr].branch_times_taken};
+            //    heap.push(fake_target);
+            //    redirection++;
+            //}
         }
         
         heap_element fallthrough = {BBL_map[top.bbl_addr].fallthrough_address, BBL_map[top.bbl_addr].branch_times_not_taken};
         if(BBL_map[top.bbl_addr].branch_times_not_taken == 0  && BBL_map[top.bbl_addr].last_address != 0  && !BBL_map[top.bbl_addr].is_call)
         {
             insert_fallthrough = false;
-            if(BBL_map[top.bbl_addr].is_cond)
-            {
-                redirection_map[redirection] = BBL_map[top.bbl_addr].fallthrough_address;
-                BBL_map[top.bbl_addr].fallthrough_address= ADDRINT(redirection);
-                heap_element fake_target =  {ADDRINT(redirection), BBL_map[top.bbl_addr].branch_times_not_taken};
-                heap.push(fake_target);
-                redirection++;
-            }
+            //if(BBL_map[top.bbl_addr].is_cond)
+            //{
+            //    redirection_map[redirection] = BBL_map[top.bbl_addr].fallthrough_address;
+            //    BBL_map[top.bbl_addr].fallthrough_address= ADDRINT(redirection);
+            //    heap_element fake_target =  {ADDRINT(redirection), BBL_map[top.bbl_addr].branch_times_not_taken};
+            //    heap.push(fake_target);
+            //    redirection++;
+            //}
         }
 
     
